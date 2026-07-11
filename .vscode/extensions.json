@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "oxc.oxc-vscode",
+    "bradlc.vscode-tailwindcss",
+    "storybook.storybook-vscode",
+    "ms-playwright.playwright"
+  ]
+}
