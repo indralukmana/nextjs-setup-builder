@@ -14,12 +14,7 @@ type Props = {
 
 export function ProductCard({ product, selected, onSelect }: Props) {
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className="text-left"
-      aria-pressed={selected}
-    >
+    <button type="button" onClick={onSelect} className="text-left" aria-pressed={selected}>
       <span className="sr-only">
         {selected ? "Selected" : "Select"} {product.name}
       </span>
