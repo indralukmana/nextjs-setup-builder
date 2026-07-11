@@ -1,5 +1,6 @@
 "use client";
 
+import { ProductIllustration } from "@/components/setup-builder/preview-layers";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatUsd } from "@/lib/pricing";
@@ -20,18 +21,23 @@ export function ProductCard({ product, selected, onSelect }: Props) {
       </span>
       <Card
         className={cn(
-          "transition-colors",
+          "overflow-hidden transition-colors",
           selected && "border-foreground ring-foreground/20 ring-2",
         )}
         aria-hidden
       >
-        <CardHeader className="gap-2">
-          <div className="flex items-start justify-between gap-3">
-            <CardTitle className="text-base">{product.name}</CardTitle>
-            <Badge variant="secondary">{formatUsd(product.pricePerWeek)}/wk</Badge>
+        <div className="flex items-stretch gap-3 p-3">
+          <div className="bg-muted/70 flex size-20 shrink-0 items-center justify-center rounded-lg border px-1">
+            <ProductIllustration productId={product.id} className="h-16 w-full" />
           </div>
-          <CardDescription>{product.description}</CardDescription>
-        </CardHeader>
+          <CardHeader className="gap-2 p-0">
+            <div className="flex items-start justify-between gap-3">
+              <CardTitle className="text-base leading-snug">{product.name}</CardTitle>
+              <Badge variant="secondary">{formatUsd(product.pricePerWeek)}/wk</Badge>
+            </div>
+            <CardDescription>{product.description}</CardDescription>
+          </CardHeader>
+        </div>
       </Card>
     </button>
   );
