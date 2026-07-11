@@ -1,0 +1,33 @@
+{
+  "Metadata": {
+    "title": "Monis Setup Builder",
+    "description": "Design your dream Bali workspace and rent desks, chairs, and accessories from monis.rent."
+  },
+  "Home": {
+    "title": "Build your Bali workspace",
+    "cta": "Start building"
+  },
+  "SetupBuilder": {
+    "title": "Setup Builder",
+    "placeholder": "Workspace designer coming together here."
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "placeholder": "Review your rental setup here."
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "That page does not exist.",
+    "cta": "Go home"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred.",
+    "cta": "Try again"
+  },
+  "Nav": {
+    "home": "Home",
+    "setupBuilder": "Setup Builder",
+    "checkout": "Checkout"
+  }
+}

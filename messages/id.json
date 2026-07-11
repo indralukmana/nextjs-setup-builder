@@ -1,0 +1,33 @@
+{
+  "Metadata": {
+    "title": "Monis Setup Builder",
+    "description": "Rancang workspace impian di Bali dan sewa meja, kursi, serta aksesori dari monis.rent."
+  },
+  "Home": {
+    "title": "Bangun workspace Bali Anda",
+    "cta": "Mulai membangun"
+  },
+  "SetupBuilder": {
+    "title": "Setup Builder",
+    "placeholder": "Desainer workspace sedang disiapkan di sini."
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "placeholder": "Tinjau setup sewa Anda di sini."
+  },
+  "NotFound": {
+    "title": "Halaman tidak ditemukan",
+    "description": "Halaman itu tidak ada.",
+    "cta": "Ke beranda"
+  },
+  "Error": {
+    "title": "Terjadi kesalahan",
+    "description": "Terjadi kesalahan yang tidak terduga.",
+    "cta": "Coba lagi"
+  },
+  "Nav": {
+    "home": "Beranda",
+    "setupBuilder": "Setup Builder",
+    "checkout": "Checkout"
+  }
+}
