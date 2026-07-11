@@ -1,4 +1,5 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # Next.js: ALWAYS read docs before coding
 
 Before any Next.js work, read the relevant docs in `node_modules/next/dist/docs/`. Do not rely on outdated knowledge. The docs are authoritative for this version.
