@@ -1,5 +1,9 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { CatalogPanel } from "@/components/setup-builder/catalog-panel";
+import { SummaryBar } from "@/components/setup-builder/summary-bar";
+import { WorkspacePreview } from "@/components/setup-builder/workspace-preview";
+
 type Props = {
   params: Promise<{ locale: string }>;
 };
@@ -10,9 +14,15 @@ export default async function SetupBuilderPage({ params }: Props) {
   const t = await getTranslations("SetupBuilder");
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-4 px-6 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
-      <p className="text-muted-foreground">{t("placeholder")}</p>
-    </main>
+    <>
+      <div className="mx-auto grid w-full max-w-6xl flex-1 gap-8 px-6 py-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
+          <WorkspacePreview />
+        </div>
+        <CatalogPanel />
+      </div>
+      <SummaryBar />
+    </>
   );
 }

@@ -5,15 +5,43 @@
   },
   "Home": {
     "title": "Bangun workspace Bali Anda",
-    "cta": "Mulai membangun"
+    "cta": "Mulai membangun",
+    "howHeading": "Cara kerja",
+    "howSteps": {
+      "desk": {
+        "title": "Pilih meja",
+        "description": "Pilih standing desk elektrik atau mekanis."
+      },
+      "gear": {
+        "title": "Tambah kursi dan perlengkapan",
+        "description": "Tambahkan monitor, lampu, tanaman, dan peripheral."
+      },
+      "rent": {
+        "title": "Sewa saat siap",
+        "description": "Tinjau harga mingguan dan minta pengiriman."
+      }
+    },
+    "featuresHeading": "Kenapa bangun secara visual",
+    "features": {
+      "preview": {
+        "title": "Pratinjau langsung",
+        "description": "Lihat setup berubah saat Anda memilih item."
+      },
+      "weekly": {
+        "title": "Sewa mingguan fleksibel",
+        "description": "Tinggal seminggu atau lebih lama tanpa beli furnitur."
+      },
+      "delivery": {
+        "title": "Pengiriman di Bali",
+        "description": "monis menangani pengiriman, setup, dan penjemputan."
+      }
+    }
   },
   "SetupBuilder": {
-    "title": "Setup Builder",
-    "placeholder": "Desainer workspace sedang disiapkan di sini."
+    "title": "Setup Builder"
   },
   "Checkout": {
-    "title": "Checkout",
-    "placeholder": "Tinjau setup sewa Anda di sini."
+    "title": "Checkout"
   },
   "NotFound": {
     "title": "Halaman tidak ditemukan",

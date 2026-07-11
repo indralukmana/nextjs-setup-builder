@@ -5,15 +5,43 @@
   },
   "Home": {
     "title": "Build your Bali workspace",
-    "cta": "Start building"
+    "cta": "Start building",
+    "howHeading": "How it works",
+    "howSteps": {
+      "desk": {
+        "title": "Pick a desk",
+        "description": "Choose an electric or mechanical standing desk."
+      },
+      "gear": {
+        "title": "Add chair and gear",
+        "description": "Layer monitors, lamps, plants, and peripherals."
+      },
+      "rent": {
+        "title": "Rent when ready",
+        "description": "Review weekly pricing and request delivery."
+      }
+    },
+    "featuresHeading": "Why build visually",
+    "features": {
+      "preview": {
+        "title": "Live preview",
+        "description": "See your setup update as you pick each piece."
+      },
+      "weekly": {
+        "title": "Flexible weekly rental",
+        "description": "Stay a week or a season without buying furniture."
+      },
+      "delivery": {
+        "title": "Bali delivery",
+        "description": "monis handles delivery, setup, and pickup."
+      }
+    }
   },
   "SetupBuilder": {
-    "title": "Setup Builder",
-    "placeholder": "Workspace designer coming together here."
+    "title": "Setup Builder"
   },
   "Checkout": {
-    "title": "Checkout",
-    "placeholder": "Review your rental setup here."
+    "title": "Checkout"
   },
   "NotFound": {
     "title": "Page not found",
