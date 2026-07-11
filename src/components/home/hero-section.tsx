@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 type Props = {
   title: string;
@@ -14,9 +15,9 @@ export function HeroSection({ title, cta }: Props) {
         {title}
       </h1>
       <div>
-        <Button size="lg" render={<Link href="/setup-builder" />}>
+        <Link href="/setup-builder" className={cn(buttonVariants({ size: "lg" }))}>
           {cta}
-        </Button>
+        </Link>
       </div>
     </section>
   );

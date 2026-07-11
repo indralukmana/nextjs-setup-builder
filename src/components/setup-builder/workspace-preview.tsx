@@ -2,12 +2,15 @@
 
 import { motion } from "motion/react";
 
-import { selectSelectedIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 import { getProductById } from "@/data/catalog";
 import { cn } from "@/lib/utils";
+import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function WorkspacePreview() {
-  const selectedIds = useSetupBuilderStore(selectSelectedIds);
+  const deskId = useSetupBuilderStore((state) => state.deskId);
+  const chairId = useSetupBuilderStore((state) => state.chairId);
+  const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
+  const selectedIds = [deskId, chairId, ...accessoryIds];
   const products = selectedIds.map((id) => getProductById(id)).filter((product) => product != null);
 
   return (

@@ -1,13 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
-import { selectSelectedIds, useSetupBuilderStore } from "@/store/setup-builder-store";
+import { cn } from "@/lib/utils";
+import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function SummaryBar() {
-  const selectedIds = useSetupBuilderStore(selectSelectedIds);
+  const deskId = useSetupBuilderStore((state) => state.deskId);
+  const chairId = useSetupBuilderStore((state) => state.chairId);
+  const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
+  const selectedIds = [deskId, chairId, ...accessoryIds];
   const weeklyTotal = getWeeklyTotal(selectedIds);
   const total = getRentalTotal(weeklyTotal, rentalWeeks);
 
@@ -22,7 +26,9 @@ export function SummaryBar() {
             Total {formatUsd(total)} · {selectedIds.length} items
           </p>
         </div>
-        <Button render={<Link href="/checkout" />}>Review rental</Button>
+        <Link href="/checkout" className={cn(buttonVariants())}>
+          Review rental
+        </Link>
       </div>
     </div>
   );

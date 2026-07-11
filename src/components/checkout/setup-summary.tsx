@@ -2,10 +2,13 @@
 
 import { getProductById } from "@/data/catalog";
 import { formatUsd } from "@/lib/pricing";
-import { selectSelectedIds, useSetupBuilderStore } from "@/store/setup-builder-store";
+import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function SetupSummary() {
-  const selectedIds = useSetupBuilderStore(selectSelectedIds);
+  const deskId = useSetupBuilderStore((state) => state.deskId);
+  const chairId = useSetupBuilderStore((state) => state.chairId);
+  const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
+  const selectedIds = [deskId, chairId, ...accessoryIds];
   const products = selectedIds.map((id) => getProductById(id)).filter((product) => product != null);
 
   return (

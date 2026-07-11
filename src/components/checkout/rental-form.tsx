@@ -5,15 +5,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
-import { selectSelectedIds, useSetupBuilderStore } from "@/store/setup-builder-store";
+import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 const WEEK_OPTIONS = ["1", "4", "12"] as const;
 
 export function RentalForm() {
-  const selectedIds = useSetupBuilderStore(selectSelectedIds);
+  const deskId = useSetupBuilderStore((state) => state.deskId);
+  const chairId = useSetupBuilderStore((state) => state.chairId);
+  const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
   const setRentalWeeks = useSetupBuilderStore((state) => state.setRentalWeeks);
   const [submitted, setSubmitted] = useState(false);
+  const selectedIds = [deskId, chairId, ...accessoryIds];
 
   const weeklyTotal = getWeeklyTotal(selectedIds);
   const total = getRentalTotal(weeklyTotal, rentalWeeks);
