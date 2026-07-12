@@ -31,6 +31,21 @@ jobs:
         with:
           cache: true
 
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: |
+          STORE_PATH="$(pnpm store path --silent)"
+          echo "path=$STORE_PATH" >> "$GITHUB_OUTPUT"
+          mkdir -p "$STORE_PATH"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -57,11 +72,46 @@ jobs:
         with:
           cache: true
 
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: |
+          STORE_PATH="$(pnpm store path --silent)"
+          echo "path=$STORE_PATH" >> "$GITHUB_OUTPUT"
+          mkdir -p "$STORE_PATH"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
+
+      - name: Ensure Storybook cache dir
+        run: mkdir -p node_modules/.cache
+
+      - name: Cache Storybook / Vite
+        uses: actions/cache@v5
+        with:
+          path: node_modules/.cache
+          key: storybook-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', '.storybook/**') }}
+          restore-keys: |
+            storybook-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            storybook-cache-${{ runner.os }}-
 
       - name: Storybook component + a11y tests
         run: pnpm test:storybook
@@ -89,8 +139,35 @@ jobs:
         with:
           cache: true
 
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: |
+          STORE_PATH="$(pnpm store path --silent)"
+          echo "path=$STORE_PATH" >> "$GITHUB_OUTPUT"
+          mkdir -p "$STORE_PATH"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Ensure Next.js cache dir
+        run: mkdir -p .next/cache
+
+      - name: Cache Next.js build cache
+        uses: actions/cache@v5
+        with:
+          path: .next/cache
+          key: next-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            next-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            next-cache-${{ runner.os }}-
 
       - name: Production build
         run: pnpm build
@@ -117,6 +194,21 @@ jobs:
         with:
           cache: true
 
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: |
+          STORE_PATH="$(pnpm store path --silent)"
+          echo "path=$STORE_PATH" >> "$GITHUB_OUTPUT"
+          mkdir -p "$STORE_PATH"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -125,6 +217,14 @@ jobs:
         with:
           name: next-build
           path: .next/
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
@@ -154,6 +254,21 @@ jobs:
         with:
           cache: true
 
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        run: |
+          STORE_PATH="$(pnpm store path --silent)"
+          echo "path=$STORE_PATH" >> "$GITHUB_OUTPUT"
+          mkdir -p "$STORE_PATH"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -162,6 +277,20 @@ jobs:
         with:
           name: next-build
           path: .next/
+
+      - name: Ensure Lighthouse cache dirs
+        run: mkdir -p ~/.cache/puppeteer ~/.cache/lighthouseci
+
+      - name: Cache Lighthouse / Chrome for Testing
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cache/puppeteer
+            ~/.cache/lighthouseci
+          key: lhci-chrome-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'lighthouserc.cjs') }}
+          restore-keys: |
+            lhci-chrome-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            lhci-chrome-${{ runner.os }}-
 
       - name: Lighthouse CI
         run: pnpm test:lighthouse
