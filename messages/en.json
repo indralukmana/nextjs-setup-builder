@@ -97,6 +97,7 @@
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
     "checkout": "Checkout",
-    "checkoutShort": "Rent"
+    "checkoutShort": "Rent",
+    "skipToContent": "Skip to content"
   }
 }

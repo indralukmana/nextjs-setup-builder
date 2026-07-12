@@ -97,6 +97,7 @@
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
     "checkout": "Checkout",
-    "checkoutShort": "Sewa"
+    "checkoutShort": "Sewa",
+    "skipToContent": "Loncat ke konten"
   }
 }

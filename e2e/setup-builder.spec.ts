@@ -31,3 +31,21 @@ test("accessories update preview and enforce monitor limit", async ({ page }) =>
   const thirdMonitor = page.getByRole("button", { name: /34" ultrawide monitor/i });
   await expect(thirdMonitor).toBeDisabled();
 });
+
+test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
+  await page.goto("/en/setup-builder");
+
+  await page.getByRole("tab", { name: /desks/i }).focus();
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Enter");
+
+  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
+    /electrical adjustable desk|mechanical adjustable desk/i,
+  );
+
+  const review = page.getByRole("link", { name: /review rental/i });
+  await review.focus();
+  await expect(review).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/en\/checkout/);
+});
