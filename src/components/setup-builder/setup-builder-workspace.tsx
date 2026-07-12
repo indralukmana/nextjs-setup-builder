@@ -8,6 +8,7 @@ import { SetupSelectionChips } from "@/components/setup-builder/setup-selection-
 import { SummaryBar } from "@/components/setup-builder/summary-bar";
 import { SetupScenePreview } from "@/components/setup-scene/setup-scene-preview";
 import { buttonVariants } from "@/components/ui/button";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
 export function SetupBuilderWorkspace({ title }: Props) {
   const t = useTranslations("SetupBuilder.catalogSheet");
   const [catalogOpen, setCatalogOpen] = useState(false);
+  const isLg = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
     if (!catalogOpen) return;
@@ -26,6 +28,10 @@ export function SetupBuilderWorkspace({ title }: Props) {
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [catalogOpen]);
+
+  useEffect(() => {
+    if (isLg) setCatalogOpen(false);
+  }, [isLg]);
 
   return (
     <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[minmax(0,1fr)] gap-3 overflow-hidden p-3 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-4 lg:p-4">
@@ -49,15 +55,13 @@ export function SetupBuilderWorkspace({ title }: Props) {
         </button>
       </section>
 
-      {/* Desktop rail */}
-      <aside className="border-border hidden min-h-0 max-h-full flex-col overflow-hidden rounded-xl border bg-background/60 p-3 lg:flex">
-        <CatalogPanel />
-      </aside>
-
-      {/* Mobile catalog sheet */}
-      {catalogOpen ? (
+      {isLg ? (
+        <aside className="border-border flex min-h-0 max-h-full flex-col overflow-hidden rounded-xl border bg-background/60 p-3">
+          <CatalogPanel />
+        </aside>
+      ) : catalogOpen ? (
         <dialog
-          className="fixed inset-0 z-50 m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 lg:hidden"
+          className="fixed inset-0 z-50 m-0 h-full max-h-none w-full max-w-none bg-transparent p-0"
           open
           aria-label={t("open")}
           onCancel={(event) => {
@@ -68,7 +72,7 @@ export function SetupBuilderWorkspace({ title }: Props) {
           <button
             type="button"
             className="absolute inset-0 bg-black/40"
-            aria-label={t("close")}
+            aria-label={t("dismiss")}
             onClick={() => setCatalogOpen(false)}
           />
           <div className="border-border bg-background absolute inset-0 flex h-full flex-col overflow-hidden shadow-lg">

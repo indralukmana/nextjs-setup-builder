@@ -1,10 +1,16 @@
 import { expect, test } from "@playwright/test";
 
+import {
+  closeCatalogIfNeeded,
+  goToCheckout,
+  openCatalogIfNeeded,
+  waitForSetupUrl,
+} from "./helpers";
+
 test("checkout shows summary and rental form", async ({ page }) => {
   await page.goto("/en/setup-builder");
-  await expect(page).toHaveURL(/desk=/);
-  await page.getByRole("link", { name: /review rental/i }).click();
-  await expect(page).toHaveURL(/\/en\/checkout/);
+  await waitForSetupUrl(page);
+  await goToCheckout(page);
 
   await expect(page.getByRole("heading", { name: /checkout/i })).toBeVisible();
   await expect(page.getByRole("region", { name: /setup summary/i })).toBeVisible();
@@ -31,7 +37,7 @@ test("checkout submits rental request with contact details", async ({ page }) =>
 
   await expect(page.getByRole("region", { name: /setup summary/i })).toBeVisible();
   await page.getByLabel(/full name/i).fill("Indra");
-  await page.getByLabel(/^email$/i).fill("indra@example.com");
+  await page.getByRole("textbox", { name: /email/i }).fill("indra@example.com");
   await page.locator("#rental-phone").fill("81234567890");
   await expect(page.locator("#rental-whatsapp")).toBeDisabled();
   await page.getByRole("button", { name: /request rental/i }).click();
@@ -46,13 +52,23 @@ test("checkout submits rental request with contact details", async ({ page }) =>
 
 test("clear setup shows empty checkout form", async ({ page }) => {
   await page.goto("/en/setup-builder");
-  await expect(page).toHaveURL(/desk=/);
+  await waitForSetupUrl(page);
+  await openCatalogIfNeeded(page);
+
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: /clear all/i }).click();
-  await page.getByRole("link", { name: /review rental/i }).click();
-  await expect(page).toHaveURL(/\/en\/checkout/);
+  await expect(page).toHaveURL(/monitors=0/, { timeout: 10_000 });
+  await expect(page.locator("html")).toHaveAttribute("data-setup-url-synced", "true");
+  await closeCatalogIfNeeded(page);
+  await goToCheckout(page);
+
   await expect(
     page.getByText(/add a desk and chair in the setup builder before requesting a rental/i),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /edit setup/i }).first()).toBeVisible();
+
+  await page.reload();
+  await expect(
+    page.getByText(/add a desk and chair in the setup builder before requesting a rental/i),
+  ).toBeVisible();
 });

@@ -114,7 +114,8 @@
     },
     "catalogSheet": {
       "open": "Katalog",
-      "close": "Schließen"
+      "close": "Schließen",
+      "dismiss": "Katalog schließen"
     },
     "saved": {
       "label": "Gespeicherte Setups",

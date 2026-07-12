@@ -106,11 +106,26 @@ export function sanitizeSelectedPresetId(id: string | undefined): SetupPresetId 
   return getPresetById(id ?? "")?.id ?? defaults.selectedPresetId;
 }
 
+function sanitizeDeskId(id: string | undefined) {
+  // Intentional clear (`""`) must survive persist/URL round-trips.
+  if (id === "") {
+    return "";
+  }
+  return isValidDeskId(id) ? id! : defaults.deskId;
+}
+
+function sanitizeChairId(id: string | undefined) {
+  if (id === "") {
+    return "";
+  }
+  return isValidChairId(id) ? id! : defaults.chairId;
+}
+
 /** Product fields only — does not touch sticky `selectedPresetId`. */
 export function sanitizeSetupFields(persisted: PersistedSetup | undefined) {
   return {
-    deskId: isValidDeskId(persisted?.deskId) ? persisted!.deskId! : defaults.deskId,
-    chairId: isValidChairId(persisted?.chairId) ? persisted!.chairId! : defaults.chairId,
+    deskId: sanitizeDeskId(persisted?.deskId),
+    chairId: sanitizeChairId(persisted?.chairId),
     accessoryIds: sanitizeAccessoryIds(persisted?.accessoryIds),
     monitorCount: sanitizeMonitorCount(persisted?.monitorCount),
     rentalWeeks: sanitizeRentalWeeks(persisted?.rentalWeeks),

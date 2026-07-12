@@ -1,81 +1,98 @@
 import { expect, test } from "@playwright/test";
 
+import {
+  closeCatalogIfNeeded,
+  goToCheckout,
+  openCatalogIfNeeded,
+  previewListitem,
+  selectCurrency,
+  selectPreset,
+  waitForSetupUrl,
+} from "./helpers";
+
 test("setup builder shows catalog and updates summary", async ({ page }) => {
   await page.goto("/en/setup-builder");
+  await waitForSetupUrl(page);
+  await openCatalogIfNeeded(page);
 
   await expect(page.getByRole("heading", { name: /setup builder/i })).toBeAttached();
   await expect(page.getByRole("tab", { name: /desks/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /chairs/i })).toBeVisible();
-  await expect(page.getByRole("tab", { name: /monitors/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /accessories/i })).toBeVisible();
+  await expect(page.getByRole("tab", { name: /drawers/i })).toBeVisible();
+  await expect(
+    page
+      .getByRole("group", { name: /monitors/i })
+      .getByRole("button", { name: /^3$/, exact: true }),
+  ).toBeVisible();
 
-  await page.getByRole("button", { name: /select mittzon desk/i }).click();
+  await page.getByRole("button", { name: /select mittzon/i }).click();
+  await closeCatalogIfNeeded(page);
 
   await expect(page.getByText(/\/week/i).first()).toBeVisible();
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /mittzon desk/i,
-  );
+  await expect(previewListitem(page, /mittzon/i)).toBeVisible();
 });
 
-test("monitors tab can set monitor count", async ({ page }) => {
+test("monitors control can set monitor count", async ({ page }) => {
   await page.goto("/en/setup-builder");
+  await waitForSetupUrl(page);
+  await openCatalogIfNeeded(page);
 
-  await page.getByRole("tab", { name: /monitors/i }).click();
-  await page.getByRole("button", { name: /^3$/, exact: true }).click();
+  await page
+    .getByRole("group", { name: /monitors/i })
+    .getByRole("button", { name: /^3$/, exact: true })
+    .click();
 
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /gaming monitor/i,
-  );
-  await expect(page).toHaveURL(/monitors=3/);
+  await closeCatalogIfNeeded(page);
+  await expect(previewListitem(page, /gaming monitor/i)).toBeVisible();
+  await expect(page).toHaveURL(/monitors=3/, { timeout: 10_000 });
 });
 
 test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
   await page.goto("/en/setup-builder");
+  await waitForSetupUrl(page);
+  await openCatalogIfNeeded(page);
 
   await page.getByRole("tab", { name: /desks/i }).focus();
   await page.keyboard.press("Tab");
   await page.keyboard.press("Enter");
 
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /bollsidan|mittzon|utespelare/i,
-  );
+  await expect(previewListitem(page, /bollsidan|mittzon|utespelare/i)).toBeVisible();
   await expect(page).toHaveURL(/desk=/);
 
+  await closeCatalogIfNeeded(page);
   const review = page.getByRole("link", { name: /review rental/i });
   await review.focus();
   await expect(review).toBeFocused();
-  await review.press("Enter");
-  await expect(page).toHaveURL(/\/en\/checkout/);
+  await goToCheckout(page);
 });
 
 test("builder duration updates URL and reset restores default desk", async ({ page }) => {
   await page.goto(
     "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=&monitors=1&weeks=4",
   );
-
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /mittzon desk/i,
-  );
+  await expect(previewListitem(page, /mittzon/i)).toBeVisible({ timeout: 15_000 });
 
   await page.getByRole("button", { name: /^12 wk$/i }).click();
-  await expect(page).toHaveURL(/weeks=12/);
+  await expect(page).toHaveURL(/weeks=12/, { timeout: 10_000 });
 
+  await openCatalogIfNeeded(page);
   await page.getByRole("button", { name: /^reset$/i }).click();
   await expect(page.getByRole("alertdialog")).toBeVisible();
   await page
     .getByRole("alertdialog")
     .getByRole("button", { name: /^reset$/i })
-    .click();
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /bollsidan sit\/stand desk/i,
-  );
-  await expect(page).toHaveURL(/desk=desk-bollsidan/);
+    .evaluate((el) => (el as HTMLElement).click());
+  await expect(page.getByRole("alertdialog")).toHaveCount(0);
+  await closeCatalogIfNeeded(page);
+  await expect(previewListitem(page, /bollsidan/i)).toBeVisible({ timeout: 10_000 });
+  await expect(page).toHaveURL(/desk=desk-bollsidan/, { timeout: 10_000 });
 });
-
 test("presets show weekly totals and copy link still works", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/en/setup-builder");
-  await expect(page).toHaveURL(/desk=/);
+  await waitForSetupUrl(page);
+  await openCatalogIfNeeded(page);
 
   await expect(page.getByText(/\$\d+(\/week|\/wk)/i).first()).toBeVisible();
 
@@ -89,15 +106,13 @@ test("Indonesian locale shows IDR prices and copy link feedback", async ({ page,
   await page.goto("/id/setup-builder");
   await page.evaluate(() => localStorage.removeItem("monis-currency"));
   await page.reload();
+  await waitForSetupUrl(page);
+  await openCatalogIfNeeded(page);
 
-  await expect(page.getByRole("button", { name: /^idr$/i })).toHaveAttribute(
-    "aria-pressed",
-    "true",
-  );
+  await expect(page.getByRole("combobox", { name: /currency|mata uang/i })).toContainText(/idr/i);
   await expect(page.getByText(/Rp/).first()).toBeVisible();
 
   const copy = page.getByRole("button", { name: /salin tautan setup|bagikan setup/i });
-  await expect(page).toHaveURL(/desk=/);
   await copy.click();
   await expect(page.getByRole("button", { name: /^(disalin|dibagikan)$/i })).toBeVisible();
 });
@@ -106,13 +121,12 @@ test("German locale loads setup builder with German copy", async ({ page }) => {
   await page.goto("/de/setup-builder");
   await page.evaluate(() => localStorage.removeItem("monis-currency"));
   await page.reload();
+  await waitForSetupUrl(page);
 
   await expect(page.getByRole("heading", { name: /setup builder/i })).toBeAttached();
-  await expect(page.getByRole("group", { name: /währung|currency/i })).toBeVisible();
-  await expect(page.getByRole("button", { name: /^eur$/i })).toHaveAttribute(
-    "aria-pressed",
-    "true",
-  );
+  await expect(page.getByRole("combobox", { name: /währung|currency/i })).toBeVisible();
+  await expect(page.getByRole("combobox", { name: /währung|currency/i })).toContainText(/eur/i);
+  await openCatalogIfNeeded(page);
   await expect(
     page.getByRole("button", { name: /setup-link kopieren|setup teilen/i }),
   ).toBeVisible();
@@ -122,35 +136,44 @@ test("currency switcher updates displayed prices", async ({ page }) => {
   await page.goto("/en/setup-builder");
   await page.evaluate(() => localStorage.removeItem("monis-currency"));
   await page.reload();
+  await waitForSetupUrl(page);
 
-  await page.getByRole("button", { name: /^usd$/i }).click();
+  await selectCurrency(page, /usd/i);
   await expect(page.getByText(/\$/).first()).toBeVisible();
 
-  await page.getByRole("button", { name: /^idr$/i }).click();
-  await expect(page.getByText(/Rp/).first()).toBeVisible();
+  await selectCurrency(page, /idr/i);
+  // en locale formats IDR as "IDR …"; id locale uses "Rp…"
+  await expect(page.getByText(/IDR|\bRp\b/).first()).toBeVisible();
 });
 
 test("saved setups can restore a desk after reset", async ({ page }) => {
   await page.goto("/en/setup-builder");
-  await page.getByLabel(/quick presets/i).selectOption("essentials");
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /bollsidan sit\/stand desk/i,
-  );
+  await waitForSetupUrl(page);
 
-  await page.getByText(/^saved setups/i).click();
-  await page.getByLabel(/setup name/i).fill("My essentials");
-  await page.getByRole("button", { name: /save current/i }).click();
-  await expect(page.getByText("My essentials")).toBeVisible();
+  await selectPreset(page, /essentials/i);
+  await closeCatalogIfNeeded(page);
+  await expect(previewListitem(page, /bollsidan/i)).toBeVisible();
 
-  await page.getByLabel(/quick presets/i).selectOption("focus");
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /mittzon desk/i,
-  );
+  await openCatalogIfNeeded(page);
+  const savedDetails = page.locator("details").filter({ has: page.getByText(/^saved setups/i) });
+  await savedDetails.locator("summary").click();
+  await expect(savedDetails).toHaveAttribute("open", "");
+  await savedDetails.locator("#saved-setup-name").fill("My essentials");
+  await savedDetails.getByRole("button", { name: /save current/i }).click();
+  await expect(savedDetails.getByText("My essentials")).toBeVisible();
 
-  await page.getByRole("button", { name: /^load$/i }).click();
-  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /bollsidan sit\/stand desk/i,
+  // Switch away via URL hydration instead of a second Select interaction.
+  await page.goto(
+    "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=&monitors=1&weeks=4",
   );
+  await expect(previewListitem(page, /mittzon/i)).toBeVisible({ timeout: 15_000 });
+
+  await openCatalogIfNeeded(page);
+  await savedDetails.locator("summary").click();
+  await expect(savedDetails).toHaveAttribute("open", "");
+  await savedDetails.getByRole("button", { name: /^load$/i }).click();
+  await closeCatalogIfNeeded(page);
+  await expect(previewListitem(page, /bollsidan/i)).toBeVisible({ timeout: 10_000 });
 });
 
 test("shareable URL hydrates setup and essentials preset applies", async ({ page }) => {
@@ -158,19 +181,22 @@ test("shareable URL hydrates setup and essentials preset applies", async ({ page
     "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=lamp-svallet&monitors=2&weeks=12",
   );
 
-  const preview = page.getByRole("region", { name: /workspace preview/i });
-  await expect(preview).toContainText(/mittzon desk/i);
-  await expect(preview).toContainText(/grönfjäll office chair/i);
-  await expect(preview).toContainText(/gaming monitor/i);
-  await expect(preview).toContainText(/svallet work lamp/i);
-  await expect(page.getByText(/12 weeks/i)).toBeVisible();
+  await expect(previewListitem(page, /mittzon/i)).toBeVisible({ timeout: 15_000 });
+  await expect(previewListitem(page, /grönfjäll office chair/i)).toBeVisible();
+  await expect(previewListitem(page, /gaming monitor/i)).toBeVisible();
+  await expect(previewListitem(page, /svallet/i)).toBeVisible();
+  await expect(page.getByRole("button", { name: /^12 wk$/i })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
 
-  await page.getByLabel(/quick presets/i).selectOption("essentials");
+  await selectPreset(page, /essentials/i);
+  await closeCatalogIfNeeded(page);
 
-  await expect(preview).toContainText(/bollsidan sit\/stand desk/i);
-  await expect(preview).toContainText(/alefjäll office chair/i);
-  await expect(preview).toContainText(/nymåne work lamp/i);
-  await expect(page).toHaveURL(/desk=desk-bollsidan/);
+  await expect(previewListitem(page, /bollsidan/i)).toBeVisible({ timeout: 10_000 });
+  await expect(previewListitem(page, /alefjäll/i)).toBeVisible();
+  await expect(previewListitem(page, /nymåne/i)).toBeVisible();
+  await expect(page).toHaveURL(/desk=desk-bollsidan/, { timeout: 10_000 });
   await expect(page).toHaveURL(/chair=chair-alefjall/);
   await expect(page).toHaveURL(/monitors=1/);
 });

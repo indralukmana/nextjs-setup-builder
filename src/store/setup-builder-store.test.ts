@@ -119,6 +119,26 @@ describe("setup-builder-store", () => {
     expect(useSetupBuilderStore.getState().selectedPresetId).toBe("focus");
   });
 
+  it("preserves intentional empty desk and chair through persist merge", () => {
+    const store = useSetupBuilderStore.getState();
+    store.clearSetup();
+
+    const merged = sanitizePersistedSetup({
+      deskId: "",
+      chairId: "",
+      accessoryIds: [],
+      monitorCount: 0,
+      rentalWeeks: 4,
+      selectedPresetId: "focus",
+    });
+
+    expect(merged.deskId).toBe("");
+    expect(merged.chairId).toBe("");
+    expect(merged.accessoryIds).toEqual([]);
+    expect(merged.monitorCount).toBe(0);
+    expect(merged.selectedPresetId).toBe("focus");
+  });
+
   it("sanitizes corrupt persisted setup and invalid selectedPresetId", () => {
     const sanitized = sanitizePersistedSetup({
       deskId: "missing-desk",

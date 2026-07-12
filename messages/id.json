@@ -114,7 +114,8 @@
     },
     "catalogSheet": {
       "open": "Katalog",
-      "close": "Tutup"
+      "close": "Tutup",
+      "dismiss": "Tutup katalog"
     },
     "saved": {
       "label": "Setup tersimpan",

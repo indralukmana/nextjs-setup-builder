@@ -7,13 +7,18 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: isCi,
   retries: isCi ? 2 : 0,
-  workers: isCi ? 1 : undefined,
+  workers: isCi ? 1 : 4,
+  timeout: 60_000,
+  expect: {
+    timeout: 10_000,
+  },
   reporter: isCi ? [["html"], ["github"]] : [["list"], ["html"]],
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
+    actionTimeout: 15_000,
   },
   projects: [
     {

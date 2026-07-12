@@ -10,6 +10,14 @@ import { sanitizeSetupFields, useSetupBuilderStore } from "@/store/setup-builder
 
 const WRITE_DEBOUNCE_MS = 250;
 
+function setUrlSynced(synced: boolean) {
+  if (synced) {
+    document.documentElement.dataset.setupUrlSynced = "true";
+  } else {
+    delete document.documentElement.dataset.setupUrlSynced;
+  }
+}
+
 export function SetupUrlSync() {
   const hydrated = useSetupBuilderHydrated();
   const searchParams = useSearchParams();
@@ -48,9 +56,11 @@ export function SetupUrlSync() {
     });
     const currentQuery = searchParams.toString();
     if (nextQuery === currentQuery) {
+      setUrlSynced(true);
       return;
     }
 
+    setUrlSynced(false);
     const timer = window.setTimeout(() => {
       router.replace(`${pathname}?${nextQuery}`, { scroll: false });
     }, WRITE_DEBOUNCE_MS);
@@ -67,6 +77,12 @@ export function SetupUrlSync() {
     router,
     searchParams,
   ]);
+
+  useEffect(() => {
+    return () => {
+      delete document.documentElement.dataset.setupUrlSynced;
+    };
+  }, []);
 
   return null;
 }
