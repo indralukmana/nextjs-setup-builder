@@ -100,6 +100,9 @@ jobs:
         with:
           name: next-build
           path: .next/
+          # upload-artifact@v4 ignores dot-directories unless this is set.
+          include-hidden-files: true
+          if-no-files-found: error
           retention-days: 1
 
   e2e:
