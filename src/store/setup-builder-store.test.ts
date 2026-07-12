@@ -95,6 +95,16 @@ describe("setup-builder-store", () => {
     ]);
   });
 
+  it("clears the setup for an empty session state", () => {
+    const store = useSetupBuilderStore.getState();
+    store.applyPreset("essentials");
+    store.clearSetup();
+
+    expect(useSetupBuilderStore.getState().deskId).toBe("");
+    expect(useSetupBuilderStore.getState().chairId).toBe("");
+    expect(useSetupBuilderStore.getState().accessoryIds).toEqual([]);
+  });
+
   it("sanitizes corrupt persisted setup", () => {
     const sanitized = sanitizePersistedSetup({
       deskId: "missing-desk",

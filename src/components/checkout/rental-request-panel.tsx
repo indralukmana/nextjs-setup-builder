@@ -44,7 +44,10 @@ export function RentalRequestPanel() {
           weeks: rentalWeeks,
           total: formatMoney(total, locale),
         })}
+        requestId={state.result.requestId}
         requestIdLabel={t("requestId", { id: state.result.requestId })}
+        copyRequestIdLabel={t("copyRequestId")}
+        copyRequestIdCopiedLabel={t("copyRequestIdCopied")}
         backHomeLabel={t("backHome")}
         editSetupLabel={t("editSetup")}
       />

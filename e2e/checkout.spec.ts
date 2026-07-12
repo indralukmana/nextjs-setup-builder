@@ -38,5 +38,18 @@ test("checkout submits rental request with contact details", async ({ page }) =>
   await expect(page.getByText(/rental request sent/i)).toBeVisible();
   await expect(page.getByText(/thanks indra/i)).toBeVisible();
   await expect(page.getByText(/request id:/i)).toBeVisible();
+  await expect(page.getByRole("button", { name: /copy request id/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /back home/i })).toBeVisible();
+});
+
+test("clear setup shows empty checkout form", async ({ page }) => {
+  await page.goto("/en/setup-builder");
+  await expect(page).toHaveURL(/desk=/);
+  await page.getByRole("button", { name: /clear setup/i }).click();
+  await page.getByRole("link", { name: /review rental/i }).click();
+  await expect(page).toHaveURL(/\/en\/checkout/);
+  await expect(
+    page.getByText(/add a desk and chair in the setup builder before requesting a rental/i),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /edit setup/i }).first()).toBeVisible();
 });

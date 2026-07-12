@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 
 import { CatalogProductList } from "@/components/setup-builder/catalog-product-list";
+import { ClearSetupButton } from "@/components/setup-builder/clear-setup-button";
 import { CopySetupLink } from "@/components/setup-builder/copy-setup-link";
 import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
 import { PresetPicker } from "@/components/setup-builder/preset-picker";
@@ -37,6 +38,7 @@ function CatalogPanelContent() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <PresetPicker />
         <div className="flex flex-wrap gap-2">
+          <ClearSetupButton />
           <ResetSetupButton />
           <CopySetupLink />
         </div>

@@ -68,6 +68,7 @@
     "shareLinkShared": "Shared",
     "shareTitle": "My monis setup",
     "resetSetup": "Reset setup",
+    "clearSetup": "Clear setup",
     "durationLabel": "Rental duration",
     "weeksOption": "{count} wk",
     "presets": {
@@ -101,6 +102,8 @@
     "successTitle": "Rental request sent",
     "successBody": "Thanks {name} — we'll confirm delivery for your {weeks}-week setup ({total}).",
     "requestId": "Request ID: {id}",
+    "copyRequestId": "Copy request ID",
+    "copyRequestIdCopied": "ID copied",
     "backHome": "Back home",
     "loadingSummary": "Loading setup summary",
     "loadingForm": "Loading rental form",

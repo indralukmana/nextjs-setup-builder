@@ -26,6 +26,7 @@ type SetupBuilderState = {
   setRentalWeeks: (weeks: number) => void;
   applyPreset: (presetId: string) => void;
   reset: () => void;
+  clearSetup: () => void;
 };
 
 export const defaults = {
@@ -169,6 +170,12 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         );
       },
       reset: () => set({ ...defaults }),
+      clearSetup: () =>
+        set({
+          deskId: "",
+          chairId: "",
+          accessoryIds: [],
+        }),
     }),
     {
       name: "monis-setup-builder",
