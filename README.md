@@ -203,7 +203,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
   - **Quality** — format, lint, typecheck, unit
   - **Storybook** — component/a11y tests + static build artifact
   - **Build** — production `next build` (after Quality); `.next` shared downstream
-  - **E2E** / **Lighthouse** — reuse the build artifact (no second compile); E2E runs as 2 shards in parallel
+  - **E2E** / **Lighthouse** — reuse the build artifact (no second compile); E2E runs as 4 shards × 1 worker
   - **All checks** — aggregate gate for branch protection (require this one status)
 
 ## Git hooks
