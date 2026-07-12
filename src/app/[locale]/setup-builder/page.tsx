@@ -17,7 +17,7 @@ export default async function SetupBuilderPage({ params }: Props) {
     <>
       <div className="mx-auto grid w-full max-w-6xl flex-1 gap-8 px-6 py-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
+          <h1 className="font-heading text-3xl tracking-tight md:text-4xl">{t("title")}</h1>
           <WorkspacePreview />
         </div>
         <CatalogPanel />

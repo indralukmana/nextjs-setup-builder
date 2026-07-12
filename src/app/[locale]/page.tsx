@@ -14,8 +14,8 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations("Home");
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-6">
-      <HeroSection title={t("title")} cta={t("cta")} />
+    <div className="w-full">
+      <HeroSection brand={t("brand")} title={t("title")} subtitle={t("subtitle")} cta={t("cta")} />
       <HowItWorks
         heading={t("howHeading")}
         steps={[

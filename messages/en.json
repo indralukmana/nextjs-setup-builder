@@ -4,7 +4,9 @@
     "description": "Design your dream Bali workspace and rent desks, chairs, and accessories from monis.rent."
   },
   "Home": {
+    "brand": "monis",
     "title": "Build your Bali workspace",
+    "subtitle": "Compose a desk, chair, and gear visually — then rent it delivered across Bali.",
     "cta": "Start building",
     "howHeading": "How it works",
     "howSteps": {
@@ -41,7 +43,19 @@
     "title": "Setup Builder"
   },
   "Checkout": {
-    "title": "Checkout"
+    "title": "Checkout",
+    "subtitle": "Confirm your setup, choose a rental length, and request delivery.",
+    "summaryHeading": "Your setup",
+    "weeklyLabel": "Weekly",
+    "editSetup": "Edit setup",
+    "durationLabel": "Rental duration",
+    "weeksOption": "{count} wk",
+    "weekly": "Weekly {amount}",
+    "total": "{amount} total",
+    "submit": "Request rental",
+    "successTitle": "Rental request sent",
+    "successBody": "We'll confirm delivery for your {weeks}-week setup ({total}).",
+    "backHome": "Back home"
   },
   "NotFound": {
     "title": "Page not found",
