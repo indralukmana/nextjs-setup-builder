@@ -61,7 +61,9 @@
     "monitorCount": {
       "label": "Monitore",
       "none": "Keine",
-      "option": "{count}"
+      "option": "{count}",
+      "hint": "Dasselbe Gaming-Monitor-Modell für jedes Display — wähle keine, oder 1, 2 bzw. 3.",
+      "hintLabel": "Über Monitore"
     },
     "accessoriesDisabledForTripleMonitors": "Schreibtisch-Zubehör ist bei 3 Monitoren nicht verfügbar.",
     "summarySupport": "{weekly}/Woche · {count} Artikel",
@@ -81,6 +83,8 @@
     "weeksOption": "{count} Wo.",
     "presets": {
       "label": "Schnellvorlagen",
+      "hint": "Übernimm ein kuratiertes Setup aus Schreibtisch, Stuhl und Zubehör in einem Schritt. Zurücksetzen stellt die aktuell gewählte Vorlage wieder her.",
+      "hintLabel": "Über Schnellvorlagen",
       "placeholder": "Vorlage anwenden…",
       "weekly": "{amount}/Woche",
       "essentials": {

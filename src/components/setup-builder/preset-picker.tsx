@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { LabelWithHint } from "@/components/setup-builder/label-with-hint";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -57,9 +58,12 @@ export function PresetPicker({ variant = "default" }: Props) {
     return (
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between gap-2">
-          <label htmlFor="setup-preset" className="text-sm font-medium">
-            {t("label")}
-          </label>
+          <LabelWithHint
+            htmlFor="setup-preset"
+            label={t("label")}
+            hint={t("hint")}
+            hintLabel={t("hintLabel")}
+          />
           <AlertDialog>
             <AlertDialogTrigger
               render={

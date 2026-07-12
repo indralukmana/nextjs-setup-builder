@@ -61,7 +61,9 @@
     "monitorCount": {
       "label": "Monitor",
       "none": "Tidak ada",
-      "option": "{count}"
+      "option": "{count}",
+      "hint": "Model monitor gaming yang sama untuk setiap layar — pilih tidak ada, atau 1, 2, atau 3.",
+      "hintLabel": "Tentang monitor"
     },
     "accessoriesDisabledForTripleMonitors": "Aksesori meja tidak tersedia dengan 3 monitor.",
     "summarySupport": "{weekly}/minggu · {count} item",
@@ -81,6 +83,8 @@
     "weeksOption": "{count} mg",
     "presets": {
       "label": "Preset cepat",
+      "hint": "Terapkan setup meja, kursi, dan aksesori yang sudah dikurasi dalam satu langkah. Reset mengembalikan preset yang sedang dipilih.",
+      "hintLabel": "Tentang preset cepat",
       "placeholder": "Terapkan preset…",
       "weekly": "{amount}/minggu",
       "essentials": {

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { LabelWithHint } from "@/components/setup-builder/label-with-hint";
 import { cn } from "@/lib/utils";
 import { useSetupBuilderStore, type MonitorCount } from "@/store/setup-builder-store";
 
@@ -14,7 +15,13 @@ export function MonitorCountPicker() {
 
   return (
     <fieldset className="grid gap-2">
-      <legend className="text-sm font-medium">{t("monitorCount.label")}</legend>
+      <legend>
+        <LabelWithHint
+          label={t("monitorCount.label")}
+          hint={t("monitorCount.hint")}
+          hintLabel={t("monitorCount.hintLabel")}
+        />
+      </legend>
       <div className="flex flex-wrap gap-2">
         {COUNT_OPTIONS.map((count) => {
           const isActive = monitorCount === count;

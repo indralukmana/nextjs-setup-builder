@@ -61,7 +61,9 @@
     "monitorCount": {
       "label": "Monitors",
       "none": "None",
-      "option": "{count}"
+      "option": "{count}",
+      "hint": "Same gaming monitor model for every display — choose none, or 1, 2, or 3.",
+      "hintLabel": "About monitors"
     },
     "accessoriesDisabledForTripleMonitors": "Desk accessories are unavailable with 3 monitors.",
     "summarySupport": "{weekly}/week · {count} items",
@@ -81,6 +83,8 @@
     "weeksOption": "{count} wk",
     "presets": {
       "label": "Quick presets",
+      "hint": "Apply a curated desk, chair, and accessories setup in one step. Reset restores the currently selected preset.",
+      "hintLabel": "About quick presets",
       "placeholder": "Apply a preset…",
       "weekly": "{amount}/week",
       "essentials": {
