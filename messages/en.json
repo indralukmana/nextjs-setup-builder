@@ -69,6 +69,7 @@
     "summaryHeading": "Your setup",
     "weeklyLabel": "Weekly",
     "emptySummary": "No products in this setup yet.",
+    "emptyForm": "Add a desk and chair in the setup builder before requesting a rental.",
     "editSetup": "Edit setup",
     "durationLabel": "Rental duration",
     "weeksOption": "{count} wk",
@@ -76,10 +77,23 @@
     "total": "{amount} total",
     "submit": "Request rental",
     "successTitle": "Rental request sent",
-    "successBody": "We'll confirm delivery for your {weeks}-week setup ({total}).",
+    "successBody": "Thanks {name} — we'll confirm delivery for your {weeks}-week setup ({total}).",
     "backHome": "Back home",
     "loadingSummary": "Loading setup summary",
-    "loadingForm": "Loading rental form"
+    "loadingForm": "Loading rental form",
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "WhatsApp / phone",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "you@example.com",
+      "phonePlaceholder": "+62 812 0000 0000"
+    },
+    "errors": {
+      "nameRequired": "Enter your full name (at least 2 characters).",
+      "emailInvalid": "Enter a valid email address.",
+      "phoneInvalid": "Enter a valid phone or WhatsApp number."
+    }
   },
   "NotFound": {
     "title": "Page not found",

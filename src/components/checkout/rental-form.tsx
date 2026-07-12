@@ -3,12 +3,25 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
+import { RentalContactFields } from "@/components/checkout/rental-contact-fields";
 import { RentalDurationPicker } from "@/components/checkout/rental-duration-picker";
 import { RentalSuccess } from "@/components/checkout/rental-success";
 import { RentalTotals } from "@/components/checkout/rental-totals";
+import { SetupSummaryEmpty } from "@/components/checkout/setup-summary-empty";
 import { StoreReady } from "@/components/setup-builder/store-ready";
+import {
+  parseRentalContact,
+  type RentalContact,
+  type RentalContactErrors,
+} from "@/lib/rental-request";
 import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
+
+const emptyContact: RentalContact = {
+  name: "",
+  email: "",
+  phone: "",
+};
 
 export function RentalForm() {
   const t = useTranslations("Checkout");
@@ -27,35 +40,78 @@ function RentalFormContent() {
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
   const setRentalWeeks = useSetupBuilderStore((state) => state.setRentalWeeks);
-  const [submitted, setSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [contact, setContact] = useState<RentalContact>(emptyContact);
+  const [errors, setErrors] = useState<RentalContactErrors>({});
+  const [attempted, setAttempted] = useState(false);
   const selectedIds = [deskId, chairId, ...accessoryIds];
 
   const weeklyTotal = getWeeklyTotal(selectedIds);
   const total = getRentalTotal(weeklyTotal, rentalWeeks);
-  const canSubmit = selectedIds.length > 0 && weeklyTotal > 0;
+  const hasSetup = selectedIds.length > 0 && weeklyTotal > 0;
+  const validationMessages = {
+    nameRequired: t("errors.nameRequired"),
+    emailInvalid: t("errors.emailInvalid"),
+    phoneInvalid: t("errors.phoneInvalid"),
+  };
 
-  if (submitted) {
+  if (!hasSetup) {
+    return <SetupSummaryEmpty emptyLabel={t("emptyForm")} editLabel={t("editSetup")} />;
+  }
+
+  if (submittedName) {
     return (
       <RentalSuccess
         title={t("successTitle")}
-        body={t("successBody", { weeks: rentalWeeks, total: formatUsd(total) })}
+        body={t("successBody", {
+          name: submittedName,
+          weeks: rentalWeeks,
+          total: formatUsd(total),
+        })}
         backHomeLabel={t("backHome")}
         editSetupLabel={t("editSetup")}
       />
     );
   }
 
+  const canSubmit = !attempted || parseRentalContact(contact, validationMessages).data !== null;
+
   return (
     <form
       className="flex flex-col gap-6 rounded-2xl border bg-white/50 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
+      noValidate
       onSubmit={(event) => {
         event.preventDefault();
-        if (!canSubmit) {
+        setAttempted(true);
+        const parsed = parseRentalContact(contact, validationMessages);
+        if (!parsed.data) {
+          setErrors(parsed.errors ?? {});
           return;
         }
-        setSubmitted(true);
+        setErrors({});
+        setSubmittedName(parsed.data.name);
       }}
     >
+      <RentalContactFields
+        values={contact}
+        errors={attempted ? errors : {}}
+        labels={{
+          name: t("fields.name"),
+          email: t("fields.email"),
+          phone: t("fields.phone"),
+          namePlaceholder: t("fields.namePlaceholder"),
+          emailPlaceholder: t("fields.emailPlaceholder"),
+          phonePlaceholder: t("fields.phonePlaceholder"),
+        }}
+        onChange={(field, value) => {
+          const next = { ...contact, [field]: value };
+          setContact(next);
+          if (attempted) {
+            const parsed = parseRentalContact(next, validationMessages);
+            setErrors(parsed.errors ?? {});
+          }
+        }}
+      />
       <RentalDurationPicker
         label={t("durationLabel")}
         value={rentalWeeks}
