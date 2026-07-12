@@ -86,6 +86,7 @@
     "clearSetupConfirm": "Hapus meja, kursi, dan aksesori dari setup ini?",
     "durationLabel": "Durasi sewa",
     "weeksOption": "{count} minggu",
+    "weeksOptionShort": "{count} mg",
     "presets": {
       "label": "Preset cepat",
       "hint": "Terapkan setup meja, kursi, dan aksesori yang sudah dikurasi dalam satu langkah. Reset mengembalikan preset yang sedang dipilih.",

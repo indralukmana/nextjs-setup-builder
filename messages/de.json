@@ -86,6 +86,7 @@
     "clearSetupConfirm": "Schreibtisch, Stuhl und Zubehör aus diesem Setup entfernen?",
     "durationLabel": "Mietdauer",
     "weeksOption": "{count} Wochen",
+    "weeksOptionShort": "{count} Wo.",
     "presets": {
       "label": "Schnellvorlagen",
       "hint": "Übernimm ein kuratiertes Setup aus Schreibtisch, Stuhl und Zubehör in einem Schritt. Zurücksetzen stellt die aktuell gewählte Vorlage wieder her.",

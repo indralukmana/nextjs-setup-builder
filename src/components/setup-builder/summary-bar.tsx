@@ -39,8 +39,9 @@ export function SummaryBar({ className }: Props) {
         className,
       )}
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-        <div className="relative min-w-0 flex-1 basis-[12rem]">
+      {/* Below `sm`: wrap so the CTA can sit full-width. From `sm`: one row. */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:flex-nowrap sm:gap-4">
+        <div className="relative min-w-0 flex-1 basis-[9rem] sm:basis-auto">
           <div
             className={cn(
               "transition-opacity duration-300 ease-out",
@@ -72,8 +73,8 @@ export function SummaryBar({ className }: Props) {
 
         <div
           className={cn(
-            "transition-opacity duration-300 ease-out",
-            hydrated ? "opacity-100" : "pointer-events-none opacity-0",
+            "shrink-0 transition-opacity duration-300 ease-out",
+            hydrated ? "opacity-100" : "pointer-events-none absolute opacity-0",
           )}
           aria-hidden={!hydrated}
         >
@@ -83,14 +84,17 @@ export function SummaryBar({ className }: Props) {
             compact
             label={t("durationLabel")}
             value={rentalWeeks}
-            formatOption={(weeks) => t("weeksOption", { count: weeks })}
+            formatOption={(weeks) => t("weeksOptionShort", { count: weeks })}
             onChange={setRentalWeeks}
           />
         </div>
 
         <Link
           href="/checkout"
-          className={cn(buttonVariants(), "h-9 w-full shrink-0 justify-center px-4 sm:w-auto")}
+          className={cn(
+            buttonVariants(),
+            "h-9 w-full shrink-0 justify-center px-4 sm:ml-auto sm:w-auto",
+          )}
           aria-disabled={!hydrated}
           tabIndex={hydrated ? undefined : -1}
           onClick={(event) => {

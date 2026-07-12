@@ -86,6 +86,7 @@
     "clearSetupConfirm": "Clear desk, chair, and accessories from this setup?",
     "durationLabel": "Rental duration",
     "weeksOption": "{count} weeks",
+    "weeksOptionShort": "{count} wk",
     "presets": {
       "label": "Quick presets",
       "hint": "Apply a curated desk, chair, and accessories setup in one step. Reset restores the currently selected preset.",
