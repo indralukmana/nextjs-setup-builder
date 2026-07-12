@@ -1,6 +1,5 @@
-import { expect, test } from "@playwright/test";
-
 import {
+  clickInPage,
   closeCatalogIfNeeded,
   goToCheckout,
   openCatalogIfNeeded,
@@ -9,6 +8,7 @@ import {
   selectPreset,
   waitForSetupUrl,
 } from "./helpers";
+import { expect, test } from "./fixtures";
 
 test("setup builder shows catalog and updates summary", async ({ page }) => {
   await page.goto("/en/setup-builder");
@@ -26,7 +26,7 @@ test("setup builder shows catalog and updates summary", async ({ page }) => {
       .getByRole("button", { name: /^3$/, exact: true }),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: /select mittzon/i }).click();
+  await clickInPage(page.getByRole("button", { name: /select mittzon/i }));
   await closeCatalogIfNeeded(page);
 
   await expect(page.getByText(/\/week/i).first()).toBeVisible();
@@ -38,10 +38,11 @@ test("monitors control can set monitor count", async ({ page }) => {
   await waitForSetupUrl(page);
   await openCatalogIfNeeded(page);
 
-  await page
-    .getByRole("group", { name: /monitors/i })
-    .getByRole("button", { name: /^3$/, exact: true })
-    .click();
+  await clickInPage(
+    page
+      .getByRole("group", { name: /monitors/i })
+      .getByRole("button", { name: /^3$/, exact: true }),
+  );
 
   await closeCatalogIfNeeded(page);
   await expect(previewListitem(page, /gaming monitor/i)).toBeVisible();
@@ -79,7 +80,7 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
     "true",
   );
 
-  await page.getByRole("button", { name: /^12 wk$/i }).click();
+  await clickInPage(page.getByRole("button", { name: /^12 wk$/i }));
   await expect(page.getByRole("button", { name: /^12 wk$/i })).toHaveAttribute(
     "aria-pressed",
     "true",
@@ -89,7 +90,7 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
   await expect(page.locator("html")).toHaveAttribute("data-setup-url-synced", "true");
 
   await openCatalogIfNeeded(page);
-  await page.getByRole("button", { name: /^reset$/i }).click();
+  await clickInPage(page.getByRole("button", { name: /^reset$/i }));
   await expect(page.getByRole("alertdialog")).toBeVisible();
   await page
     .getByRole("alertdialog")
@@ -100,6 +101,7 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
   await expect(previewListitem(page, /bollsidan/i)).toBeVisible({ timeout: 10_000 });
   await expect(page).toHaveURL(/desk=desk-bollsidan/, { timeout: 10_000 });
 });
+
 test("presets show weekly totals and copy link still works", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/en/setup-builder");
@@ -109,7 +111,7 @@ test("presets show weekly totals and copy link still works", async ({ page, cont
   await expect(page.getByText(/\$\d+(\/week|\/wk)/i).first()).toBeVisible();
 
   const shareOrCopy = page.getByRole("button", { name: /copy setup link|share setup/i });
-  await shareOrCopy.click();
+  await clickInPage(shareOrCopy);
   await expect(page.getByRole("button", { name: /^(copied|shared)$/i })).toBeVisible();
 });
 
@@ -125,7 +127,7 @@ test("Indonesian locale shows IDR prices and copy link feedback", async ({ page,
   await expect(page.getByText(/Rp/).first()).toBeVisible();
 
   const copy = page.getByRole("button", { name: /salin tautan setup|bagikan setup/i });
-  await copy.click();
+  await clickInPage(copy);
   await expect(page.getByRole("button", { name: /^(disalin|dibagikan)$/i })).toBeVisible();
 });
 
@@ -168,7 +170,7 @@ test("saved setups can restore a desk after reset", async ({ page }) => {
 
   await openCatalogIfNeeded(page);
   const savedDetails = page.locator("details").filter({ has: page.getByText(/^saved setups/i) });
-  await savedDetails.locator("summary").click();
+  await clickInPage(savedDetails.locator("summary"));
   await expect(savedDetails).toHaveAttribute("open", "");
   const nameInput = savedDetails.locator("#saved-setup-name");
   await nameInput.fill("My essentials");
@@ -183,9 +185,9 @@ test("saved setups can restore a desk after reset", async ({ page }) => {
   await waitForSetupUrl(page);
 
   await openCatalogIfNeeded(page);
-  await savedDetails.locator("summary").click();
+  await clickInPage(savedDetails.locator("summary"));
   await expect(savedDetails).toHaveAttribute("open", "");
-  await savedDetails.getByRole("button", { name: /^load$/i }).click();
+  await clickInPage(savedDetails.getByRole("button", { name: /^load$/i }));
   await closeCatalogIfNeeded(page);
   await expect(previewListitem(page, /bollsidan/i)).toBeVisible({ timeout: 10_000 });
 });

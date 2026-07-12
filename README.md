@@ -148,24 +148,24 @@ Illustrative meshes only — see [`public/models/ATTRIBUTION.md`](public/models/
 
 ## Scripts
 
-| Command                                  | Description                                                                               |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `pnpm dev`                               | Next.js development server                                                                |
-| `pnpm build` / `pnpm start`              | Production build and server (Storybook → `/storybook/` on Vercel / `INCLUDE_STORYBOOK=1`) |
-| `pnpm prepare-storybook`                 | Force-build Storybook into `public/storybook` for local `pnpm start`                      |
-| `pnpm analyze`                           | Production build with bundle analyzer                                                     |
-| `pnpm check`                             | Format check, lint, typecheck, unit tests                                                 |
-| `pnpm format` / `pnpm format:check`      | Oxfmt                                                                                     |
-| `pnpm lint`                              | Oxlint                                                                                    |
-| `pnpm typecheck`                         | `tsc --noEmit`                                                                            |
-| `pnpm test:unit`                         | Vitest unit tests                                                                         |
-| `pnpm test:coverage`                     | Unit tests with coverage                                                                  |
-| `pnpm test:storybook` / `pnpm test:a11y` | Storybook component + axe a11y tests                                                      |
-| `pnpm test:e2e`                          | Playwright (chromium + mobile Chrome); needs `pnpm build` first when `CI=true`            |
-| `pnpm test:e2e:ui`                       | Playwright UI mode                                                                        |
-| `pnpm test:lighthouse`                   | Lighthouse CI on `/en` + `/en/checkout` (skips WebGL setup-builder)                       |
-| `pnpm storybook`                         | Storybook on [http://localhost:6006](http://localhost:6006)                               |
-| `pnpm build-storybook`                   | Static Storybook build                                                                    |
+| Command                                  | Description                                                                                 |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `pnpm dev`                               | Next.js development server                                                                  |
+| `pnpm build` / `pnpm start`              | Production build and server (Storybook → `/storybook/` on Vercel / `INCLUDE_STORYBOOK=1`)   |
+| `pnpm prepare-storybook`                 | Force-build Storybook into `public/storybook` for local `pnpm start`                        |
+| `pnpm analyze`                           | Production build with bundle analyzer                                                       |
+| `pnpm check`                             | Format check, lint, typecheck, unit tests                                                   |
+| `pnpm format` / `pnpm format:check`      | Oxfmt                                                                                       |
+| `pnpm lint`                              | Oxlint                                                                                      |
+| `pnpm typecheck`                         | `tsc --noEmit`                                                                              |
+| `pnpm test:unit`                         | Vitest unit tests                                                                           |
+| `pnpm test:coverage`                     | Unit tests with coverage                                                                    |
+| `pnpm test:storybook` / `pnpm test:a11y` | Storybook component + axe a11y tests                                                        |
+| `pnpm test:e2e`                          | Playwright (chromium; mobile Chrome locally + on `main`); needs `pnpm build` when `CI=true` |
+| `pnpm test:e2e:ui`                       | Playwright UI mode                                                                          |
+| `pnpm test:lighthouse`                   | Lighthouse CI on `/en` + `/en/checkout` (skips WebGL setup-builder)                         |
+| `pnpm storybook`                         | Storybook on [http://localhost:6006](http://localhost:6006)                                 |
+| `pnpm build-storybook`                   | Static Storybook build                                                                      |
 
 ## Stack
 
@@ -203,7 +203,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
   - **Quality** — format, lint, typecheck, unit
   - **Storybook** — component/a11y tests + static build artifact
   - **Build** — production `next build` (after Quality); `.next` shared downstream
-  - **E2E** / **Lighthouse** — reuse the build artifact (no second compile); E2E runs as 4 shards × 1 worker
+  - **E2E** / **Lighthouse** — reuse the build artifact (no second compile); E2E runs as 4 shards × 1 worker (chromium on PRs; mobile Chrome on `main`, or `E2E_MOBILE=1`)
   - **All checks** — aggregate gate for branch protection (require this one status)
 
 ## Git hooks

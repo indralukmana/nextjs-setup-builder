@@ -1,8 +1,16 @@
-import type { Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 function presetCombobox(page: Page) {
   return page.locator("#setup-preset");
+}
+
+/**
+ * In-page click that must not wait on App Router / history URL sync "navigations".
+ * CI flakes often show: click action done → waiting for scheduled navigations.
+ */
+export async function clickInPage(locator: Locator, options?: Parameters<Locator["click"]>[0]) {
+  await locator.click({ noWaitAfter: true, ...options });
 }
 
 /** Mobile hides the catalog rail behind a sheet; open it when needed. */
@@ -12,7 +20,7 @@ export async function openCatalogIfNeeded(page: Page) {
   }
   const openButton = page.getByRole("button", { name: /^(catalog|katalog)$/i });
   await expect(openButton).toBeVisible({ timeout: 15_000 });
-  await openButton.click();
+  await clickInPage(openButton);
   await expect(page.getByRole("dialog")).toBeVisible({ timeout: 15_000 });
   await expect(presetCombobox(page)).toBeVisible({ timeout: 15_000 });
 }
@@ -23,10 +31,9 @@ export async function closeCatalogIfNeeded(page: Page) {
   if (!(await dialog.isVisible())) {
     return;
   }
-  await dialog
-    .locator("div.border-b")
-    .getByRole("button", { name: /^(close|tutup|schließen)$/i })
-    .click();
+  await clickInPage(
+    dialog.locator("div.border-b").getByRole("button", { name: /^(close|tutup|schließen)$/i }),
+  );
   await expect(dialog).toHaveCount(0);
 }
 
@@ -38,16 +45,12 @@ export async function waitForSetupUrl(page: Page) {
   });
 }
 
-async function chooseSelectOption(
-  page: Page,
-  trigger: ReturnType<Page["getByRole"]>,
-  optionName: RegExp,
-) {
+async function chooseSelectOption(page: Page, trigger: Locator, optionName: RegExp) {
   await expect(trigger).toBeVisible();
-  await trigger.click();
+  await clickInPage(trigger);
   const option = page.getByRole("option", { name: optionName });
   await expect(option).toBeVisible();
-  await option.click();
+  await clickInPage(option);
 }
 
 export async function selectPreset(page: Page, presetName: RegExp) {
@@ -72,6 +75,6 @@ export async function goToCheckout(page: Page) {
   await closeCatalogIfNeeded(page);
   const review = page.getByRole("link", { name: /review rental/i });
   await expect(review).toBeVisible();
-  await review.click();
+  await clickInPage(review);
   await expect(page).toHaveURL(/\/(?:en|id|de)\/checkout/, { timeout: 20_000 });
 }

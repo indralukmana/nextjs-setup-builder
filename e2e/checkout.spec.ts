@@ -1,11 +1,11 @@
-import { expect, test } from "@playwright/test";
-
 import {
+  clickInPage,
   closeCatalogIfNeeded,
   goToCheckout,
   openCatalogIfNeeded,
   waitForSetupUrl,
 } from "./helpers";
+import { expect, test } from "./fixtures";
 
 test("checkout shows summary and rental form", async ({ page }) => {
   await page.goto("/en/setup-builder");
@@ -23,7 +23,7 @@ test("checkout shows summary and rental form", async ({ page }) => {
 test("checkout validation blocks empty contact fields", async ({ page }) => {
   await page.goto("/en/checkout");
 
-  await page.getByRole("button", { name: /request rental/i }).click();
+  await clickInPage(page.getByRole("button", { name: /request rental/i }));
 
   await expect(page.getByText(/enter your full name/i)).toBeVisible();
   await expect(page.getByText(/enter a valid email/i)).toBeVisible();
@@ -40,7 +40,7 @@ test("checkout submits rental request with contact details", async ({ page }) =>
   await page.getByRole("textbox", { name: /email/i }).fill("indra@example.com");
   await page.locator("#rental-phone").fill("81234567890");
   await expect(page.locator("#rental-whatsapp")).toBeDisabled();
-  await page.getByRole("button", { name: /request rental/i }).click();
+  await clickInPage(page.getByRole("button", { name: /request rental/i }));
 
   await expect(page.getByText(/rental request sent/i)).toBeVisible();
   await expect(page.getByText(/thanks indra/i)).toBeVisible();
@@ -56,7 +56,7 @@ test("clear setup shows empty checkout form", async ({ page }) => {
   await openCatalogIfNeeded(page);
 
   page.once("dialog", (dialog) => dialog.accept());
-  await page.getByRole("button", { name: /clear all/i }).click();
+  await clickInPage(page.getByRole("button", { name: /clear all/i }));
   await expect(page).toHaveURL(/monitors=0/, { timeout: 10_000 });
   await expect(page.locator("html")).toHaveAttribute("data-setup-url-synced", "true");
   await closeCatalogIfNeeded(page);

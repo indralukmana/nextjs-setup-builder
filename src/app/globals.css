@@ -168,3 +168,24 @@
     animation: none !important;
   }
 }
+
+/* Playwright marks <html data-e2e> via e2e/fixtures.ts init script. */
+html[data-e2e="true"] *,
+html[data-e2e="true"] *::before,
+html[data-e2e="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-e2e="true"] .animate-pulse {
+  animation: none !important;
+}
+
+/* Keep WebGL from stealing hits / soaking the main thread during pointer checks. */
+html[data-e2e="true"] [aria-label="Interactive 3D scene of your monis setup"],
+html[data-e2e="true"] [aria-label="Interactive 3D scene of your monis setup"] canvas {
+  pointer-events: none !important;
+}

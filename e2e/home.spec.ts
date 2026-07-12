@@ -1,11 +1,12 @@
-import { expect, test } from "@playwright/test";
+import { clickInPage } from "./helpers";
+import { expect, test } from "./fixtures";
 
 test("home loads and navigates to setup builder", async ({ page }) => {
   await page.goto("/en");
 
   await expect(page.getByRole("heading", { name: /build your bali workspace/i })).toBeVisible();
 
-  await page.getByRole("link", { name: /start building/i }).click();
+  await clickInPage(page.getByRole("link", { name: /start building/i }));
   await expect(page).toHaveURL(/\/en\/setup-builder/);
 });
 
@@ -14,7 +15,7 @@ test("Indonesian home loads and navigates to setup builder", async ({ page }) =>
 
   await expect(page.getByRole("heading", { name: /bangun workspace bali anda/i })).toBeVisible();
 
-  await page.getByRole("link", { name: /mulai membangun/i }).click();
+  await clickInPage(page.getByRole("link", { name: /mulai membangun/i }));
   await expect(page).toHaveURL(/\/id\/setup-builder/);
   await expect(page.getByRole("heading", { name: /setup builder/i })).toBeAttached();
 });
