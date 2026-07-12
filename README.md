@@ -230,3 +230,4 @@ See [`AGENTS.md`](AGENTS.md) for naming, i18n (`@/i18n/navigation`), env access 
 - Improve test coverage and E2E cases.
 - Add analytics and monitoring, Sentry, PostHog, etc
 - Think about lighthouse artifacts setup currently just basic export and artifact on ci
+- Add in-app walkthroughs/product tours
