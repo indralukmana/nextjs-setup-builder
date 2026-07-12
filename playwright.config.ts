@@ -26,7 +26,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: isCi ? "pnpm build && pnpm start" : "pnpm dev",
+    // CI jobs build once and reuse the `.next` artifact; local uses the dev server.
+    command: isCi ? "pnpm start" : "pnpm dev",
     url: "http://localhost:3000",
     reuseExistingServer: !isCi,
     timeout: 180_000,

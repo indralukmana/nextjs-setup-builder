@@ -23,7 +23,9 @@ module.exports = {
       },
     },
     upload: {
-      target: "temporary-public-storage",
+      // Keep reports local; CI uploads `.lighthouseci/` as an artifact.
+      target: "filesystem",
+      outputDir: ".lighthouseci",
     },
   },
 };
