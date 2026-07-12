@@ -91,7 +91,8 @@
       "load": "Load",
       "delete": "Delete",
       "empty": "No saved setups yet (max 3).",
-      "prompt": "Name this setup",
+      "nameLabel": "Setup name",
+      "namePlaceholder": "Name this setup",
       "full": "You already have {max} saved setups. Delete one first.",
       "emptyName": "Enter a name to save."
     }

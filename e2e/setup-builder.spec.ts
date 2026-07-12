@@ -99,7 +99,7 @@ test("saved setups can restore a desk after reset", async ({ page }) => {
     /electrical adjustable desk/i,
   );
 
-  page.once("dialog", (dialog) => dialog.accept("My essentials"));
+  await page.getByLabel(/setup name/i).fill("My essentials");
   await page.getByRole("button", { name: /save current/i }).click();
   await expect(page.getByText("My essentials")).toBeVisible();
 
