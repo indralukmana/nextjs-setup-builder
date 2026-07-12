@@ -131,6 +131,7 @@
     "title": "Checkout",
     "subtitle": "Konfirmasi setup Anda, pilih durasi sewa, dan minta pengiriman.",
     "summaryHeading": "Setup Anda",
+    "contactHeading": "Data Anda",
     "weeklyLabel": "Mingguan",
     "emptySummary": "Belum ada produk di setup ini.",
     "emptyForm": "Tambahkan meja dan kursi di setup builder sebelum mengajukan sewa.",

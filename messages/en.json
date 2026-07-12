@@ -131,6 +131,7 @@
     "title": "Checkout",
     "subtitle": "Confirm your setup, choose a rental length, and request delivery.",
     "summaryHeading": "Your setup",
+    "contactHeading": "Your details",
     "weeklyLabel": "Weekly",
     "emptySummary": "No products in this setup yet.",
     "emptyForm": "Add a desk and chair in the setup builder before requesting a rental.",

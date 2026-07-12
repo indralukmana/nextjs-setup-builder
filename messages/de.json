@@ -131,6 +131,7 @@
     "title": "Checkout",
     "subtitle": "Bestätige dein Setup, wähle die Mietdauer und fordere die Lieferung an.",
     "summaryHeading": "Dein Setup",
+    "contactHeading": "Deine Angaben",
     "weeklyLabel": "Wöchentlich",
     "emptySummary": "Noch keine Produkte in diesem Setup.",
     "emptyForm": "Füge im Setup Builder einen Schreibtisch und Stuhl hinzu, bevor du eine Miete anforderst.",

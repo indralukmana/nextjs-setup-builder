@@ -60,7 +60,7 @@ export function RentalRequestPanel() {
 
   return (
     <form
-      className="flex flex-col gap-6 rounded-xl border bg-white/50 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
+      className="border-border/80 flex flex-col gap-6 rounded-xl border bg-background/70 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] sm:p-6"
       noValidate
       onSubmit={(event) => {
         event.preventDefault();
@@ -106,21 +106,24 @@ export function RentalRequestPanel() {
         })();
       }}
     >
-      <RentalContactFields
-        values={state.contact}
-        errors={state.attempted ? state.errors : {}}
-        labels={{
-          name: t("fields.name"),
-          email: t("fields.email"),
-          phone: t("fields.phone"),
-          namePlaceholder: t("fields.namePlaceholder"),
-          emailPlaceholder: t("fields.emailPlaceholder"),
-          phonePlaceholder: t("fields.phonePlaceholder"),
-        }}
-        onChange={(field, value) => {
-          dispatch({ type: "fieldChange", field, value, messages: validationMessages });
-        }}
-      />
+      <div className="flex flex-col gap-4">
+        <h2 className="font-heading text-lg tracking-tight">{t("contactHeading")}</h2>
+        <RentalContactFields
+          values={state.contact}
+          errors={state.attempted ? state.errors : {}}
+          labels={{
+            name: t("fields.name"),
+            email: t("fields.email"),
+            phone: t("fields.phone"),
+            namePlaceholder: t("fields.namePlaceholder"),
+            emailPlaceholder: t("fields.emailPlaceholder"),
+            phonePlaceholder: t("fields.phonePlaceholder"),
+          }}
+          onChange={(field, value) => {
+            dispatch({ type: "fieldChange", field, value, messages: validationMessages });
+          }}
+        />
+      </div>
       <RentalDurationPicker
         label={t("durationLabel")}
         value={rentalWeeks}
