@@ -5,8 +5,14 @@ import {
   isValidRentalSetup,
   rentalRequestSchema,
 } from "@/lib/rental-request";
+import { clientKeyFromRequest, rentalRequestsRateLimiter } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
+  const clientKey = clientKeyFromRequest(request);
+  if (!rentalRequestsRateLimiter.allow(clientKey)) {
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();

@@ -26,6 +26,11 @@ export const webVitalsRateLimiter = createRateLimiter({
   windowMs: 60_000,
 });
 
+export const rentalRequestsRateLimiter = createRateLimiter({
+  limit: 20,
+  windowMs: 60_000,
+});
+
 export function clientKeyFromRequest(request: Request) {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {

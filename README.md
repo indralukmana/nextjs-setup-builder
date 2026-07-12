@@ -7,12 +7,17 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 ## Features
 
 - **Live SVG workspace preview** — layered desk / chair / monitors / accessories that update as you select products
-- **Catalog + presets** — desks, chairs, monitors, lamp, plant, peripherals, webcam, whiteboard, power strip; one-click **Essentials**, **Focus**, and **Creator** presets
+- **Catalog + presets** — desks, chairs, monitors, lamp, plant, peripherals, webcam, whiteboard, power strip; one-click **Essentials**, **Focus**, and **Creator** presets (each shows weekly total)
 - **Shareable setup URLs** — selection syncs to query params (`desk`, `chair`, `accessories`, `weeks`); opening a link restores that setup (URL wins over localStorage)
+- **Share / copy link** — `navigator.share` when available, otherwise clipboard
+- **Named saved setups** — up to 3 named setups in `localStorage` (`monis-saved-setups`)
+- **Reset / clear** — reset restores defaults; clear empties the session setup (empty checkout CTA)
+- **Duration on the builder** — 1 / 4 / 12 weeks on the sticky summary (synced to the URL)
 - **Persisted builder state** — Zustand + `localStorage` (`monis-setup-builder`)
-- **Checkout contact capture** — name, email, WhatsApp-friendly phone with zod validation; mock “request sent” success (no Stripe / messaging)
+- **Checkout contact capture** — name, email, WhatsApp-friendly phone with zod validation; `POST /api/rental-requests` returns a request id (structured log, rate-limited)
+- **Locale money** — `en` shows USD; `id` shows IDR via fixed display rate (`USD_TO_IDR = 16000` in [`src/lib/pricing.ts`](src/lib/pricing.ts)); catalog prices stay USD-week units
 - **Bilingual UI** — English and Indonesian (`en`, `id`) via next-intl
-- **Web vitals sink** — browser metrics → `POST /api/web-vitals` (validated, structured logs, optional webhook)
+- **Web vitals sink** — browser metrics → `POST /api/web-vitals` (validated, structured logs, rate-limited, optional webhook)
 
 ## Quick start
 
@@ -38,8 +43,8 @@ pnpm exec playwright install
 | Route               | What to try                                                        |
 | ------------------- | ------------------------------------------------------------------ |
 | `/en` or `/id`      | Marketing home — hero, how it works, jump into the builder         |
-| `/en/setup-builder` | Pick products, apply a preset, watch the preview + sticky summary  |
-| `/en/checkout`      | Confirm setup, fill contact fields, submit the mock rental request |
+| `/en/setup-builder` | Presets, save/load setups, share link, duration, preview + summary |
+| `/en/checkout`      | Contact form, Bali delivery note, mock rental request + request id |
 | Storybook `:6006`   | Component gallery + axe a11y (`pnpm storybook`)                    |
 
 ### Shareable setup example
@@ -69,42 +74,51 @@ Defined in [`src/data/catalog.ts`](src/data/catalog.ts); display copy lives in [
 
 Presets: [`src/data/presets.ts`](src/data/presets.ts) (`essentials`, `focus`, `creator`).
 
+### APIs
+
+| Endpoint                    | Behavior                                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------------------- |
+| `POST /api/rental-requests` | Zod-validated contact + setup; returns `{ requestId }`; structured `console.info`; ~20 req/min/IP |
+| `POST /api/web-vitals`      | Zod-validated metrics; structured log; ~60 req/min/IP; optional webhook                           |
+
 ## Project map
 
 ```text
 src/
   app/
-    [locale]/          # Home, setup-builder, checkout (App Router)
-    api/web-vitals/    # Metric ingestion
-    og/                # Dynamic OG image
+    [locale]/             # Home, setup-builder, checkout (App Router)
+    api/rental-requests/   # Mock rental ingestion
+    api/web-vitals/        # Metric ingestion
+    og/                    # Dynamic OG image
   components/
-    home/              # Landing sections
-    setup-builder/     # Catalog, preview layers, presets, URL sync
-    checkout/          # Summary + rental form
-    analytics/         # Client web-vitals reporter
-    seo/               # JSON-LD helpers
-    ui/                # shadcn (Base UI) primitives
-  data/                # Catalog + presets (static for now)
-  store/               # Zustand setup-builder store
-  lib/                 # Pricing, catalog-api seam, setup-url, rental-request, web-vitals
-  i18n/                # next-intl routing + navigation
+    home/                  # Landing sections
+    setup-builder/         # Catalog, preview, presets, URL sync, saved setups
+    checkout/              # Summary + rental request panel
+    analytics/             # Client web-vitals reporter
+    seo/                   # JSON-LD helpers
+    ui/                    # shadcn (Base UI) primitives
+  data/                    # Catalog + presets (static for now)
+  store/                   # Zustand setup-builder store
+  lib/                     # Pricing, catalog-api, setup-url, rental-request, saved-setups, rate-limit
+  i18n/
   hooks/
-messages/              # en.json, id.json
-e2e/                   # Playwright smoke tests
-.storybook/            # Storybook + vitest a11y project
+messages/                  # en.json, id.json
+e2e/
+.storybook/
 ```
 
 ### Where to look first
 
-| Goal                          | Start here                                     |
-| ----------------------------- | ---------------------------------------------- |
-| Change products / prices      | `src/data/catalog.ts`, `messages/*/Catalog`    |
-| Add a preview SVG             | `src/components/setup-builder/preview-layers/` |
-| Builder selection logic       | `src/store/setup-builder-store.ts`             |
-| Share / restore URLs          | `src/lib/setup-url.ts`, `setup-url-sync.tsx`   |
-| Checkout validation           | `src/lib/rental-request.ts`, `rental-form.tsx` |
-| Swap catalog for an API later | `src/lib/catalog-api.ts`                       |
-| Agent / contributor rules     | [`AGENTS.md`](AGENTS.md)                       |
+| Goal                          | Start here                                           |
+| ----------------------------- | ---------------------------------------------------- |
+| Change products / prices      | `src/data/catalog.ts`, `messages/*/Catalog`          |
+| Add a preview SVG             | `src/components/setup-builder/preview-layers/`       |
+| Builder selection logic       | `src/store/setup-builder-store.ts`                   |
+| Share / restore URLs          | `src/lib/setup-url.ts`, `setup-url-sync.tsx`         |
+| Saved setups                  | `src/lib/saved-setups.ts`, `saved-setups.tsx`        |
+| Checkout form state           | `rental-request-panel.tsx`, `rental-form-reducer.ts` |
+| Swap catalog for an API later | `src/lib/catalog-api.ts`                             |
+| Agent / contributor rules     | [`AGENTS.md`](AGENTS.md)                             |
 
 ## Scripts
 
@@ -155,8 +169,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ## Testing notes
 
-- **Unit:** pricing, store sanitize, setup URL parse/serialize, rental + web-vitals schemas — `pnpm test:unit`
-- **E2E:** home, setup-builder (including shareable URL + presets), checkout validation/submit — `pnpm test:e2e`
+- **Unit:** pricing, store, setup URL, rental/web-vitals schemas, saved setups, form reducer — `pnpm test:unit`
+- **E2E:** home (en/id), setup-builder (URL, presets, share, saved setups), checkout (validation, submit, clear empty) — `pnpm test:e2e`
 - **A11y:** Storybook stories fail on axe `error` severity — `pnpm test:a11y`
 - CI workflow: [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
 
@@ -177,4 +191,3 @@ See [`AGENTS.md`](AGENTS.md) for naming, i18n (`@/i18n/navigation`), env access 
 
 - Real payments (Stripe) or live email / WhatsApp delivery
 - Production monis product photography (SVG illustrations stand in)
-- Publishing / deploy configuration beyond local + CI checks
