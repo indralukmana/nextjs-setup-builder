@@ -4,10 +4,21 @@ Interactive workspace designer for [monis.rent](https://www.monis.rent) — comp
 
 Built for the Desent Solutions challenge: a polished Next.js product surface with i18n, accessibility, and shareable setups.
 
+## Submission
+
+- **Live:** TBD (Vercel production URL)
+- **GitHub:** [indralukmana/nextjs-setup-builder](https://github.com/indralukmana/nextjs-setup-builder)
+
+## Approach
+
+Digital nomads landing in Bali don’t want a spreadsheet of SKUs — they want to build a workspace they can picture, get excited about, and rent. This app centers that flow: pick a desk and chair, layer on monitors and accessories, watch a live 3D preview update, then move to a checkout summary and contact form.
+
+Stack choices favor a fast, maintainable MVP: Next.js App Router + Tailwind, Zustand for persisted selection, React Three Fiber for the scene, next-intl for en/de/id, and TanStack Form + zod for rental requests. With more time, see the section at the end of this README.
+
 ## Features
 
 - **Live 3D workspace preview** — React Three Fiber scene in the builder updates as you select products (IKEA-style demo GLBs)
-- **Catalog + presets** — desks, chairs, monitors, lamp, plant, peripherals, webcam, whiteboard, power strip; one-click **Essentials**, **Focus**, and **Creator** presets (each shows weekly total)
+- **Catalog + presets** — 3 desks, 3 chairs, monitors (0–3), 2 lamps, accessories stand, drawer unit; one-click **Essentials**, **Focus**, and **Creator** presets (each shows weekly total)
 - **Shareable setup URLs** — selection syncs to query params (`desk`, `chair`, `accessories`, `weeks`); opening a link restores that setup (URL wins over localStorage)
 - **Share / copy link** — `navigator.share` when available, otherwise clipboard
 - **Named saved setups** — up to 3 named setups in `localStorage` (`monis-saved-setups`)
@@ -182,7 +193,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ## Testing notes
 
-- **Unit:** pricing, store, setup URL, rental/web-vitals schemas, saved setups, form reducer — `pnpm test:unit`
+- **Unit:** pricing, store, setup URL, rental/web-vitals schemas, saved setups — `pnpm test:unit`
 - **E2E:** home (en/de/id), setup-builder (URL, presets, share, saved setups), checkout (validation, submit, clear empty) — `pnpm test:e2e`
 - **A11y:** Storybook stories fail on axe `error` severity — `pnpm test:a11y`
 - **CI:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — parallel jobs:
@@ -205,7 +216,8 @@ Do not use `--no-verify` unless explicitly approved.
 
 See [`AGENTS.md`](AGENTS.md) for naming, i18n (`@/i18n/navigation`), env access (`@/env`), and UI patterns. Feature name is always **setup-builder** (not “designer”).
 
-## Out of scope (for now)
+## With more time
 
-- Real payments (Stripe) or live email / WhatsApp delivery
-- Production monis product photography (SVG illustrations stand in)
+- Real payments (Stripe) or live email / WhatsApp delivery of rental requests
+- Lifestyle accessories from the challenge sketch (plants, coffee station, and similar desk-side extras)
+- Drag-to-place positioning on the desk instead of fixed accessory slots
