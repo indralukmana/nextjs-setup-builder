@@ -16,6 +16,7 @@
 /test-results/
 /blob-report/
 /storybook-static/
+/public/storybook/
 /.lighthouseci/
 
 # next.js

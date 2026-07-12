@@ -5,5 +5,6 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+  // Skip locale routing for Storybook static files under /storybook.
+  matcher: "/((?!api|trpc|_next|_vercel|storybook|.*\\..*).*)",
 };

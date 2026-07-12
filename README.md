@@ -7,6 +7,7 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 ## Submission
 
 - **Live:** [https://nextjs-setup-builder.vercel.app](https://nextjs-setup-builder.vercel.app)
+- **Storybook:** [https://nextjs-setup-builder.vercel.app/storybook](https://nextjs-setup-builder.vercel.app/storybook)
 - **GitHub:** [indralukmana/nextjs-setup-builder](https://github.com/indralukmana/nextjs-setup-builder)
 
 ## Approach
@@ -56,7 +57,8 @@ pnpm exec playwright install
 | `/en`, `/de`, or `/id` | Marketing home — hero, how it works, jump into the builder            |
 | `/en/setup-builder`    | Presets, save/load setups, share link, duration, 3D preview + summary |
 | `/en/checkout`         | Contact form, Bali delivery note, mock rental request + request id    |
-| Storybook `:6006`      | Component gallery + axe a11y (`pnpm storybook`)                       |
+| `/storybook`           | Static Storybook gallery (built into production / Vercel deploys)     |
+| Storybook `:6006`      | Local Storybook + axe a11y (`pnpm storybook`)                         |
 
 ### Shareable setup example
 
@@ -146,23 +148,24 @@ Illustrative meshes only — see [`public/models/ATTRIBUTION.md`](public/models/
 
 ## Scripts
 
-| Command                                  | Description                                                                    |
-| ---------------------------------------- | ------------------------------------------------------------------------------ |
-| `pnpm dev`                               | Next.js development server                                                     |
-| `pnpm build` / `pnpm start`              | Production build and server                                                    |
-| `pnpm analyze`                           | Production build with bundle analyzer                                          |
-| `pnpm check`                             | Format check, lint, typecheck, unit tests                                      |
-| `pnpm format` / `pnpm format:check`      | Oxfmt                                                                          |
-| `pnpm lint`                              | Oxlint                                                                         |
-| `pnpm typecheck`                         | `tsc --noEmit`                                                                 |
-| `pnpm test:unit`                         | Vitest unit tests                                                              |
-| `pnpm test:coverage`                     | Unit tests with coverage                                                       |
-| `pnpm test:storybook` / `pnpm test:a11y` | Storybook component + axe a11y tests                                           |
-| `pnpm test:e2e`                          | Playwright (chromium + mobile Chrome); needs `pnpm build` first when `CI=true` |
-| `pnpm test:e2e:ui`                       | Playwright UI mode                                                             |
-| `pnpm test:lighthouse`                   | Lighthouse CI against local production                                         |
-| `pnpm storybook`                         | Storybook on [http://localhost:6006](http://localhost:6006)                    |
-| `pnpm build-storybook`                   | Static Storybook build                                                         |
+| Command                                  | Description                                                                               |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `pnpm dev`                               | Next.js development server                                                                |
+| `pnpm build` / `pnpm start`              | Production build and server (Storybook → `/storybook/` on Vercel / `INCLUDE_STORYBOOK=1`) |
+| `pnpm prepare-storybook`                 | Force-build Storybook into `public/storybook` for local `pnpm start`                      |
+| `pnpm analyze`                           | Production build with bundle analyzer                                                     |
+| `pnpm check`                             | Format check, lint, typecheck, unit tests                                                 |
+| `pnpm format` / `pnpm format:check`      | Oxfmt                                                                                     |
+| `pnpm lint`                              | Oxlint                                                                                    |
+| `pnpm typecheck`                         | `tsc --noEmit`                                                                            |
+| `pnpm test:unit`                         | Vitest unit tests                                                                         |
+| `pnpm test:coverage`                     | Unit tests with coverage                                                                  |
+| `pnpm test:storybook` / `pnpm test:a11y` | Storybook component + axe a11y tests                                                      |
+| `pnpm test:e2e`                          | Playwright (chromium + mobile Chrome); needs `pnpm build` first when `CI=true`            |
+| `pnpm test:e2e:ui`                       | Playwright UI mode                                                                        |
+| `pnpm test:lighthouse`                   | Lighthouse CI against local production                                                    |
+| `pnpm storybook`                         | Storybook on [http://localhost:6006](http://localhost:6006)                               |
+| `pnpm build-storybook`                   | Static Storybook build                                                                    |
 
 ## Stack
 

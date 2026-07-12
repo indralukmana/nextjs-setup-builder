@@ -5,9 +5,10 @@
   "scripts": {
     "prepare": "lefthook install || true",
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/prepare-storybook-public.mjs && next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
+    "prepare-storybook": "node scripts/prepare-storybook-public.mjs --force",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
     "format": "oxfmt .",
