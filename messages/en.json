@@ -64,11 +64,15 @@
     "reviewRental": "Review rental",
     "copyLink": "Copy setup link",
     "copyLinkCopied": "Copied",
+    "shareLink": "Share setup",
+    "shareLinkShared": "Shared",
+    "shareTitle": "My monis setup",
     "resetSetup": "Reset setup",
     "durationLabel": "Rental duration",
     "weeksOption": "{count} wk",
     "presets": {
       "label": "Quick presets",
+      "weekly": "{amount}/week",
       "essentials": {
         "name": "Essentials"
       },

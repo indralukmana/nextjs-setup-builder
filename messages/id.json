@@ -64,11 +64,15 @@
     "reviewRental": "Tinjau sewa",
     "copyLink": "Salin tautan setup",
     "copyLinkCopied": "Disalin",
+    "shareLink": "Bagikan setup",
+    "shareLinkShared": "Dibagikan",
+    "shareTitle": "Setup monis saya",
     "resetSetup": "Reset setup",
     "durationLabel": "Durasi sewa",
     "weeksOption": "{count} mg",
     "presets": {
       "label": "Preset cepat",
+      "weekly": "{amount}/minggu",
       "essentials": {
         "name": "Essentials"
       },

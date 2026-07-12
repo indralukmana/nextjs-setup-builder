@@ -68,16 +68,28 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
   await expect(page).toHaveURL(/desk=desk-electric/);
 });
 
+test("presets show weekly totals and copy link still works", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/en/setup-builder");
+  await expect(page).toHaveURL(/desk=/);
+
+  await expect(page.getByText(/\$\d+\/week/i).first()).toBeVisible();
+
+  const shareOrCopy = page.getByRole("button", { name: /copy setup link|share setup/i });
+  await shareOrCopy.click();
+  await expect(page.getByRole("button", { name: /^(copied|shared)$/i })).toBeVisible();
+});
+
 test("Indonesian locale shows IDR prices and copy link feedback", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/id/setup-builder");
 
   await expect(page.getByText(/Rp/).first()).toBeVisible();
 
-  const copy = page.getByRole("button", { name: /salin tautan setup/i });
+  const copy = page.getByRole("button", { name: /salin tautan setup|bagikan setup/i });
   await expect(page).toHaveURL(/desk=/);
   await copy.click();
-  await expect(page.getByRole("button", { name: /^disalin$/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^(disalin|dibagikan)$/i })).toBeVisible();
 });
 
 test("shareable URL hydrates setup and essentials preset applies", async ({ page }) => {
