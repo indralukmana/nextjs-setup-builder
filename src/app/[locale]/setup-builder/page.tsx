@@ -49,7 +49,7 @@ export default async function SetupBuilderPage({ params }: Props) {
         <SetupUrlSync />
       </Suspense>
       <div className={BUILDER_SHELL}>
-        <SetupBuilderWorkspace title={t("title")} setupSceneLabel={t("setupSceneLink")} />
+        <SetupBuilderWorkspace title={t("title")} />
       </div>
     </>
   );

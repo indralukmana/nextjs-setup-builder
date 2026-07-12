@@ -8,15 +8,13 @@ import { SetupSelectionChips } from "@/components/setup-builder/setup-selection-
 import { SummaryBar } from "@/components/setup-builder/summary-bar";
 import { SetupScenePreview } from "@/components/setup-scene/setup-scene-preview";
 import { buttonVariants } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 type Props = {
   title: string;
-  setupSceneLabel: string;
 };
 
-export function SetupBuilderWorkspace({ title, setupSceneLabel }: Props) {
+export function SetupBuilderWorkspace({ title }: Props) {
   const t = useTranslations("SetupBuilder.catalogSheet");
   const [catalogOpen, setCatalogOpen] = useState(false);
 
@@ -38,19 +36,10 @@ export function SetupBuilderWorkspace({ title, setupSceneLabel }: Props) {
             className="absolute inset-0 flex min-h-0 flex-col"
             canvasClassName="h-full min-h-0 flex-1 rounded-xl border"
           />
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-3 p-3">
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start p-3">
             <h1 className="font-heading bg-background/80 pointer-events-auto max-w-[min(100%,18rem)] truncate rounded-lg px-2.5 py-1.5 text-lg tracking-tight shadow-sm backdrop-blur sm:text-xl">
               {title}
             </h1>
-            <Link
-              href="/setup-scene"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "pointer-events-auto shrink-0 bg-background/80 shadow-sm backdrop-blur",
-              )}
-            >
-              {setupSceneLabel}
-            </Link>
           </div>
           <SetupSelectionChips className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-3" />
         </div>

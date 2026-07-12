@@ -7,9 +7,7 @@
     "setupBuilderTitle": "Setup Builder",
     "setupBuilderDescription": "Wähle Schreibtische, Stühle und Zubehör mit Live-3D-Vorschau deines Bali-Mietsetups.",
     "checkoutTitle": "Checkout",
-    "checkoutDescription": "Prüfe dein monis-Arbeitsplatz-Setup, wähle die Mietdauer und fordere die Lieferung an.",
-    "setupSceneTitle": "3D-Setup-Szene",
-    "setupSceneDescription": "Orbitiere eine zusammengestellte 3D-Szene aus Schreibtisch, Stuhl und Zubehör aus dem Setup Builder."
+    "checkoutDescription": "Prüfe dein monis-Arbeitsplatz-Setup, wähle die Mietdauer und fordere die Lieferung an."
   },
   "Home": {
     "brand": "monis",
@@ -119,8 +117,7 @@
       "namePlaceholder": "Setup benennen",
       "full": "Du hast bereits {max} gespeicherte Setups. Lösche zuerst eines.",
       "emptyName": "Gib einen Namen zum Speichern ein."
-    },
-    "setupSceneLink": "Volle Szene öffnen"
+    }
   },
   "Checkout": {
     "title": "Checkout",
@@ -178,21 +175,13 @@
     "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
-    "setupScene": "3D-Szene",
-    "setupSceneShort": "3D",
     "checkout": "Checkout",
     "checkoutShort": "Mieten",
     "skipToContent": "Zum Inhalt springen"
   },
   "SetupScene": {
-    "title": "3D-Setup-Szene",
-    "subtitle": "Dein gewählter Schreibtisch, Stuhl und Ausrüstung in einer orbitierbaren Szene.",
     "loading": "3D-Szene wird geladen",
-    "editSetup": "Setup bearbeiten",
-    "continueCheckout": "Weiter zum Checkout",
-    "emptyHint": "Noch keine Artikel ausgewählt — öffne den Builder, um einen Arbeitsplatz zu gestalten.",
-    "disclaimer": "Demo-Szene nutzt IKEA-ähnliche Produkt-GLBs und ein Gaming-Monitor-Mesh — nur zur Veranschaulichung, keine offiziellen Monis-Produkt-Scans.",
-    "controlsHint": "Ziehen zum Orbitieren, scrollen zum Zoomen. Ändere Schreibtisch/Stuhl/Zubehör im Builder, um andere Kombinationen zu sehen."
+    "emptyHint": "Noch keine Artikel ausgewählt — öffne den Builder, um einen Arbeitsplatz zu gestalten."
   },
   "Catalog": {
     "select": "Auswählen",

@@ -7,9 +7,7 @@
     "setupBuilderTitle": "Setup Builder",
     "setupBuilderDescription": "Pick desks, chairs, and accessories with a live 3D preview of your Bali rental setup.",
     "checkoutTitle": "Checkout",
-    "checkoutDescription": "Review your monis workspace setup, choose a rental duration, and request delivery.",
-    "setupSceneTitle": "3D setup scene",
-    "setupSceneDescription": "Orbit a composed 3D scene of your desk, chair, and accessories from the setup builder."
+    "checkoutDescription": "Review your monis workspace setup, choose a rental duration, and request delivery."
   },
   "Home": {
     "brand": "monis",
@@ -119,8 +117,7 @@
       "namePlaceholder": "Name this setup",
       "full": "You already have {max} saved setups. Delete one first.",
       "emptyName": "Enter a name to save."
-    },
-    "setupSceneLink": "Open full scene"
+    }
   },
   "Checkout": {
     "title": "Checkout",
@@ -178,21 +175,13 @@
     "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
-    "setupScene": "3D scene",
-    "setupSceneShort": "3D",
     "checkout": "Checkout",
     "checkoutShort": "Rent",
     "skipToContent": "Skip to content"
   },
   "SetupScene": {
-    "title": "3D setup scene",
-    "subtitle": "Your selected desk, chair, and gear composed in one orbitable scene.",
     "loading": "Loading 3D scene",
-    "editSetup": "Edit setup",
-    "continueCheckout": "Continue to checkout",
-    "emptyHint": "No items selected yet — open the builder to compose a workspace.",
-    "disclaimer": "Demo scene uses IKEA-style product GLBs and a gaming monitor mesh — illustrative only, not official Monis product scans.",
-    "controlsHint": "Drag to orbit, scroll to zoom. Change desk/chair/accessories in the builder to see different combinations."
+    "emptyHint": "No items selected yet — open the builder to compose a workspace."
   },
   "Catalog": {
     "select": "Select",

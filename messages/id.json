@@ -7,9 +7,7 @@
     "setupBuilderTitle": "Setup Builder",
     "setupBuilderDescription": "Pilih meja, kursi, dan aksesori dengan pratinjau 3D langsung untuk setup sewa di Bali.",
     "checkoutTitle": "Checkout",
-    "checkoutDescription": "Tinjau setup monis Anda, pilih durasi sewa, dan minta pengiriman.",
-    "setupSceneTitle": "Adegan setup 3D",
-    "setupSceneDescription": "Orbit adegan 3D gabungan meja, kursi, dan aksesori dari setup builder."
+    "checkoutDescription": "Tinjau setup monis Anda, pilih durasi sewa, dan minta pengiriman."
   },
   "Home": {
     "brand": "monis",
@@ -119,8 +117,7 @@
       "namePlaceholder": "Nama setup ini",
       "full": "Anda sudah punya {max} setup tersimpan. Hapus satu dulu.",
       "emptyName": "Masukkan nama untuk menyimpan."
-    },
-    "setupSceneLink": "Buka adegan penuh"
+    }
   },
   "Checkout": {
     "title": "Checkout",
@@ -178,21 +175,13 @@
     "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
-    "setupScene": "Adegan 3D",
-    "setupSceneShort": "3D",
     "checkout": "Checkout",
     "checkoutShort": "Sewa",
     "skipToContent": "Loncat ke konten"
   },
   "SetupScene": {
-    "title": "Adegan setup 3D",
-    "subtitle": "Meja, kursi, dan perlengkapan yang dipilih digabung dalam satu adegan yang bisa di-orbit.",
     "loading": "Memuat adegan 3D",
-    "editSetup": "Edit setup",
-    "continueCheckout": "Lanjut ke checkout",
-    "emptyHint": "Belum ada item dipilih — buka builder untuk menyusun workspace.",
-    "disclaimer": "Adegan demo memakai GLB bergaya IKEA dan mesh monitor gaming — hanya ilustrasi, bukan scan produk resmi Monis.",
-    "controlsHint": "Seret untuk orbit, scroll untuk zoom. Ubah meja/kursi/aksesori di builder untuk melihat kombinasi berbeda."
+    "emptyHint": "Belum ada item dipilih — buka builder untuk menyusun workspace."
   },
   "Catalog": {
     "select": "Select",

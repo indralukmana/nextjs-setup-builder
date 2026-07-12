@@ -7,7 +7,6 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 ## Features
 
 - **Live 3D workspace preview** — React Three Fiber scene in the builder updates as you select products (IKEA-style demo GLBs)
-- **Full 3D scene page** — larger orbit view of the same composed setup (`/setup-scene`)
 - **Catalog + presets** — desks, chairs, monitors, lamp, plant, peripherals, webcam, whiteboard, power strip; one-click **Essentials**, **Focus**, and **Creator** presets (each shows weekly total)
 - **Shareable setup URLs** — selection syncs to query params (`desk`, `chair`, `accessories`, `weeks`); opening a link restores that setup (URL wins over localStorage)
 - **Share / copy link** — `navigator.share` when available, otherwise clipboard
@@ -45,7 +44,6 @@ pnpm exec playwright install
 | ---------------------- | --------------------------------------------------------------------- |
 | `/en`, `/de`, or `/id` | Marketing home — hero, how it works, jump into the builder            |
 | `/en/setup-builder`    | Presets, save/load setups, share link, duration, 3D preview + summary |
-| `/en/setup-scene`      | Full-page composed multi-item 3D scene from the current setup         |
 | `/en/checkout`         | Contact form, Bali delivery note, mock rental request + request id    |
 | Storybook `:6006`      | Component gallery + axe a11y (`pnpm storybook`)                       |
 
@@ -91,14 +89,14 @@ Presets: [`src/data/presets.ts`](src/data/presets.ts) (`essentials`, `focus`, `c
 ```text
 src/
   app/
-    [locale]/             # Home, setup-builder, setup-scene, checkout
+    [locale]/             # Home, setup-builder, checkout
     api/rental-requests/   # Mock rental ingestion
     api/web-vitals/        # Metric ingestion
     og/                    # Dynamic OG image
   components/
     home/                  # Landing sections
     setup-builder/         # Catalog, presets, URL sync, saved setups
-    setup-scene/           # Shared R3F canvas + builder/full-page preview
+    setup-scene/           # Shared R3F canvas used by the builder preview
     checkout/              # Summary + rental request panel
     analytics/             # Client web-vitals reporter
     seo/                   # JSON-LD helpers

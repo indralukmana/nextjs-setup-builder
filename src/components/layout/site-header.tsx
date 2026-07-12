@@ -13,7 +13,6 @@ export function SiteHeader() {
   const links = [
     { href: "/", label: t("home"), short: t("homeShort") },
     { href: "/setup-builder", label: t("setupBuilder"), short: t("setupBuilderShort") },
-    { href: "/setup-scene", label: t("setupScene"), short: t("setupSceneShort") },
     { href: "/checkout", label: t("checkout"), short: t("checkoutShort") },
   ] as const;
 

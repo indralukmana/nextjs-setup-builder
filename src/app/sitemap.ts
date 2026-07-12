@@ -4,7 +4,7 @@ import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["", "/setup-builder", "/setup-scene", "/checkout"];
+  const paths = ["", "/setup-builder", "/checkout"];
 
   return routing.locales.flatMap((locale) =>
     paths.map((path) => ({
