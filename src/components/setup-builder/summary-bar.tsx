@@ -1,17 +1,18 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { SummaryBarTotals } from "@/components/setup-builder/summary-bar-totals";
 import { buttonVariants } from "@/components/ui/button";
 import { useSetupBuilderHydrated } from "@/hooks/use-setup-builder-hydrated";
 import { Link } from "@/i18n/navigation";
-import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
+import { formatMoney, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function SummaryBar() {
   const t = useTranslations("SetupBuilder");
+  const locale = useLocale();
   const hydrated = useSetupBuilderHydrated();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
@@ -28,11 +29,11 @@ export function SummaryBar() {
         {hydrated ? (
           <SummaryBarTotals
             weeklyLine={t("summaryWeekly", {
-              weekly: formatUsd(weeklyTotal),
+              weekly: formatMoney(weeklyTotal, locale),
               weeks: rentalWeeks,
             })}
             totalLine={t("summaryTotal", {
-              total: formatUsd(total),
+              total: formatMoney(total, locale),
               count: itemCount,
             })}
           />

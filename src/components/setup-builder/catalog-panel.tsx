@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 
 import { CatalogProductList } from "@/components/setup-builder/catalog-product-list";
+import { CopySetupLink } from "@/components/setup-builder/copy-setup-link";
 import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
 import { PresetPicker } from "@/components/setup-builder/preset-picker";
 import { StoreReady } from "@/components/setup-builder/store-ready";
@@ -32,7 +33,10 @@ function CatalogPanelContent() {
 
   return (
     <section aria-label="Product catalog" className="flex flex-col gap-4">
-      <PresetPicker />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <PresetPicker />
+        <CopySetupLink />
+      </div>
       <Tabs defaultValue="desk">
         <TabsList className="h-auto w-full max-w-full flex-wrap sm:w-fit">
           <TabsTrigger value="desk" className="px-2.5 sm:px-3">

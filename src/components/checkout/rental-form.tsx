@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { RentalContactFields } from "@/components/checkout/rental-contact-fields";
 import { RentalDurationPicker } from "@/components/checkout/rental-duration-picker";
@@ -14,7 +14,7 @@ import {
   type RentalContact,
   type RentalContactErrors,
 } from "@/lib/rental-request";
-import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
+import { formatMoney, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 const emptyContact: RentalContact = {
@@ -35,6 +35,7 @@ export function RentalForm() {
 
 function RentalFormContent() {
   const t = useTranslations("Checkout");
+  const locale = useLocale();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
@@ -66,7 +67,7 @@ function RentalFormContent() {
         body={t("successBody", {
           name: submittedName,
           weeks: rentalWeeks,
-          total: formatUsd(total),
+          total: formatMoney(total, locale),
         })}
         backHomeLabel={t("backHome")}
         editSetupLabel={t("editSetup")}
@@ -119,8 +120,8 @@ function RentalFormContent() {
         onChange={setRentalWeeks}
       />
       <RentalTotals
-        weeklyLabel={t("weekly", { amount: formatUsd(weeklyTotal) })}
-        totalLabel={t("total", { amount: formatUsd(total) })}
+        weeklyLabel={t("weekly", { amount: formatMoney(weeklyTotal, locale) })}
+        totalLabel={t("total", { amount: formatMoney(total, locale) })}
         submitLabel={t("submit")}
         canSubmit={canSubmit}
       />

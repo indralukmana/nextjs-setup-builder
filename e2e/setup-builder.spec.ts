@@ -51,6 +51,18 @@ test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/checkout/);
 });
 
+test("Indonesian locale shows IDR prices and copy link feedback", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/id/setup-builder");
+
+  await expect(page.getByText(/Rp/).first()).toBeVisible();
+
+  const copy = page.getByRole("button", { name: /salin tautan setup/i });
+  await expect(page).toHaveURL(/desk=/);
+  await copy.click();
+  await expect(page.getByRole("button", { name: /^disalin$/i })).toBeVisible();
+});
+
 test("shareable URL hydrates setup and essentials preset applies", async ({ page }) => {
   await page.goto(
     "/en/setup-builder?desk=desk-mechanical&chair=chair-task&accessories=monitor-24,lamp-led&weeks=12",

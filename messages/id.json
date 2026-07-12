@@ -62,6 +62,8 @@
     "summaryWeekly": "{weekly}/minggu · {weeks} minggu",
     "summaryTotal": "Total {total} · {count} item",
     "reviewRental": "Tinjau sewa",
+    "copyLink": "Salin tautan setup",
+    "copyLinkCopied": "Disalin",
     "presets": {
       "label": "Preset cepat",
       "essentials": {

@@ -62,6 +62,8 @@
     "summaryWeekly": "{weekly}/week · {weeks} weeks",
     "summaryTotal": "Total {total} · {count} items",
     "reviewRental": "Review rental",
+    "copyLink": "Copy setup link",
+    "copyLinkCopied": "Copied",
     "presets": {
       "label": "Quick presets",
       "essentials": {

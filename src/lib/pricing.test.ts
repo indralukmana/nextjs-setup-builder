@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
+import {
+  formatMoney,
+  formatUsd,
+  getRentalTotal,
+  getWeeklyTotal,
+  usdToIdr,
+  USD_TO_IDR,
+} from "@/lib/pricing";
 
 describe("pricing", () => {
   it("sums weekly prices for selected products", () => {
@@ -13,5 +20,11 @@ describe("pricing", () => {
 
   it("formats usd without cents", () => {
     expect(formatUsd(32)).toBe("$32");
+    expect(formatMoney(32, "en")).toBe("$32");
+  });
+
+  it("converts and formats idr for Indonesian locale", () => {
+    expect(usdToIdr(32)).toBe(32 * USD_TO_IDR);
+    expect(formatMoney(32, "id")).toMatch(/Rp\s?512\.000/);
   });
 });

@@ -1,8 +1,10 @@
 "use client";
 
+import { useLocale } from "next-intl";
+
 import { ProductIllustration } from "@/components/setup-builder/preview-layers";
 import { useProductCopy } from "@/hooks/use-product-copy";
-import { formatUsd } from "@/lib/pricing";
+import { formatMoney } from "@/lib/pricing";
 import type { CatalogProduct } from "@/types/catalog";
 
 type Props = {
@@ -10,6 +12,7 @@ type Props = {
 };
 
 export function SetupSummaryItem({ product }: Props) {
+  const locale = useLocale();
   const { name } = useProductCopy(product.id);
 
   return (
@@ -21,7 +24,7 @@ export function SetupSummaryItem({ product }: Props) {
         <p className="truncate font-medium">{name}</p>
         <p className="text-muted-foreground text-xs capitalize">{product.category}</p>
       </div>
-      <span className="shrink-0 tabular-nums">{formatUsd(product.pricePerWeek)}/wk</span>
+      <span className="shrink-0 tabular-nums">{formatMoney(product.pricePerWeek, locale)}/wk</span>
     </li>
   );
 }
