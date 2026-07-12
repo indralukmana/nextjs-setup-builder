@@ -12,7 +12,7 @@ export default defineConfig({
   expect: {
     timeout: 10_000,
   },
-  reporter: isCi ? [["html"], ["github"]] : [["list"], ["html"]],
+  reporter: isCi ? [["blob"], ["github"]] : [["list"], ["html"]],
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
