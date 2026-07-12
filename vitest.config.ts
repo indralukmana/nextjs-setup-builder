@@ -14,6 +14,14 @@ export default defineConfig({
       "@": path.join(dirname, "src"),
     },
   },
+  optimizeDeps: {
+    include: [
+      "@base-ui/react/toggle",
+      "@base-ui/react/toggle-group",
+      "@base-ui/react/tabs",
+      "@base-ui/react/button",
+    ],
+  },
   test: {
     projects: [
       {

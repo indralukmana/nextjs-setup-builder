@@ -1,10 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 
-import { ProductIllustration, buildStageSlots } from "@/components/setup-builder/preview-layers";
+import { buildStageSlots } from "@/components/setup-builder/preview-layers";
 import { StoreReady } from "@/components/setup-builder/store-ready";
+import { WorkspaceSelectedList } from "@/components/setup-builder/workspace-selected-list";
+import { WorkspaceStageBackdrop } from "@/components/setup-builder/workspace-stage-backdrop";
+import { WorkspaceStageLayers } from "@/components/setup-builder/workspace-stage-layers";
 import { getProductById } from "@/data/catalog";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
@@ -32,20 +34,9 @@ function WorkspacePreviewContent() {
       aria-label="Workspace preview"
       className="relative min-h-[20rem] overflow-hidden rounded-2xl border border-[#d6c4a8]/80 bg-[linear-gradient(180deg,#f7efe2_0%,#e8d7c0_48%,#d7c3a6_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] sm:min-h-[22rem] md:min-h-[28rem]"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,252,245,0.85),transparent_55%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-[linear-gradient(180deg,transparent,#c4b193)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-[12%] right-[10%] h-24 w-24 rounded-full bg-[#fde68a]/50 blur-2xl"
-      />
+      <WorkspaceStageBackdrop />
 
-      <p className="text-foreground/70 absolute top-3 left-3 z-50 text-[0.65rem] font-medium tracking-[0.18em] uppercase sm:top-4 sm:left-4 sm:text-xs">
+      <p className="text-foreground/80 absolute top-3 left-3 z-50 text-[0.7rem] font-semibold tracking-[0.18em] uppercase sm:top-4 sm:left-4 sm:text-xs">
         {t("liveSetup")}
       </p>
 
@@ -54,34 +45,10 @@ function WorkspacePreviewContent() {
           {t("emptyPreview")}
         </p>
       ) : (
-        <div className="absolute inset-0">
-          <AnimatePresence mode="popLayout">
-            {slots.map((slot) => (
-              <motion.div
-                key={slot.product.id}
-                layout
-                initial={{ opacity: 0, y: 18, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.96 }}
-                transition={{ type: "spring", stiffness: 320, damping: 28 }}
-                className={slot.className}
-                style={{ zIndex: slot.zIndex }}
-              >
-                <ProductIllustration
-                  productId={slot.product.id}
-                  className="h-auto w-full drop-shadow-[0_12px_24px_rgba(55,40,20,0.18)]"
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        <WorkspaceStageLayers slots={slots} />
       )}
 
-      <ul className="sr-only">
-        {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
-        ))}
-      </ul>
+      <WorkspaceSelectedList products={products} />
     </section>
   );
 }

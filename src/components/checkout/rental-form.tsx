@@ -3,15 +3,12 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
+import { RentalDurationPicker } from "@/components/checkout/rental-duration-picker";
+import { RentalSuccess } from "@/components/checkout/rental-success";
+import { RentalTotals } from "@/components/checkout/rental-totals";
 import { StoreReady } from "@/components/setup-builder/store-ready";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Link } from "@/i18n/navigation";
 import { formatUsd, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
-import { cn } from "@/lib/utils";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
-
-const WEEK_OPTIONS = ["1", "4", "12"] as const;
 
 export function RentalForm() {
   const t = useTranslations("Checkout");
@@ -39,23 +36,12 @@ function RentalFormContent() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col gap-5 rounded-2xl border bg-[linear-gradient(160deg,rgba(220,235,205,0.55),rgba(255,255,255,0.7))] px-5 py-7">
-        <div className="bg-primary/15 size-2.5 rounded-full" aria-hidden />
-        <div>
-          <p className="font-heading text-xl tracking-tight">{t("successTitle")}</p>
-          <p className="text-muted-foreground mt-2 text-sm leading-relaxed text-pretty">
-            {t("successBody", { weeks: rentalWeeks, total: formatUsd(total) })}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <Link href="/" className={cn(buttonVariants({ variant: "outline" }))}>
-            {t("backHome")}
-          </Link>
-          <Link href="/setup-builder" className={cn(buttonVariants({ variant: "ghost" }))}>
-            {t("editSetup")}
-          </Link>
-        </div>
-      </div>
+      <RentalSuccess
+        title={t("successTitle")}
+        body={t("successBody", { weeks: rentalWeeks, total: formatUsd(total) })}
+        backHomeLabel={t("backHome")}
+        editSetupLabel={t("editSetup")}
+      />
     );
   }
 
@@ -70,46 +56,18 @@ function RentalFormContent() {
         setSubmitted(true);
       }}
     >
-      <div className="flex flex-col gap-3">
-        <label className="text-sm font-medium" htmlFor="rental-weeks">
-          {t("durationLabel")}
-        </label>
-        <ToggleGroup
-          id="rental-weeks"
-          value={[String(rentalWeeks)]}
-          onValueChange={(values) => {
-            const next = values[0];
-            if (next) {
-              setRentalWeeks(Number(next));
-            }
-          }}
-          variant="outline"
-          className="!grid w-full grid-cols-3 gap-2"
-        >
-          {WEEK_OPTIONS.map((weeks) => (
-            <ToggleGroupItem key={weeks} value={weeks} className="h-11">
-              {t("weeksOption", { count: Number(weeks) })}
-            </ToggleGroupItem>
-          ))}
-        </ToggleGroup>
-      </div>
-
-      <div className="border-border/70 flex flex-col gap-4 border-t pt-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="text-sm">
-          <p className="text-muted-foreground">{t("weekly", { amount: formatUsd(weeklyTotal) })}</p>
-          <p className="font-heading mt-1 text-2xl tracking-tight">
-            {t("total", { amount: formatUsd(total) })}
-          </p>
-        </div>
-        <Button
-          type="submit"
-          size="lg"
-          className="h-11 w-full px-5 sm:w-auto"
-          disabled={!canSubmit}
-        >
-          {t("submit")}
-        </Button>
-      </div>
+      <RentalDurationPicker
+        label={t("durationLabel")}
+        value={rentalWeeks}
+        formatOption={(weeks) => t("weeksOption", { count: weeks })}
+        onChange={setRentalWeeks}
+      />
+      <RentalTotals
+        weeklyLabel={t("weekly", { amount: formatUsd(weeklyTotal) })}
+        totalLabel={t("total", { amount: formatUsd(total) })}
+        submitLabel={t("submit")}
+        canSubmit={canSubmit}
+      />
     </form>
   );
 }

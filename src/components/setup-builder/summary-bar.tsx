@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { SummaryBarTotals } from "@/components/setup-builder/summary-bar-totals";
 import { buttonVariants } from "@/components/ui/button";
 import { useSetupBuilderHydrated } from "@/hooks/use-setup-builder-hydrated";
 import { Link } from "@/i18n/navigation";
@@ -24,26 +25,20 @@ export function SummaryBar() {
   return (
     <div className="border-border bg-background/95 sticky bottom-0 z-30 border-t backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6">
-        <div className="min-w-0 text-sm">
-          {hydrated ? (
-            <>
-              <p className="font-medium">
-                {t("summaryWeekly", {
-                  weekly: formatUsd(weeklyTotal),
-                  weeks: rentalWeeks,
-                })}
-              </p>
-              <p className="text-muted-foreground">
-                {t("summaryTotal", {
-                  total: formatUsd(total),
-                  count: itemCount,
-                })}
-              </p>
-            </>
-          ) : (
-            <output className="text-muted-foreground">{t("loadingSummary")}</output>
-          )}
-        </div>
+        {hydrated ? (
+          <SummaryBarTotals
+            weeklyLine={t("summaryWeekly", {
+              weekly: formatUsd(weeklyTotal),
+              weeks: rentalWeeks,
+            })}
+            totalLine={t("summaryTotal", {
+              total: formatUsd(total),
+              count: itemCount,
+            })}
+          />
+        ) : (
+          <output className="text-muted-foreground text-sm">{t("loadingSummary")}</output>
+        )}
         <Link
           href="/checkout"
           className={cn(buttonVariants(), "h-10 w-full justify-center sm:h-8 sm:w-auto")}

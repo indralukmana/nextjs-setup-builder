@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 
-import { ProductCard } from "@/components/setup-builder/product-card";
+import { CatalogProductList } from "@/components/setup-builder/catalog-product-list";
+import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
 import { StoreReady } from "@/components/setup-builder/store-ready";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getProductsByCategory } from "@/data/catalog";
@@ -26,8 +27,7 @@ function CatalogPanelContent() {
   const setDeskId = useSetupBuilderStore((state) => state.setDeskId);
   const setChairId = useSetupBuilderStore((state) => state.setChairId);
   const toggleAccessory = useSetupBuilderStore((state) => state.toggleAccessory);
-  const monitorCount = countMonitors(accessoryIds);
-  const monitorsFull = monitorCount >= MAX_MONITORS;
+  const monitorsFull = countMonitors(accessoryIds) >= MAX_MONITORS;
 
   return (
     <section aria-label="Product catalog" className="flex flex-col gap-4">
@@ -43,49 +43,33 @@ function CatalogPanelContent() {
             {t("tabs.accessory")}
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="desk" className="mt-4 grid gap-3">
-          {getProductsByCategory("desk").map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              selected={deskId === product.id}
-              onSelect={() => setDeskId(product.id)}
-            />
-          ))}
+        <TabsContent value="desk" className="mt-4">
+          <CatalogProductList
+            products={getProductsByCategory("desk")}
+            isSelected={(product) => deskId === product.id}
+            onSelect={(product) => setDeskId(product.id)}
+          />
         </TabsContent>
-        <TabsContent value="chair" className="mt-4 grid gap-3">
-          {getProductsByCategory("chair").map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              selected={chairId === product.id}
-              onSelect={() => setChairId(product.id)}
-            />
-          ))}
+        <TabsContent value="chair" className="mt-4">
+          <CatalogProductList
+            products={getProductsByCategory("chair")}
+            isSelected={(product) => chairId === product.id}
+            onSelect={(product) => setChairId(product.id)}
+          />
         </TabsContent>
         <TabsContent value="accessory" className="mt-4 grid gap-3">
           {monitorsFull ? (
-            <output className="text-muted-foreground rounded-xl border border-dashed px-3 py-2 text-xs leading-relaxed">
-              {t("monitorLimit", { max: MAX_MONITORS })}
-            </output>
+            <MonitorLimitNotice message={t("monitorLimit", { max: MAX_MONITORS })} />
           ) : null}
-          {getProductsByCategory("accessory").map((product) => {
-            const selected = accessoryIds.includes(product.id);
-            const disabled = product.layer === "monitor" && !selected && monitorsFull;
-
-            return (
-              <ProductCard
-                key={product.id}
-                product={product}
-                selected={selected}
-                disabled={disabled}
-                disabledReason={
-                  disabled ? t("monitorLimitShort", { max: MAX_MONITORS }) : undefined
-                }
-                onSelect={() => toggleAccessory(product.id)}
-              />
-            );
-          })}
+          <CatalogProductList
+            products={getProductsByCategory("accessory")}
+            isSelected={(product) => accessoryIds.includes(product.id)}
+            isDisabled={(product) =>
+              product.layer === "monitor" && !accessoryIds.includes(product.id) && monitorsFull
+            }
+            disabledReason={() => t("monitorLimitShort", { max: MAX_MONITORS })}
+            onSelect={(product) => toggleAccessory(product.id)}
+          />
         </TabsContent>
       </Tabs>
     </section>

@@ -56,6 +56,7 @@ Prefer App Router, Server Components by default, and the project conventions bel
 
 - Unit: `src/**/*.test.ts` via Vitest (`pnpm test:unit`).
 - Stories: colocated `*.stories.tsx` (CSF3).
+- Storybook a11y: `@storybook/addon-a11y` with `parameters.a11y.test = "error"` (WCAG 2 A/AA). Run via `pnpm test:storybook` / `pnpm test:a11y`.
 - E2E: `e2e/*.spec.ts` via Playwright; prefer role-based locators.
 - React Compiler is enabled — avoid unnecessary hand-rolled memo.
 
