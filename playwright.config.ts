@@ -22,7 +22,6 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
     actionTimeout: 15_000,
-    reducedMotion: "reduce",
   },
   projects: [
     {
