@@ -158,15 +158,19 @@
     "fields": {
       "name": "Nama lengkap",
       "email": "Email",
-      "phone": "WhatsApp / telepon",
+      "phone": "Telepon",
+      "whatsapp": "WhatsApp",
+      "whatsappSameAsPhone": "Sama dengan telepon",
       "namePlaceholder": "Nama Anda",
       "emailPlaceholder": "anda@contoh.com",
-      "phonePlaceholder": "+62 812 0000 0000"
+      "phonePlaceholder": "812 0000 0000",
+      "whatsappPlaceholder": "812 0000 0000"
     },
     "errors": {
       "nameRequired": "Masukkan nama lengkap (minimal 2 karakter).",
       "emailInvalid": "Masukkan alamat email yang valid.",
-      "phoneInvalid": "Masukkan nomor telepon atau WhatsApp yang valid.",
+      "phoneInvalid": "Masukkan nomor telepon yang valid.",
+      "whatsappInvalid": "Masukkan nomor WhatsApp yang valid.",
       "submitFailed": "Tidak dapat mengirim permintaan. Coba lagi."
     }
   },

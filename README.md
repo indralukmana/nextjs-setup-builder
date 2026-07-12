@@ -14,7 +14,7 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 - **Reset / clear** — reset restores defaults; clear empties the session setup (empty checkout CTA)
 - **Duration on the builder** — 1 / 4 / 12 weeks on the sticky summary (synced to the URL)
 - **Persisted builder state** — Zustand + `localStorage` (`monis-setup-builder`)
-- **Checkout contact capture** — name, email, WhatsApp-friendly phone with zod validation; `POST /api/rental-requests` returns a request id (structured log, rate-limited)
+- **Checkout contact capture** — name, email, phone, and WhatsApp (optional same-as-phone) with TanStack Form + zod; `POST /api/rental-requests` returns a request id (structured log, rate-limited)
 - **Locale money** — display currency is selectable (USD / EUR / IDR) via the header switcher; live rates from Frankfurter via `/api/exchange-rates` (React Query, 1h stale). Defaults: `en`→USD, `de`→EUR, `id`→IDR. Catalog prices stay USD-week units.
 - **Trilingual UI** — English, German, and Indonesian (`en`, `de`, `id`) via next-intl
 - **Web vitals sink** — browser metrics → `POST /api/web-vitals` (validated, structured logs, rate-limited, optional webhook)
@@ -114,16 +114,16 @@ e2e/
 
 ### Where to look first
 
-| Goal                          | Start here                                           |
-| ----------------------------- | ---------------------------------------------------- |
-| Change products / prices      | `src/data/catalog.ts`, `messages/*/Catalog`          |
-| Map SKUs to 3D models         | `src/lib/scene-slots.ts`, `public/models/ikea/`      |
-| Builder selection logic       | `src/store/setup-builder-store.ts`                   |
-| Share / restore URLs          | `src/lib/setup-url.ts`, `setup-url-sync.tsx`         |
-| Saved setups                  | `src/lib/saved-setups.ts`, `saved-setups.tsx`        |
-| Checkout form state           | `rental-request-panel.tsx`, `rental-form-reducer.ts` |
-| Swap catalog for an API later | `src/lib/catalog-api.ts`                             |
-| Agent / contributor rules     | [`AGENTS.md`](AGENTS.md)                             |
+| Goal                          | Start here                                      |
+| ----------------------------- | ----------------------------------------------- |
+| Change products / prices      | `src/data/catalog.ts`, `messages/*/Catalog`     |
+| Map SKUs to 3D models         | `src/lib/scene-slots.ts`, `public/models/ikea/` |
+| Builder selection logic       | `src/store/setup-builder-store.ts`              |
+| Share / restore URLs          | `src/lib/setup-url.ts`, `setup-url-sync.tsx`    |
+| Saved setups                  | `src/lib/saved-setups.ts`, `saved-setups.tsx`   |
+| Checkout form state           | `rental-request-panel.tsx` (TanStack Form)      |
+| Swap catalog for an API later | `src/lib/catalog-api.ts`                        |
+| Agent / contributor rules     | [`AGENTS.md`](AGENTS.md)                        |
 
 ### 3D demo assets
 

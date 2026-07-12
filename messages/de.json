@@ -158,15 +158,19 @@
     "fields": {
       "name": "Vollständiger Name",
       "email": "E-Mail",
-      "phone": "WhatsApp / Telefon",
+      "phone": "Telefon",
+      "whatsapp": "WhatsApp",
+      "whatsappSameAsPhone": "Gleich wie Telefon",
       "namePlaceholder": "Dein Name",
       "emailPlaceholder": "du@beispiel.com",
-      "phonePlaceholder": "+62 812 0000 0000"
+      "phonePlaceholder": "812 0000 0000",
+      "whatsappPlaceholder": "812 0000 0000"
     },
     "errors": {
       "nameRequired": "Gib deinen vollständigen Namen ein (mindestens 2 Zeichen).",
       "emailInvalid": "Gib eine gültige E-Mail-Adresse ein.",
-      "phoneInvalid": "Gib eine gültige Telefon- oder WhatsApp-Nummer ein.",
+      "phoneInvalid": "Gib eine gültige Telefonnummer ein.",
+      "whatsappInvalid": "Gib eine gültige WhatsApp-Nummer ein.",
       "submitFailed": "Anfrage konnte nicht gesendet werden. Bitte versuche es erneut."
     }
   },

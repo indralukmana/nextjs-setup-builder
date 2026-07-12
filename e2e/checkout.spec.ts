@@ -32,7 +32,8 @@ test("checkout submits rental request with contact details", async ({ page }) =>
   await expect(page.getByRole("region", { name: /setup summary/i })).toBeVisible();
   await page.getByLabel(/full name/i).fill("Indra");
   await page.getByLabel(/^email$/i).fill("indra@example.com");
-  await page.getByLabel(/whatsapp \/ phone/i).fill("+62 812 3456 7890");
+  await page.locator("#rental-phone").fill("81234567890");
+  await expect(page.locator("#rental-whatsapp")).toBeDisabled();
   await page.getByRole("button", { name: /request rental/i }).click();
 
   await expect(page.getByText(/rental request sent/i)).toBeVisible();
@@ -40,6 +41,7 @@ test("checkout submits rental request with contact details", async ({ page }) =>
   await expect(page.getByText(/request id:/i)).toBeVisible();
   await expect(page.getByRole("button", { name: /copy confirmation/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /back home/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /^checkout$/i })).toHaveCount(0);
 });
 
 test("clear setup shows empty checkout form", async ({ page }) => {

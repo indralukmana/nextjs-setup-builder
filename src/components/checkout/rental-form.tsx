@@ -8,17 +8,21 @@ import { StoreReady } from "@/components/setup-builder/store-ready";
 import { getWeeklyTotal } from "@/lib/pricing";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
-export function RentalForm() {
+type Props = {
+  onSuccess: (result: { name: string; requestId: string }) => void;
+};
+
+export function RentalForm({ onSuccess }: Props) {
   const t = useTranslations("Checkout");
 
   return (
     <StoreReady className="min-h-56" label={t("loadingForm")}>
-      <RentalFormContent />
+      <RentalFormContent onSuccess={onSuccess} />
     </StoreReady>
   );
 }
 
-function RentalFormContent() {
+function RentalFormContent({ onSuccess }: Props) {
   const t = useTranslations("Checkout");
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
@@ -32,5 +36,5 @@ function RentalFormContent() {
     return <SetupSummaryEmpty emptyLabel={t("emptyForm")} editLabel={t("editSetup")} />;
   }
 
-  return <RentalRequestPanel />;
+  return <RentalRequestPanel onSuccess={onSuccess} />;
 }
