@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { CatalogJsonLd } from "@/components/seo/catalog-json-ld";
+import { BuilderViewport } from "@/components/setup-builder/builder-viewport";
 import { SetupBuilderWorkspace } from "@/components/setup-builder/setup-builder-workspace";
 import { SetupUrlSync } from "@/components/setup-builder/setup-url-sync";
 import { routing } from "@/i18n/routing";
@@ -33,10 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-/** Header is ~3.75rem (py-3 + nav row); shell fills the rest of the viewport. */
-const BUILDER_SHELL =
-  "flex h-[calc(100dvh-3.75rem)] min-h-0 w-full flex-1 flex-col overflow-hidden";
-
 export default async function SetupBuilderPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -48,9 +45,9 @@ export default async function SetupBuilderPage({ params }: Props) {
       <Suspense fallback={null}>
         <SetupUrlSync />
       </Suspense>
-      <div className={BUILDER_SHELL}>
+      <BuilderViewport>
         <SetupBuilderWorkspace title={t("title")} />
-      </div>
+      </BuilderViewport>
     </>
   );
 }

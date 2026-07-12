@@ -28,19 +28,15 @@ export function SetupBuilderWorkspace({ title }: Props) {
   }, [catalogOpen]);
 
   return (
-    <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 overflow-hidden p-3 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-4 lg:p-4">
+    <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[minmax(0,1fr)] gap-3 overflow-hidden p-3 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-4 lg:p-4">
       <section className="flex min-h-0 flex-col gap-3 overflow-hidden">
-        <div className="relative min-h-0 flex-1">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
+          <h1 className="sr-only">{title}</h1>
           <SetupScenePreview
             showEmptyHint={false}
-            className="absolute inset-0 flex min-h-0 flex-col"
-            canvasClassName="h-full min-h-0 flex-1 rounded-xl border"
+            className="absolute inset-0 flex min-h-0 flex-col overflow-hidden"
+            canvasClassName="h-full min-h-0 flex-1 sm:min-h-0 md:min-h-0"
           />
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start p-3">
-            <h1 className="font-heading bg-background/80 pointer-events-auto max-w-[min(100%,18rem)] truncate rounded-lg px-2.5 py-1.5 text-lg tracking-tight shadow-sm backdrop-blur sm:text-xl">
-              {title}
-            </h1>
-          </div>
           <SetupSelectionChips className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-3" />
         </div>
         <SummaryBar />
@@ -54,7 +50,7 @@ export function SetupBuilderWorkspace({ title }: Props) {
       </section>
 
       {/* Desktop rail */}
-      <aside className="border-border hidden min-h-0 flex-col overflow-hidden rounded-xl border bg-background/60 p-3 lg:flex">
+      <aside className="border-border hidden min-h-0 max-h-full flex-col overflow-hidden rounded-xl border bg-background/60 p-3 lg:flex">
         <CatalogPanel />
       </aside>
 

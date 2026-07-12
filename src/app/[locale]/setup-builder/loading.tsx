@@ -1,7 +1,7 @@
 export default function SetupBuilderLoading() {
   return (
     <div
-      className="flex h-[calc(100dvh-3.75rem)] min-h-0 w-full flex-1 flex-col overflow-hidden"
+      className="flex min-h-0 w-full flex-1 flex-col overflow-hidden"
       aria-busy="true"
       aria-label="Loading setup builder"
     >

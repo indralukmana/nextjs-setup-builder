@@ -89,19 +89,21 @@ export default async function LocaleLayout({ children, params }: Props) {
       lang={locale}
       className={`${plusJakarta.variable} ${bricolage.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="bg-background text-foreground flex min-h-full flex-col font-sans">
+      <body className="bg-background text-foreground min-h-full font-sans">
         <NextIntlClientProvider>
           <QueryProvider>
-            <WebVitals />
-            <SiteHeader />
-            <main
-              id="main-content"
-              tabIndex={-1}
-              className="flex min-h-0 flex-1 flex-col outline-none"
-            >
-              {children}
-            </main>
-            <SiteFooter />
+            <div data-app-shell className="flex min-h-full flex-col">
+              <WebVitals />
+              <SiteHeader />
+              <main
+                id="main-content"
+                tabIndex={-1}
+                className="flex min-h-0 flex-1 flex-col outline-none"
+              >
+                {children}
+              </main>
+              <SiteFooter />
+            </div>
           </QueryProvider>
         </NextIntlClientProvider>
       </body>
