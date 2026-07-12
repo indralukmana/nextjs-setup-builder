@@ -2,6 +2,10 @@ import { z } from "zod";
 
 const serverSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+  WEB_VITALS_WEBHOOK_URL: z.preprocess(
+    (value) => (value === "" || value === undefined ? undefined : value),
+    z.string().url().optional(),
+  ),
 });
 
 const clientSchema = z.object({
@@ -10,6 +14,7 @@ const clientSchema = z.object({
 
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
+  WEB_VITALS_WEBHOOK_URL: process.env.WEB_VITALS_WEBHOOK_URL,
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
 };
 
