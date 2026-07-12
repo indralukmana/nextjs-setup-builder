@@ -9,6 +9,7 @@ const meta = {
     heading: "Your setup",
     editLabel: "Edit setup",
     weeklyLabel: "Weekly",
+    emptyLabel: "No products in this setup yet.",
   },
 } satisfies Meta<typeof SetupSummary>;
 

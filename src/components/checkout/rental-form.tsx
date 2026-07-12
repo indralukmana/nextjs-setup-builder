@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
+import { StoreReady } from "@/components/setup-builder/store-ready";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Link } from "@/i18n/navigation";
@@ -14,6 +15,16 @@ const WEEK_OPTIONS = ["1", "4", "12"] as const;
 
 export function RentalForm() {
   const t = useTranslations("Checkout");
+
+  return (
+    <StoreReady className="min-h-56" label={t("loadingForm")}>
+      <RentalFormContent />
+    </StoreReady>
+  );
+}
+
+function RentalFormContent() {
+  const t = useTranslations("Checkout");
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
@@ -24,6 +35,7 @@ export function RentalForm() {
 
   const weeklyTotal = getWeeklyTotal(selectedIds);
   const total = getRentalTotal(weeklyTotal, rentalWeeks);
+  const canSubmit = selectedIds.length > 0 && weeklyTotal > 0;
 
   if (submitted) {
     return (
@@ -52,6 +64,9 @@ export function RentalForm() {
       className="flex flex-col gap-6 rounded-2xl border bg-white/50 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
       onSubmit={(event) => {
         event.preventDefault();
+        if (!canSubmit) {
+          return;
+        }
         setSubmitted(true);
       }}
     >
@@ -79,14 +94,19 @@ export function RentalForm() {
         </ToggleGroup>
       </div>
 
-      <div className="border-border/70 flex items-end justify-between gap-4 border-t pt-4">
+      <div className="border-border/70 flex flex-col gap-4 border-t pt-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="text-sm">
           <p className="text-muted-foreground">{t("weekly", { amount: formatUsd(weeklyTotal) })}</p>
           <p className="font-heading mt-1 text-2xl tracking-tight">
             {t("total", { amount: formatUsd(total) })}
           </p>
         </div>
-        <Button type="submit" size="lg" className="h-11 px-5">
+        <Button
+          type="submit"
+          size="lg"
+          className="h-11 w-full px-5 sm:w-auto"
+          disabled={!canSubmit}
+        >
           {t("submit")}
         </Button>
       </div>

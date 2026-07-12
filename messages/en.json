@@ -40,13 +40,29 @@
     }
   },
   "SetupBuilder": {
-    "title": "Setup Builder"
+    "title": "Setup Builder",
+    "liveSetup": "Live setup",
+    "emptyPreview": "Pick a desk and chair to start composing your workspace.",
+    "loadingPreview": "Loading workspace preview",
+    "loadingCatalog": "Loading product catalog",
+    "loadingSummary": "Loading rental summary",
+    "tabs": {
+      "desk": "Desks",
+      "chair": "Chairs",
+      "accessory": "Accessories"
+    },
+    "monitorLimit": "Maximum {max} monitors selected. Deselect one to add another.",
+    "monitorLimitShort": "Max {max} monitors",
+    "summaryWeekly": "{weekly}/week · {weeks} weeks",
+    "summaryTotal": "Total {total} · {count} items",
+    "reviewRental": "Review rental"
   },
   "Checkout": {
     "title": "Checkout",
     "subtitle": "Confirm your setup, choose a rental length, and request delivery.",
     "summaryHeading": "Your setup",
     "weeklyLabel": "Weekly",
+    "emptySummary": "No products in this setup yet.",
     "editSetup": "Edit setup",
     "durationLabel": "Rental duration",
     "weeksOption": "{count} wk",
@@ -55,7 +71,9 @@
     "submit": "Request rental",
     "successTitle": "Rental request sent",
     "successBody": "We'll confirm delivery for your {weeks}-week setup ({total}).",
-    "backHome": "Back home"
+    "backHome": "Back home",
+    "loadingSummary": "Loading setup summary",
+    "loadingForm": "Loading rental form"
   },
   "NotFound": {
     "title": "Page not found",
@@ -69,7 +87,10 @@
   },
   "Nav": {
     "home": "Home",
+    "homeShort": "Home",
     "setupBuilder": "Setup Builder",
-    "checkout": "Checkout"
+    "setupBuilderShort": "Builder",
+    "checkout": "Checkout",
+    "checkoutShort": "Rent"
   }
 }

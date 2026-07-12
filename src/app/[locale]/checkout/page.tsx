@@ -13,7 +13,7 @@ export default async function CheckoutPage({ params }: Props) {
   const t = await getTranslations("Checkout");
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-6 py-10 md:py-14">
+    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6 md:py-14">
       <div className="max-w-xl">
         <h1 className="font-heading text-3xl tracking-tight md:text-4xl">{t("title")}</h1>
         <p className="text-muted-foreground mt-2 text-sm text-pretty md:text-base">
@@ -25,6 +25,7 @@ export default async function CheckoutPage({ params }: Props) {
           heading={t("summaryHeading")}
           editLabel={t("editSetup")}
           weeklyLabel={t("weeklyLabel")}
+          emptyLabel={t("emptySummary")}
         />
         <RentalForm />
       </div>

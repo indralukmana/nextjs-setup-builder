@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { useSetupBuilderStore } from "@/store/setup-builder-store";
+import { sanitizePersistedSetup, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 const memoryStorage = (() => {
   const store = new Map<string, string>();
@@ -31,7 +31,6 @@ describe("setup-builder-store", () => {
       chairId: "chair-ergonomic",
       accessoryIds: [],
       rentalWeeks: 4,
-      hydrated: true,
     });
   });
 
@@ -42,6 +41,15 @@ describe("setup-builder-store", () => {
 
     expect(useSetupBuilderStore.getState().deskId).toBe("desk-mechanical");
     expect(useSetupBuilderStore.getState().chairId).toBe("chair-task");
+  });
+
+  it("ignores invalid desk and chair ids", () => {
+    const store = useSetupBuilderStore.getState();
+    store.setDeskId("not-a-desk");
+    store.setChairId("monitor-24");
+
+    expect(useSetupBuilderStore.getState().deskId).toBe("desk-electric");
+    expect(useSetupBuilderStore.getState().chairId).toBe("chair-ergonomic");
   });
 
   it("toggles accessories and respects monitor limit", () => {
@@ -56,6 +64,14 @@ describe("setup-builder-store", () => {
     expect(useSetupBuilderStore.getState().accessoryIds).toEqual(["monitor-27-4k"]);
   });
 
+  it("replaces exclusive lamp layer", () => {
+    const store = useSetupBuilderStore.getState();
+    store.toggleAccessory("lamp-led");
+    store.toggleAccessory("plant-desk");
+
+    expect(useSetupBuilderStore.getState().accessoryIds).toEqual(["lamp-led", "plant-desk"]);
+  });
+
   it("resets to defaults", () => {
     const store = useSetupBuilderStore.getState();
     store.setDeskId("desk-mechanical");
@@ -64,5 +80,21 @@ describe("setup-builder-store", () => {
 
     expect(useSetupBuilderStore.getState().deskId).toBe("desk-electric");
     expect(useSetupBuilderStore.getState().accessoryIds).toEqual([]);
+  });
+
+  it("sanitizes corrupt persisted setup", () => {
+    const sanitized = sanitizePersistedSetup({
+      deskId: "missing-desk",
+      chairId: "also-missing",
+      accessoryIds: ["monitor-24", "monitor-27-4k", "monitor-34", "ghost-item", "lamp-led"],
+      rentalWeeks: 99,
+    });
+
+    expect(sanitized).toEqual({
+      deskId: "desk-electric",
+      chairId: "chair-ergonomic",
+      accessoryIds: ["monitor-24", "monitor-27-4k", "lamp-led"],
+      rentalWeeks: 4,
+    });
   });
 });

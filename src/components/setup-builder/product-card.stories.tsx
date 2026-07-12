@@ -32,3 +32,11 @@ export const Accessory: Story = {
     product: catalog.find((item) => item.id === "monitor-27-4k")!,
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    product: catalog.find((item) => item.id === "monitor-34")!,
+    disabled: true,
+    disabledReason: "Max 2 monitors",
+  },
+};
