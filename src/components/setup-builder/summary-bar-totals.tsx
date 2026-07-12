@@ -1,13 +1,14 @@
 type Props = {
-  weeklyLine: string;
-  totalLine: string;
+  total: string;
+  supportLine: string;
 };
 
-export function SummaryBarTotals({ weeklyLine, totalLine }: Props) {
+/** Primary rental total with supporting weekly/item detail. */
+export function SummaryBarTotals({ total, supportLine }: Props) {
   return (
-    <div className="min-w-0 text-sm">
-      <p className="font-medium">{weeklyLine}</p>
-      <p className="text-muted-foreground">{totalLine}</p>
+    <div className="min-w-0">
+      <p className="font-heading text-xl tracking-tight tabular-nums sm:text-2xl">{total}</p>
+      <p className="text-muted-foreground mt-0.5 text-xs leading-snug sm:text-sm">{supportLine}</p>
     </div>
   );
 }

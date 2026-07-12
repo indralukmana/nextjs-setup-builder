@@ -35,45 +35,62 @@ export function SummaryBar({ className }: Props) {
   return (
     <div
       className={cn(
-        "border-border bg-background/90 shrink-0 rounded-xl border px-3 py-3 backdrop-blur",
+        "border-border bg-background/90 shrink-0 rounded-xl border px-3 py-2.5 backdrop-blur sm:py-3",
         className,
       )}
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-        <div className="min-w-0 flex-1">
-          {hydrated ? (
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div className="relative min-w-0 flex-1">
+          <div
+            className={cn(
+              "transition-opacity duration-300 ease-out",
+              hydrated ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0",
+            )}
+            aria-hidden={!hydrated}
+          >
             <SummaryBarTotals
-              weeklyLine={t("summaryWeekly", {
+              total={formatMoney(total)}
+              supportLine={t("summarySupport", {
                 weekly: formatMoney(weeklyTotal),
-                weeks: rentalWeeks,
-              })}
-              totalLine={t("summaryTotal", {
-                total: formatMoney(total),
                 count: itemCount,
               })}
             />
-          ) : (
-            <output className="text-muted-foreground text-sm">{t("loadingSummary")}</output>
-          )}
-          {hydrated ? (
-            <div className="mt-2 max-w-xs">
-              <RentalDurationPicker
-                id="builder-rental-weeks"
-                compact
-                label={t("durationLabel")}
-                value={rentalWeeks}
-                formatOption={(weeks) => t("weeksOption", { count: weeks })}
-                onChange={setRentalWeeks}
-              />
-            </div>
-          ) : null}
+          </div>
+          <div
+            className={cn(
+              "transition-opacity duration-300 ease-out",
+              hydrated ? "pointer-events-none absolute inset-0 opacity-0" : "opacity-100",
+            )}
+            aria-busy={!hydrated}
+            aria-hidden={hydrated}
+          >
+            <div className="bg-muted h-7 w-28 animate-pulse rounded-md sm:h-8" />
+            <div className="bg-muted mt-1.5 h-4 w-44 animate-pulse rounded-md" />
+            <output className="sr-only">{t("loadingSummary")}</output>
+          </div>
         </div>
+
+        <div
+          className={cn(
+            "transition-opacity duration-300 ease-out",
+            hydrated ? "opacity-100" : "pointer-events-none opacity-0",
+          )}
+          aria-hidden={!hydrated}
+        >
+          <RentalDurationPicker
+            id="builder-rental-weeks"
+            inline
+            compact
+            label={t("durationLabel")}
+            value={rentalWeeks}
+            formatOption={(weeks) => t("weeksOption", { count: weeks })}
+            onChange={setRentalWeeks}
+          />
+        </div>
+
         <Link
           href="/checkout"
-          className={cn(
-            buttonVariants(),
-            "h-9 w-full shrink-0 justify-center px-4 sm:h-9 sm:w-auto",
-          )}
+          className={cn(buttonVariants(), "h-9 w-full shrink-0 justify-center px-4 sm:w-auto")}
           aria-disabled={!hydrated}
           tabIndex={hydrated ? undefined : -1}
           onClick={(event) => {
