@@ -1,7 +1,13 @@
 {
   "Metadata": {
     "title": "Monis Setup Builder",
-    "description": "Rancang workspace impian di Bali dan sewa meja, kursi, serta aksesori dari monis.rent."
+    "description": "Rancang workspace impian di Bali dan sewa meja, kursi, serta aksesori dari monis.rent.",
+    "homeTitle": "Bangun workspace Bali Anda",
+    "homeDescription": "Susun meja, kursi, dan perlengkapan secara visual — lalu sewa dengan pengiriman di Bali.",
+    "setupBuilderTitle": "Setup Builder",
+    "setupBuilderDescription": "Pilih meja, kursi, dan aksesori dengan pratinjau visual langsung untuk setup sewa di Bali.",
+    "checkoutTitle": "Checkout",
+    "checkoutDescription": "Tinjau setup monis Anda, pilih durasi sewa, dan minta pengiriman."
   },
   "Home": {
     "brand": "monis",

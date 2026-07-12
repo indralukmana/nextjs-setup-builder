@@ -1,7 +1,13 @@
 {
   "Metadata": {
     "title": "Monis Setup Builder",
-    "description": "Design your dream Bali workspace and rent desks, chairs, and accessories from monis.rent."
+    "description": "Design your dream Bali workspace and rent desks, chairs, and accessories from monis.rent.",
+    "homeTitle": "Build your Bali workspace",
+    "homeDescription": "Compose a desk, chair, and gear visually — then rent it delivered across Bali.",
+    "setupBuilderTitle": "Setup Builder",
+    "setupBuilderDescription": "Pick desks, chairs, and accessories with a live visual preview of your Bali rental setup.",
+    "checkoutTitle": "Checkout",
+    "checkoutDescription": "Review your monis workspace setup, choose a rental duration, and request delivery."
   },
   "Home": {
     "brand": "monis",
