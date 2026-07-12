@@ -11,7 +11,7 @@ import {
 
 describe("pricing", () => {
   it("sums weekly prices for selected products", () => {
-    expect(getWeeklyTotal(["desk-electric", "chair-ergonomic"])).toBe(32);
+    expect(getWeeklyTotal(["desk-bollsidan", "chair-alefjall"])).toBe(32);
   });
 
   it("multiplies weekly total by rental weeks", () => {

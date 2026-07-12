@@ -21,6 +21,7 @@ export const rentalRequestSchema = rentalContactSchema.extend({
   deskId: z.string().min(1),
   chairId: z.string().min(1),
   accessoryIds: z.array(z.string()).max(20),
+  monitorCount: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]),
   rentalWeeks: z.union([z.literal(1), z.literal(4), z.literal(12)]),
 });
 
@@ -60,6 +61,7 @@ export function isValidRentalSetup(payload: {
   deskId: string;
   chairId: string;
   accessoryIds: string[];
+  monitorCount: number;
 }) {
   if (getProductSync(payload.deskId)?.category !== "desk") {
     return false;
@@ -67,7 +69,12 @@ export function isValidRentalSetup(payload: {
   if (getProductSync(payload.chairId)?.category !== "chair") {
     return false;
   }
-  return payload.accessoryIds.every((id) => getProductSync(id)?.category === "accessory");
+  if (![0, 1, 2, 3].includes(payload.monitorCount)) {
+    return false;
+  }
+  return payload.accessoryIds.every(
+    (id) => getProductSync(id)?.category === "accessory" && getProductSync(id)?.layer !== "monitor",
+  );
 }
 
 export function createRentalRequestId() {

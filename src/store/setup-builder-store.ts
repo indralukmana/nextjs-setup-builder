@@ -3,15 +3,25 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { MONITOR_PRODUCT_ID } from "@/data/catalog";
 import { getPresetById } from "@/data/presets";
 import { getProductSync } from "@/lib/catalog-api";
 
-export const MAX_MONITORS = 2;
+export const MAX_MONITORS = 3;
+/** 0 = cleared setup; picker only offers 1–3. */
+export type MonitorCount = 0 | 1 | 2 | 3;
+
+export const DRAWER_PRODUCT_IDS = new Set(["drawer-alex"]);
+
+export function isDrawerProductId(id: string) {
+  return DRAWER_PRODUCT_IDS.has(id);
+}
 
 export type PersistedSetup = {
   deskId?: string;
   chairId?: string;
   accessoryIds?: string[];
+  monitorCount?: number;
   rentalWeeks?: number;
 };
 
@@ -19,10 +29,12 @@ type SetupBuilderState = {
   deskId: string;
   chairId: string;
   accessoryIds: string[];
+  monitorCount: MonitorCount;
   rentalWeeks: number;
   setDeskId: (id: string) => void;
   setChairId: (id: string) => void;
   toggleAccessory: (id: string) => void;
+  setMonitorCount: (count: MonitorCount) => void;
   setRentalWeeks: (weeks: number) => void;
   applyPreset: (presetId: string) => void;
   loadSetup: (setup: PersistedSetup) => void;
@@ -31,13 +43,14 @@ type SetupBuilderState = {
 };
 
 export const defaults = {
-  deskId: "desk-electric",
-  chairId: "chair-ergonomic",
+  deskId: "desk-bollsidan",
+  chairId: "chair-alefjall",
   accessoryIds: [] as string[],
+  monitorCount: 1 as MonitorCount,
   rentalWeeks: 4,
 };
 
-const exclusiveLayers = new Set(["lamp", "plant", "webcam", "whiteboard", "power"]);
+const exclusiveLayers = new Set(["lamp"]);
 
 function isValidDeskId(id: string | undefined) {
   return getProductSync(id ?? "")?.category === "desk";
@@ -48,25 +61,15 @@ function isValidChairId(id: string | undefined) {
 }
 
 function sanitizeAccessoryIds(ids: string[] | undefined) {
-  const unique = [...new Set(ids ?? [])].filter(
-    (id) => getProductSync(id)?.category === "accessory",
-  );
-
-  const monitors: string[] = [];
-  const rest: string[] = [];
-
-  for (const id of unique) {
-    if (getProductSync(id)?.layer === "monitor") {
-      if (monitors.length < MAX_MONITORS) {
-        monitors.push(id);
-      }
-      continue;
-    }
-    rest.push(id);
-  }
+  const unique = [...new Set(ids ?? [])].filter((id) => {
+    const product = getProductSync(id);
+    return (
+      product?.category === "accessory" && product.layer !== "monitor" && id !== MONITOR_PRODUCT_ID
+    );
+  });
 
   const seenExclusive = new Set<string>();
-  const filteredRest = rest.filter((id) => {
+  return unique.filter((id) => {
     const layer = getProductSync(id)?.layer;
     if (!layer || !exclusiveLayers.has(layer)) {
       return true;
@@ -77,8 +80,13 @@ function sanitizeAccessoryIds(ids: string[] | undefined) {
     seenExclusive.add(layer);
     return true;
   });
+}
 
-  return [...monitors, ...filteredRest];
+function sanitizeMonitorCount(count: number | undefined): MonitorCount {
+  if (count === 0 || count === 1 || count === 2 || count === 3) {
+    return count;
+  }
+  return defaults.monitorCount;
 }
 
 function sanitizeRentalWeeks(weeks: number | undefined) {
@@ -93,6 +101,7 @@ export function sanitizePersistedSetup(persisted: PersistedSetup | undefined) {
     deskId: isValidDeskId(persisted?.deskId) ? persisted!.deskId! : defaults.deskId,
     chairId: isValidChairId(persisted?.chairId) ? persisted!.chairId! : defaults.chairId,
     accessoryIds: sanitizeAccessoryIds(persisted?.accessoryIds),
+    monitorCount: sanitizeMonitorCount(persisted?.monitorCount),
     rentalWeeks: sanitizeRentalWeeks(persisted?.rentalWeeks),
   };
 }
@@ -114,8 +123,16 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         set({ chairId: id });
       },
       toggleAccessory: (id) => {
+        if (get().monitorCount >= 3 && !isDrawerProductId(id)) {
+          return;
+        }
         const product = getProductSync(id);
-        if (!product || product.category !== "accessory") {
+        if (
+          !product ||
+          product.category !== "accessory" ||
+          product.layer === "monitor" ||
+          id === MONITOR_PRODUCT_ID
+        ) {
           return;
         }
 
@@ -123,15 +140,6 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         if (current.includes(id)) {
           set({ accessoryIds: current.filter((item) => item !== id) });
           return;
-        }
-
-        if (product.layer === "monitor") {
-          const monitorCount = current.filter(
-            (item) => getProductSync(item)?.layer === "monitor",
-          ).length;
-          if (monitorCount >= MAX_MONITORS) {
-            return;
-          }
         }
 
         if (exclusiveLayers.has(product.layer)) {
@@ -150,6 +158,12 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
 
         set({ accessoryIds: [...current, id] });
       },
+      setMonitorCount: (count) => {
+        if (count !== 0 && count !== 1 && count !== 2 && count !== 3) {
+          return;
+        }
+        set({ monitorCount: count });
+      },
       setRentalWeeks: (weeks) => {
         if (weeks !== 1 && weeks !== 4 && weeks !== 12) {
           return;
@@ -166,6 +180,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
             deskId: preset.deskId,
             chairId: preset.chairId,
             accessoryIds: preset.accessoryIds,
+            monitorCount: preset.monitorCount,
             rentalWeeks: preset.rentalWeeks,
           }),
         );
@@ -179,6 +194,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
           deskId: "",
           chairId: "",
           accessoryIds: [],
+          monitorCount: 0,
         }),
     }),
     {
@@ -187,6 +203,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         deskId: state.deskId,
         chairId: state.chairId,
         accessoryIds: state.accessoryIds,
+        monitorCount: state.monitorCount,
         rentalWeeks: state.rentalWeeks,
       }),
       merge: (persistedState, currentState) => ({
@@ -197,10 +214,20 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
   ),
 );
 
-export function selectSelectedIds(state: SetupBuilderState) {
-  return [state.deskId, state.chairId, ...state.accessoryIds];
+/** Line items for pricing/summary: desk, chair, N× monitor, accessories. */
+export function expandSetupLineIds(setup: {
+  deskId: string;
+  chairId: string;
+  accessoryIds: string[];
+  monitorCount: number;
+}) {
+  const count = Math.min(Math.max(setup.monitorCount, 0), MAX_MONITORS);
+  const monitors = Array.from({ length: count }, () => MONITOR_PRODUCT_ID);
+  const accessories =
+    count >= 3 ? setup.accessoryIds.filter((id) => isDrawerProductId(id)) : setup.accessoryIds;
+  return [setup.deskId, setup.chairId, ...monitors, ...accessories].filter((id) => id.length > 0);
 }
 
-export function countMonitors(accessoryIds: string[]) {
-  return accessoryIds.filter((id) => getProductSync(id)?.layer === "monitor").length;
+export function selectSelectedIds(state: SetupBuilderState) {
+  return expandSetupLineIds(state);
 }

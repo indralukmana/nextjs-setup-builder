@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 
-import { ProductIllustration } from "@/components/setup-builder/preview-layers";
+import { ProductCategoryIcon } from "@/components/setup-builder/product-category-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProductCopy } from "@/hooks/use-product-copy";
@@ -53,8 +53,8 @@ export function ProductCard({
         aria-hidden
       >
         <div className="flex items-stretch gap-3 p-3">
-          <div className="bg-muted/70 flex size-16 shrink-0 items-center justify-center rounded-lg border px-1 sm:size-20">
-            <ProductIllustration productId={product.id} className="h-12 w-full sm:h-16" />
+          <div className="bg-muted/70 flex size-16 shrink-0 items-center justify-center rounded-lg border sm:size-20">
+            <ProductCategoryIcon product={product} className="size-7 sm:size-8" />
           </div>
           <CardHeader className="min-w-0 gap-2 p-0">
             <div className="flex items-start justify-between gap-3">

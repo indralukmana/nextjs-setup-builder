@@ -6,30 +6,27 @@ test("setup builder shows catalog and updates summary", async ({ page }) => {
   await expect(page.getByRole("heading", { name: /setup builder/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /desks/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /chairs/i })).toBeVisible();
+  await expect(page.getByRole("tab", { name: /monitors/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /accessories/i })).toBeVisible();
 
-  await page.getByRole("button", { name: /select mechanical adjustable desk/i }).click();
+  await page.getByRole("button", { name: /select mittzon desk/i }).click();
 
   await expect(page.getByText(/\/week/i).first()).toBeVisible();
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /mechanical adjustable desk/i,
+    /mittzon desk/i,
   );
 });
 
-test("accessories update preview and enforce monitor limit", async ({ page }) => {
+test("monitors tab can set monitor count", async ({ page }) => {
   await page.goto("/en/setup-builder");
 
-  await page.getByRole("tab", { name: /accessories/i }).click();
-  await page.getByRole("button", { name: /select 24" full hd monitor/i }).click();
-  await page.getByRole("button", { name: /select 27" 4k monitor/i }).click();
+  await page.getByRole("tab", { name: /monitors/i }).click();
+  await page.getByRole("button", { name: /^3$/, exact: true }).click();
 
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /24" full hd monitor/i,
+    /gaming monitor/i,
   );
-  await expect(page.getByText(/maximum 2 monitors/i)).toBeVisible();
-
-  const thirdMonitor = page.getByRole("button", { name: /34" ultrawide monitor/i });
-  await expect(thirdMonitor).toBeDisabled();
+  await expect(page).toHaveURL(/monitors=3/);
 });
 
 test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
@@ -40,7 +37,7 @@ test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
   await page.keyboard.press("Enter");
 
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /electrical adjustable desk|mechanical adjustable desk/i,
+    /bollsidan|mittzon|utespelare/i,
   );
   await expect(page).toHaveURL(/desk=/);
 
@@ -52,20 +49,23 @@ test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
 });
 
 test("builder duration updates URL and reset restores default desk", async ({ page }) => {
-  await page.goto("/en/setup-builder?desk=desk-mechanical&chair=chair-task&accessories=&weeks=4");
+  await page.goto(
+    "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=&monitors=1&weeks=4",
+  );
 
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /mechanical adjustable desk/i,
+    /mittzon desk/i,
   );
 
   await page.getByRole("button", { name: /^12 wk$/i }).click();
   await expect(page).toHaveURL(/weeks=12/);
 
+  await page.getByText(/^more$/i).click();
   await page.getByRole("button", { name: /restore defaults/i }).click();
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /electrical adjustable desk/i,
+    /bollsidan sit\/stand desk/i,
   );
-  await expect(page).toHaveURL(/desk=desk-electric/);
+  await expect(page).toHaveURL(/desk=desk-bollsidan/);
 });
 
 test("presets show weekly totals and copy link still works", async ({ page, context }) => {
@@ -73,7 +73,7 @@ test("presets show weekly totals and copy link still works", async ({ page, cont
   await page.goto("/en/setup-builder");
   await expect(page).toHaveURL(/desk=/);
 
-  await expect(page.getByText(/\$\d+\/week/i).first()).toBeVisible();
+  await expect(page.getByText(/\$\d+(\/week|\/wk)/i).first()).toBeVisible();
 
   const shareOrCopy = page.getByRole("button", { name: /copy setup link|share setup/i });
   await shareOrCopy.click();
@@ -94,43 +94,45 @@ test("Indonesian locale shows IDR prices and copy link feedback", async ({ page,
 
 test("saved setups can restore a desk after reset", async ({ page }) => {
   await page.goto("/en/setup-builder");
-  await page.getByRole("button", { name: /^essentials$/i }).click();
+  await page.getByLabel(/quick presets/i).selectOption("essentials");
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /electrical adjustable desk/i,
+    /bollsidan sit\/stand desk/i,
   );
 
+  await page.getByText(/^saved setups/i).click();
   await page.getByLabel(/setup name/i).fill("My essentials");
   await page.getByRole("button", { name: /save current/i }).click();
   await expect(page.getByText("My essentials")).toBeVisible();
 
-  await page.getByRole("button", { name: /^focus$/i }).click();
+  await page.getByLabel(/quick presets/i).selectOption("focus");
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /mechanical adjustable desk/i,
+    /mittzon desk/i,
   );
 
   await page.getByRole("button", { name: /^load$/i }).click();
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
-    /electrical adjustable desk/i,
+    /bollsidan sit\/stand desk/i,
   );
 });
 
 test("shareable URL hydrates setup and essentials preset applies", async ({ page }) => {
   await page.goto(
-    "/en/setup-builder?desk=desk-mechanical&chair=chair-task&accessories=monitor-24,lamp-led&weeks=12",
+    "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=lamp-svallet&monitors=2&weeks=12",
   );
 
   const preview = page.getByRole("region", { name: /workspace preview/i });
-  await expect(preview).toContainText(/mechanical adjustable desk/i);
-  await expect(preview).toContainText(/compact task chair/i);
-  await expect(preview).toContainText(/24" full hd monitor/i);
-  await expect(preview).toContainText(/smart led desk lamp/i);
+  await expect(preview).toContainText(/mittzon desk/i);
+  await expect(preview).toContainText(/grönfjäll office chair/i);
+  await expect(preview).toContainText(/gaming monitor/i);
+  await expect(preview).toContainText(/svallet work lamp/i);
   await expect(page.getByText(/12 weeks/i)).toBeVisible();
 
-  await page.getByRole("button", { name: /^essentials$/i }).click();
+  await page.getByLabel(/quick presets/i).selectOption("essentials");
 
-  await expect(preview).toContainText(/electrical adjustable desk/i);
-  await expect(preview).toContainText(/ergonomic office chair/i);
-  await expect(preview).toContainText(/keyboard & mouse kit/i);
-  await expect(page).toHaveURL(/desk=desk-electric/);
-  await expect(page).toHaveURL(/chair=chair-ergonomic/);
+  await expect(preview).toContainText(/bollsidan sit\/stand desk/i);
+  await expect(preview).toContainText(/alefjäll office chair/i);
+  await expect(preview).toContainText(/nymåne work lamp/i);
+  await expect(page).toHaveURL(/desk=desk-bollsidan/);
+  await expect(page).toHaveURL(/chair=chair-alefjall/);
+  await expect(page).toHaveURL(/monitors=1/);
 });

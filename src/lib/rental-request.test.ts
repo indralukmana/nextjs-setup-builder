@@ -38,9 +38,10 @@ describe("rental-request", () => {
       name: "Indra",
       email: "indra@example.com",
       phone: "+62 812 3456 7890",
-      deskId: "desk-electric",
-      chairId: "chair-ergonomic",
-      accessoryIds: ["lamp-led"],
+      deskId: "desk-bollsidan",
+      chairId: "chair-alefjall",
+      accessoryIds: ["lamp-nymane"],
+      monitorCount: 1,
       rentalWeeks: 4,
     });
 
@@ -51,8 +52,9 @@ describe("rental-request", () => {
     expect(
       isValidRentalSetup({
         deskId: "not-a-desk",
-        chairId: "chair-ergonomic",
+        chairId: "chair-alefjall",
         accessoryIds: [],
+        monitorCount: 1,
       }),
     ).toBe(false);
   });

@@ -25,5 +25,5 @@ export function StoreReady({ children, className, label = "Loading saved setup" 
     );
   }
 
-  return children;
+  return <div className={cn(className)}>{children}</div>;
 }

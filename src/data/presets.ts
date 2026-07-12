@@ -5,29 +5,33 @@ export type SetupPreset = {
   deskId: string;
   chairId: string;
   accessoryIds: string[];
+  monitorCount: 1 | 2 | 3;
   rentalWeeks: number;
 };
 
 export const setupPresets: SetupPreset[] = [
   {
     id: "essentials",
-    deskId: "desk-electric",
-    chairId: "chair-ergonomic",
-    accessoryIds: ["monitor-24", "lamp-led", "kit-peripherals"],
+    deskId: "desk-bollsidan",
+    chairId: "chair-alefjall",
+    accessoryIds: ["lamp-nymane"],
+    monitorCount: 1,
     rentalWeeks: 4,
   },
   {
     id: "focus",
-    deskId: "desk-mechanical",
-    chairId: "chair-task",
-    accessoryIds: ["monitor-24", "plant-desk", "whiteboard-glass"],
+    deskId: "desk-mittzon",
+    chairId: "chair-gronfjall",
+    accessoryIds: ["lamp-svallet"],
+    monitorCount: 2,
     rentalWeeks: 4,
   },
   {
     id: "creator",
-    deskId: "desk-electric",
-    chairId: "chair-ergonomic",
-    accessoryIds: ["monitor-27-4k", "webcam-hd", "lamp-led", "kit-peripherals", "power-strip"],
+    deskId: "desk-utespelare",
+    chairId: "chair-gronfjall-headrest",
+    accessoryIds: ["drawer-alex"],
+    monitorCount: 3,
     rentalWeeks: 12,
   },
 ];

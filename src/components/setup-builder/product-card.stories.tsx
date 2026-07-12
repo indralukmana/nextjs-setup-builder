@@ -30,14 +30,14 @@ export const Selected: Story = {
 
 export const Accessory: Story = {
   args: {
-    product: catalog.find((item) => item.id === "monitor-27-4k")!,
+    product: catalog.find((item) => item.id === "lamp-nymane")!,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    product: catalog.find((item) => item.id === "monitor-34")!,
+    product: catalog.find((item) => item.id === "drawer-alex")!,
     disabled: true,
-    disabledReason: "Max 2 monitors",
+    disabledReason: "Unavailable",
   },
 };

@@ -19,6 +19,7 @@ export function SetupUrlSync() {
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
+  const monitorCount = useSetupBuilderStore((state) => state.monitorCount);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export function SetupUrlSync() {
       deskId,
       chairId,
       accessoryIds,
+      monitorCount,
       rentalWeeks,
     });
     const currentQuery = searchParams.toString();
@@ -54,7 +56,17 @@ export function SetupUrlSync() {
     }, WRITE_DEBOUNCE_MS);
 
     return () => window.clearTimeout(timer);
-  }, [accessoryIds, chairId, deskId, hydrated, pathname, rentalWeeks, router, searchParams]);
+  }, [
+    accessoryIds,
+    chairId,
+    deskId,
+    hydrated,
+    monitorCount,
+    pathname,
+    rentalWeeks,
+    router,
+    searchParams,
+  ]);
 
   return null;
 }

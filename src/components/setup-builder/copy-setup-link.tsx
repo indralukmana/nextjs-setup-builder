@@ -15,7 +15,7 @@ function canShare(url: string) {
   );
 }
 
-export function CopySetupLink() {
+export function CopySetupLink({ className }: { className?: string }) {
   const t = useTranslations("SetupBuilder");
   const [feedback, setFeedback] = useState<"idle" | "copied" | "shared">("idle");
   const [shareAvailable, setShareAvailable] = useState(false);
@@ -46,6 +46,7 @@ export function CopySetupLink() {
       type="button"
       variant="outline"
       size="sm"
+      className={className}
       onClick={async () => {
         const url = window.location.href;
         try {

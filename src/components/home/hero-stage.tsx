@@ -2,24 +2,11 @@
 
 import { motion } from "motion/react";
 
-import { ProductIllustration, buildStageSlots } from "@/components/setup-builder/preview-layers";
-import { getProductSync } from "@/lib/catalog-api";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-const SHOWCASE_IDS = [
-  "desk-electric",
-  "chair-ergonomic",
-  "monitor-27-4k",
-  "lamp-led",
-  "plant-desk",
-] as const;
-
+/** Atmospheric full-bleed backdrop for the home hero (no SVG product stage). */
 export function HeroStage() {
   const reduceMotion = usePrefersReducedMotion();
-  const products = SHOWCASE_IDS.map((id) => getProductSync(id)).filter(
-    (product) => product != null,
-  );
-  const slots = buildStageSlots(products);
 
   return (
     <div
@@ -44,28 +31,13 @@ export function HeroStage() {
             : { duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }
         }
       />
-
-      <div className="absolute inset-0 origin-bottom scale-110 md:translate-x-[8%] md:scale-100 lg:translate-x-[14%]">
-        {slots.map((slot, index) => (
-          <motion.div
-            key={slot.product.id}
-            className={slot.className}
-            style={{ zIndex: slot.zIndex }}
-            initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduceMotion
-                ? { duration: 0 }
-                : { type: "spring", stiffness: 180, damping: 24, delay: 0.12 * index }
-            }
-          >
-            <ProductIllustration
-              productId={slot.product.id}
-              className="h-auto w-full drop-shadow-[0_16px_32px_rgba(40,50,30,0.2)]"
-            />
-          </motion.div>
-        ))}
-      </div>
+      <motion.div
+        className="absolute right-[-8%] bottom-[18%] h-[42%] w-[58%] rounded-[40%_60%_45%_55%] bg-[#c4b08a]/35 blur-2xl md:right-[4%] md:w-[42%]"
+        animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+        transition={
+          reduceMotion ? { duration: 0 } : { duration: 10, repeat: Infinity, ease: "easeInOut" }
+        }
+      />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { RentalSuccess } from "@/components/checkout/rental-success";
 import { RentalTotals } from "@/components/checkout/rental-totals";
 import { parseRentalContact } from "@/lib/rental-request";
 import { formatMoney, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
-import { useSetupBuilderStore } from "@/store/setup-builder-store";
+import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function RentalRequestPanel() {
   const t = useTranslations("Checkout");
@@ -22,11 +22,12 @@ export function RentalRequestPanel() {
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
+  const monitorCount = useSetupBuilderStore((state) => state.monitorCount);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
   const setRentalWeeks = useSetupBuilderStore((state) => state.setRentalWeeks);
   const [state, dispatch] = useReducer(rentalFormReducer, initialRentalFormState);
 
-  const selectedIds = [deskId, chairId, ...accessoryIds];
+  const selectedIds = expandSetupLineIds({ deskId, chairId, accessoryIds, monitorCount });
   const weeklyTotal = getWeeklyTotal(selectedIds);
   const total = getRentalTotal(weeklyTotal, rentalWeeks);
   const validationMessages = {
@@ -80,6 +81,7 @@ export function RentalRequestPanel() {
                 deskId,
                 chairId,
                 accessoryIds,
+                monitorCount,
                 rentalWeeks,
               }),
             });

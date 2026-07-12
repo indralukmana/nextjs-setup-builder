@@ -38,9 +38,10 @@ describe("saved-setups", () => {
       const result = saveCurrentSetup(
         `Setup ${i}`,
         {
-          deskId: "desk-mechanical",
+          deskId: "desk-mittzon",
           chairId: "ghost",
-          accessoryIds: ["lamp-led"],
+          accessoryIds: ["lamp-nymane"],
+          monitorCount: 2,
           rentalWeeks: 12,
         },
         memoryStorage,
@@ -50,26 +51,45 @@ describe("saved-setups", () => {
 
     const full = saveCurrentSetup(
       "Overflow",
-      { deskId: "desk-electric", chairId: "chair-ergonomic", accessoryIds: [], rentalWeeks: 4 },
+      {
+        deskId: "desk-bollsidan",
+        chairId: "chair-alefjall",
+        accessoryIds: [],
+        monitorCount: 1,
+        rentalWeeks: 4,
+      },
       memoryStorage,
     );
     expect(full).toEqual({ ok: false, reason: "full" });
 
     const entries = readSavedSetups(memoryStorage);
     expect(entries).toHaveLength(MAX_SAVED_SETUPS);
-    expect(entries[0]?.setup.chairId).toBe("chair-ergonomic");
+    expect(entries[0]?.setup.chairId).toBe("chair-alefjall");
+    expect(entries[0]?.setup.monitorCount).toBe(2);
     expect(memoryStorage.getItem(SAVED_SETUPS_KEY)).toBeTruthy();
   });
 
   it("deletes a saved setup by id", () => {
     saveCurrentSetup(
       "Keep",
-      { deskId: "desk-electric", chairId: "chair-ergonomic", accessoryIds: [], rentalWeeks: 4 },
+      {
+        deskId: "desk-bollsidan",
+        chairId: "chair-alefjall",
+        accessoryIds: [],
+        monitorCount: 1,
+        rentalWeeks: 4,
+      },
       memoryStorage,
     );
     const second = saveCurrentSetup(
       "Remove",
-      { deskId: "desk-mechanical", chairId: "chair-task", accessoryIds: [], rentalWeeks: 1 },
+      {
+        deskId: "desk-mittzon",
+        chairId: "chair-gronfjall",
+        accessoryIds: [],
+        monitorCount: 1,
+        rentalWeeks: 1,
+      },
       memoryStorage,
     );
     expect(second.ok).toBe(true);

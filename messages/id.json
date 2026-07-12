@@ -5,9 +5,11 @@
     "homeTitle": "Bangun workspace Bali Anda",
     "homeDescription": "Susun meja, kursi, dan perlengkapan secara visual — lalu sewa dengan pengiriman di Bali.",
     "setupBuilderTitle": "Setup Builder",
-    "setupBuilderDescription": "Pilih meja, kursi, dan aksesori dengan pratinjau visual langsung untuk setup sewa di Bali.",
+    "setupBuilderDescription": "Pilih meja, kursi, dan aksesori dengan pratinjau 3D langsung untuk setup sewa di Bali.",
     "checkoutTitle": "Checkout",
-    "checkoutDescription": "Tinjau setup monis Anda, pilih durasi sewa, dan minta pengiriman."
+    "checkoutDescription": "Tinjau setup monis Anda, pilih durasi sewa, dan minta pengiriman.",
+    "setupSceneTitle": "Adegan setup 3D",
+    "setupSceneDescription": "Orbit adegan 3D gabungan meja, kursi, dan aksesori dari setup builder."
   },
   "Home": {
     "brand": "monis",
@@ -55,10 +57,17 @@
     "tabs": {
       "desk": "Meja",
       "chair": "Kursi",
-      "accessory": "Aksesori"
+      "monitor": "Monitor",
+      "accessory": "Aksesori",
+      "drawer": "Laci"
     },
-    "monitorLimit": "Maksimal {max} monitor dipilih. Batalkan satu untuk menambah lainnya.",
-    "monitorLimitShort": "Maks {max} monitor",
+    "monitorCount": {
+      "label": "Monitor",
+      "none": "Tidak ada",
+      "option": "{count}",
+      "hint": "Model monitor gaming yang sama — pilih tidak ada, atau 1, 2, atau 3."
+    },
+    "accessoriesDisabledForTripleMonitors": "Aksesori meja tidak tersedia dengan 3 monitor.",
     "summaryWeekly": "{weekly}/minggu · {weeks} minggu",
     "summaryTotal": "Total {total} · {count} item",
     "reviewRental": "Tinjau sewa",
@@ -74,6 +83,7 @@
     "weeksOption": "{count} mg",
     "presets": {
       "label": "Preset cepat",
+      "placeholder": "Terapkan preset…",
       "weekly": "{amount}/minggu",
       "essentials": {
         "name": "Essentials"
@@ -85,6 +95,20 @@
         "name": "Creator"
       }
     },
+    "actionsMenu": "Lainnya",
+    "selectionChips": {
+      "ariaLabel": "Pilihan setup saat ini",
+      "desk": "Meja",
+      "chair": "Kursi",
+      "monitors": "Monitor",
+      "monitorsNone": "Tidak ada",
+      "monitorsCount": "{count}",
+      "empty": "—"
+    },
+    "catalogSheet": {
+      "open": "Katalog",
+      "close": "Tutup"
+    },
     "saved": {
       "label": "Setup tersimpan",
       "save": "Simpan saat ini",
@@ -95,7 +119,8 @@
       "namePlaceholder": "Nama setup ini",
       "full": "Anda sudah punya {max} setup tersimpan. Hapus satu dulu.",
       "emptyName": "Masukkan nama untuk menyimpan."
-    }
+    },
+    "setupSceneLink": "Buka adegan penuh"
   },
   "Checkout": {
     "title": "Checkout",
@@ -153,70 +178,70 @@
     "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
+    "setupScene": "Adegan 3D",
+    "setupSceneShort": "3D",
     "checkout": "Checkout",
     "checkoutShort": "Sewa",
     "skipToContent": "Loncat ke konten"
+  },
+  "SetupScene": {
+    "title": "Adegan setup 3D",
+    "subtitle": "Meja, kursi, dan perlengkapan yang dipilih digabung dalam satu adegan yang bisa di-orbit.",
+    "loading": "Memuat adegan 3D",
+    "editSetup": "Edit setup",
+    "continueCheckout": "Lanjut ke checkout",
+    "emptyHint": "Belum ada item dipilih — buka builder untuk menyusun workspace.",
+    "disclaimer": "Adegan demo memakai GLB bergaya IKEA dan mesh monitor gaming — hanya ilustrasi, bukan scan produk resmi Monis.",
+    "controlsHint": "Seret untuk orbit, scroll untuk zoom. Ubah meja/kursi/aksesori di builder untuk melihat kombinasi berbeda."
   },
   "Catalog": {
     "select": "Select",
     "selected": "Selected",
     "unavailable": "Unavailable",
     "products": {
-      "desk-electric": {
-        "name": "Meja Adjustable Elektrik",
-        "description": "Standing desk elektrik dengan motor yang tenang."
+      "desk-bollsidan": {
+        "name": "Meja sit/stand BOLLSIDAN",
+        "description": "Meja sit-stand elektrik putih untuk tinggi kerja yang fleksibel."
       },
-      "desk-mechanical": {
-        "name": "Meja Adjustable Mekanis",
-        "description": "Meja tinggi yang disesuaikan manual, tanpa listrik."
+      "desk-mittzon": {
+        "name": "Meja MITTZON",
+        "description": "Meja veneer walnut dengan rangka hitam."
       },
-      "chair-ergonomic": {
-        "name": "Kursi Kantor Ergonomis",
-        "description": "Sandaran mesh dengan armrest 4D dan dukungan lumbar."
+      "desk-utespelare": {
+        "name": "Meja gaming UTESPELARE",
+        "description": "Meja gaming hitam untuk monitor dan peripheral."
       },
-      "chair-task": {
-        "name": "Kursi Task Kompak",
-        "description": "Kursi ringan untuk workspace yang lebih kecil."
+      "chair-alefjall": {
+        "name": "Kursi kantor ALEFJÄLL",
+        "description": "Kursi kantor kulit Glose hitam dengan penyesuaian penuh."
       },
-      "monitor-24": {
-        "name": "Monitor Full HD 24\"",
-        "description": "Monitor IPS cepat untuk kerja sehari-hari."
+      "chair-gronfjall": {
+        "name": "Kursi kantor GRÖNFJÄLL",
+        "description": "Kursi kantor abu-hijau dengan sandaran lengan."
       },
-      "monitor-27-4k": {
-        "name": "Monitor 4K 27\"",
-        "description": "Layar 4K USB-C dengan warna tajam."
+      "chair-gronfjall-headrest": {
+        "name": "Kursi kantor GRÖNFJÄLL dengan headrest",
+        "description": "Kursi kantor abu/hitam dengan sandaran lengan dan headrest."
       },
-      "monitor-34": {
-        "name": "Monitor Ultrawide 34\"",
-        "description": "Ultrawide lengkung untuk multitasking imersif."
+      "monitor-gaming": {
+        "name": "Monitor gaming",
+        "description": "Layar gaming refresh tinggi untuk kerja atau bermain fokus."
       },
-      "lamp-led": {
-        "name": "Lampu Meja LED Pintar",
-        "description": "Lampu meja dengan suhu warna yang dapat disesuaikan."
+      "lamp-nymane": {
+        "name": "Lampu kerja NYMÅNE",
+        "description": "Lampu kerja putih dengan basis pengisian nirkabel."
       },
-      "plant-desk": {
-        "name": "Tanaman Meja",
-        "description": "Tanaman hijau perawatan rendah untuk setup Anda."
+      "lamp-svallet": {
+        "name": "Lampu kerja SVALLET",
+        "description": "Lampu tugas kompak abu gelap/putih."
       },
-      "stand-laptop": {
-        "name": "Stand Laptop Ergonomis",
-        "description": "Meninggikan laptop untuk postur yang lebih sehat."
+      "stand-lanespelare": {
+        "name": "Stand aksesori LÅNESPELARE",
+        "description": "Stand aksesori gaming untuk headset, gelas, dan peralatan kecil."
       },
-      "kit-peripherals": {
-        "name": "Kit Keyboard & Mouse",
-        "description": "Pasangan keyboard dan mouse nirkabel."
-      },
-      "webcam-hd": {
-        "name": "Webcam HD",
-        "description": "Webcam 1080p untuk panggilan video yang jernih."
-      },
-      "whiteboard-glass": {
-        "name": "Whiteboard Meja",
-        "description": "Papan kaca kompak untuk catatan dan sketsa."
-      },
-      "power-strip": {
-        "name": "Stop Kontak Surge",
-        "description": "Colokan terlindungi untuk monitor dan charger."
+      "drawer-alex": {
+        "name": "Unit laci ALEX",
+        "description": "Unit laci cokelat-hitam yang bisa disampingkan di meja."
       }
     }
   }

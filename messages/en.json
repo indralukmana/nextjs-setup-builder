@@ -5,9 +5,11 @@
     "homeTitle": "Build your Bali workspace",
     "homeDescription": "Compose a desk, chair, and gear visually — then rent it delivered across Bali.",
     "setupBuilderTitle": "Setup Builder",
-    "setupBuilderDescription": "Pick desks, chairs, and accessories with a live visual preview of your Bali rental setup.",
+    "setupBuilderDescription": "Pick desks, chairs, and accessories with a live 3D preview of your Bali rental setup.",
     "checkoutTitle": "Checkout",
-    "checkoutDescription": "Review your monis workspace setup, choose a rental duration, and request delivery."
+    "checkoutDescription": "Review your monis workspace setup, choose a rental duration, and request delivery.",
+    "setupSceneTitle": "3D setup scene",
+    "setupSceneDescription": "Orbit a composed 3D scene of your desk, chair, and accessories from the setup builder."
   },
   "Home": {
     "brand": "monis",
@@ -55,10 +57,17 @@
     "tabs": {
       "desk": "Desks",
       "chair": "Chairs",
-      "accessory": "Accessories"
+      "monitor": "Monitors",
+      "accessory": "Accessories",
+      "drawer": "Drawers"
     },
-    "monitorLimit": "Maximum {max} monitors selected. Deselect one to add another.",
-    "monitorLimitShort": "Max {max} monitors",
+    "monitorCount": {
+      "label": "Monitors",
+      "none": "None",
+      "option": "{count}",
+      "hint": "Same gaming monitor model — choose none, or 1, 2, or 3."
+    },
+    "accessoriesDisabledForTripleMonitors": "Desk accessories are unavailable with 3 monitors.",
     "summaryWeekly": "{weekly}/week · {weeks} weeks",
     "summaryTotal": "Total {total} · {count} items",
     "reviewRental": "Review rental",
@@ -74,6 +83,7 @@
     "weeksOption": "{count} wk",
     "presets": {
       "label": "Quick presets",
+      "placeholder": "Apply a preset…",
       "weekly": "{amount}/week",
       "essentials": {
         "name": "Essentials"
@@ -85,6 +95,20 @@
         "name": "Creator"
       }
     },
+    "actionsMenu": "More",
+    "selectionChips": {
+      "ariaLabel": "Current setup selection",
+      "desk": "Desk",
+      "chair": "Chair",
+      "monitors": "Monitors",
+      "monitorsNone": "None",
+      "monitorsCount": "{count}",
+      "empty": "—"
+    },
+    "catalogSheet": {
+      "open": "Catalog",
+      "close": "Close"
+    },
     "saved": {
       "label": "Saved setups",
       "save": "Save current",
@@ -95,7 +119,8 @@
       "namePlaceholder": "Name this setup",
       "full": "You already have {max} saved setups. Delete one first.",
       "emptyName": "Enter a name to save."
-    }
+    },
+    "setupSceneLink": "Open full scene"
   },
   "Checkout": {
     "title": "Checkout",
@@ -153,70 +178,70 @@
     "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
+    "setupScene": "3D scene",
+    "setupSceneShort": "3D",
     "checkout": "Checkout",
     "checkoutShort": "Rent",
     "skipToContent": "Skip to content"
+  },
+  "SetupScene": {
+    "title": "3D setup scene",
+    "subtitle": "Your selected desk, chair, and gear composed in one orbitable scene.",
+    "loading": "Loading 3D scene",
+    "editSetup": "Edit setup",
+    "continueCheckout": "Continue to checkout",
+    "emptyHint": "No items selected yet — open the builder to compose a workspace.",
+    "disclaimer": "Demo scene uses IKEA-style product GLBs and a gaming monitor mesh — illustrative only, not official Monis product scans.",
+    "controlsHint": "Drag to orbit, scroll to zoom. Change desk/chair/accessories in the builder to see different combinations."
   },
   "Catalog": {
     "select": "Select",
     "selected": "Selected",
     "unavailable": "Unavailable",
     "products": {
-      "desk-electric": {
-        "name": "Electrical Adjustable Desk",
-        "description": "Electric sit-stand desk with quiet motor."
+      "desk-bollsidan": {
+        "name": "BOLLSIDAN sit/stand desk",
+        "description": "Electric white sit-stand desk for flexible work height."
       },
-      "desk-mechanical": {
-        "name": "Mechanical Adjustable Desk",
-        "description": "Manual height-adjustable desk, no power needed."
+      "desk-mittzon": {
+        "name": "MITTZON desk",
+        "description": "Walnut veneer desk with a black underframe."
       },
-      "chair-ergonomic": {
-        "name": "Ergonomic Office Chair",
-        "description": "Breathable mesh with 4D armrests and lumbar support."
+      "desk-utespelare": {
+        "name": "UTESPELARE gaming desk",
+        "description": "Black gaming desk sized for monitors and peripherals."
       },
-      "chair-task": {
-        "name": "Compact Task Chair",
-        "description": "Lightweight task chair for smaller workspaces."
+      "chair-alefjall": {
+        "name": "ALEFJÄLL office chair",
+        "description": "Glose black leather office chair with full adjustability."
       },
-      "monitor-24": {
-        "name": "24\" Full HD Monitor",
-        "description": "Fast IPS office monitor for everyday work."
+      "chair-gronfjall": {
+        "name": "GRÖNFJÄLL office chair",
+        "description": "Gray-green office chair with armrests."
       },
-      "monitor-27-4k": {
-        "name": "27\" 4K Monitor",
-        "description": "USB-C 4K display with sharp color."
+      "chair-gronfjall-headrest": {
+        "name": "GRÖNFJÄLL office chair with headrest",
+        "description": "Gray/black office chair with armrests and headrest."
       },
-      "monitor-34": {
-        "name": "34\" Ultrawide Monitor",
-        "description": "Curved ultrawide for immersive multitasking."
+      "monitor-gaming": {
+        "name": "Gaming monitor",
+        "description": "High-refresh gaming display for focused work or play."
       },
-      "lamp-led": {
-        "name": "Smart LED Desk Lamp",
-        "description": "Adjustable color temperature desk lamp."
+      "lamp-nymane": {
+        "name": "NYMÅNE work lamp",
+        "description": "White work lamp with wireless charging base."
       },
-      "plant-desk": {
-        "name": "Desk Plant",
-        "description": "Low-maintenance greenery for your setup."
+      "lamp-svallet": {
+        "name": "SVALLET work lamp",
+        "description": "Compact dark gray/white task lamp."
       },
-      "stand-laptop": {
-        "name": "Ergonomic Laptop Stand",
-        "description": "Raises laptops for a healthier posture."
+      "stand-lanespelare": {
+        "name": "LÅNESPELARE accessories stand",
+        "description": "Gaming accessories stand for headset, cups, and small gear."
       },
-      "kit-peripherals": {
-        "name": "Keyboard & Mouse Kit",
-        "description": "Wireless keyboard and mouse pair."
-      },
-      "webcam-hd": {
-        "name": "HD Webcam",
-        "description": "1080p webcam for crisp video calls."
-      },
-      "whiteboard-glass": {
-        "name": "Desktop Whiteboard",
-        "description": "Compact glass board for notes and sketches."
-      },
-      "power-strip": {
-        "name": "Surge Power Strip",
-        "description": "Protected outlets for monitors and chargers."
+      "drawer-alex": {
+        "name": "ALEX drawer unit",
+        "description": "Black-brown drawer unit that tucks beside the desk."
       }
     }
   }

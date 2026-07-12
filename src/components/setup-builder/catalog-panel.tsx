@@ -3,22 +3,20 @@
 import { useTranslations } from "next-intl";
 
 import { CatalogProductList } from "@/components/setup-builder/catalog-product-list";
-import { ClearSetupButton } from "@/components/setup-builder/clear-setup-button";
-import { CopySetupLink } from "@/components/setup-builder/copy-setup-link";
-import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
+import { CatalogRailActions } from "@/components/setup-builder/catalog-rail-actions";
+import { MonitorCountPicker } from "@/components/setup-builder/monitor-count-picker";
 import { PresetPicker } from "@/components/setup-builder/preset-picker";
-import { ResetSetupButton } from "@/components/setup-builder/reset-setup-button";
 import { SavedSetups } from "@/components/setup-builder/saved-setups";
 import { StoreReady } from "@/components/setup-builder/store-ready";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { listProductsByCategorySync } from "@/lib/catalog-api";
-import { countMonitors, MAX_MONITORS, useSetupBuilderStore } from "@/store/setup-builder-store";
+import { isDrawerProductId, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function CatalogPanel() {
   const t = useTranslations("SetupBuilder");
 
   return (
-    <StoreReady className="min-h-80" label={t("loadingCatalog")}>
+    <StoreReady className="flex h-full min-h-0 flex-col" label={t("loadingCatalog")}>
       <CatalogPanelContent />
     </StoreReady>
   );
@@ -29,62 +27,90 @@ function CatalogPanelContent() {
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
+  const monitorCount = useSetupBuilderStore((state) => state.monitorCount);
   const setDeskId = useSetupBuilderStore((state) => state.setDeskId);
   const setChairId = useSetupBuilderStore((state) => state.setChairId);
   const toggleAccessory = useSetupBuilderStore((state) => state.toggleAccessory);
-  const monitorsFull = countMonitors(accessoryIds) >= MAX_MONITORS;
+
+  const allAccessories = listProductsByCategorySync("accessory").filter(
+    (product) => product.layer !== "monitor",
+  );
+  const deskAccessoryProducts = allAccessories.filter((product) => !isDrawerProductId(product.id));
+  const drawerProducts = allAccessories.filter((product) => isDrawerProductId(product.id));
+  const accessoriesDisabled = monitorCount >= 3;
 
   return (
-    <section aria-label="Product catalog" className="flex flex-col gap-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <PresetPicker />
-        <div className="flex flex-wrap gap-2">
-          <ClearSetupButton />
-          <ResetSetupButton />
-          <CopySetupLink />
-        </div>
+    <section
+      aria-label="Product catalog"
+      className="flex h-full min-h-0 flex-col gap-2.5 overflow-hidden"
+    >
+      <div className="flex shrink-0 flex-col gap-2">
+        <PresetPicker variant="rail" />
+        <CatalogRailActions />
+        <SavedSetups />
       </div>
-      <SavedSetups />
-      <Tabs defaultValue="desk">
-        <TabsList className="h-auto w-full max-w-full flex-wrap sm:w-fit">
-          <TabsTrigger value="desk" className="px-2.5 sm:px-3">
-            {t("tabs.desk")}
-          </TabsTrigger>
-          <TabsTrigger value="chair" className="px-2.5 sm:px-3">
-            {t("tabs.chair")}
-          </TabsTrigger>
-          <TabsTrigger value="accessory" className="px-2.5 sm:px-3">
-            {t("tabs.accessory")}
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="desk" className="mt-4">
-          <CatalogProductList
-            products={listProductsByCategorySync("desk")}
-            isSelected={(product) => deskId === product.id}
-            onSelect={(product) => setDeskId(product.id)}
-          />
-        </TabsContent>
-        <TabsContent value="chair" className="mt-4">
-          <CatalogProductList
-            products={listProductsByCategorySync("chair")}
-            isSelected={(product) => chairId === product.id}
-            onSelect={(product) => setChairId(product.id)}
-          />
-        </TabsContent>
-        <TabsContent value="accessory" className="mt-4 grid gap-3">
-          {monitorsFull ? (
-            <MonitorLimitNotice message={t("monitorLimit", { max: MAX_MONITORS })} />
-          ) : null}
-          <CatalogProductList
-            products={listProductsByCategorySync("accessory")}
-            isSelected={(product) => accessoryIds.includes(product.id)}
-            isDisabled={(product) =>
-              product.layer === "monitor" && !accessoryIds.includes(product.id) && monitorsFull
-            }
-            disabledReason={() => t("monitorLimitShort", { max: MAX_MONITORS })}
-            onSelect={(product) => toggleAccessory(product.id)}
-          />
-        </TabsContent>
+
+      <Tabs defaultValue="desk" className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
+        <div className="shrink-0 overflow-x-auto">
+          <TabsList className="h-auto w-max max-w-none flex-nowrap">
+            <TabsTrigger value="desk" className="shrink-0 flex-none px-2.5">
+              {t("tabs.desk")}
+            </TabsTrigger>
+            <TabsTrigger value="chair" className="shrink-0 flex-none px-2.5">
+              {t("tabs.chair")}
+            </TabsTrigger>
+            <TabsTrigger value="monitor" className="shrink-0 flex-none px-2.5">
+              {t("tabs.monitor")}
+            </TabsTrigger>
+            <TabsTrigger value="accessory" className="shrink-0 flex-none px-2.5">
+              {t("tabs.accessory")}
+            </TabsTrigger>
+            <TabsTrigger value="drawer" className="shrink-0 flex-none px-2.5">
+              {t("tabs.drawer")}
+            </TabsTrigger>
+          </TabsList>
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto pb-4">
+          <TabsContent value="desk" className="mt-0">
+            <CatalogProductList
+              products={listProductsByCategorySync("desk")}
+              isSelected={(product) => deskId === product.id}
+              onSelect={(product) => setDeskId(product.id)}
+            />
+          </TabsContent>
+          <TabsContent value="chair" className="mt-0">
+            <CatalogProductList
+              products={listProductsByCategorySync("chair")}
+              isSelected={(product) => chairId === product.id}
+              onSelect={(product) => setChairId(product.id)}
+            />
+          </TabsContent>
+          <TabsContent value="monitor" className="mt-0">
+            <MonitorCountPicker />
+          </TabsContent>
+          <TabsContent value="accessory" className="mt-0 grid gap-3">
+            {accessoriesDisabled ? (
+              <p className="text-muted-foreground rounded-xl border border-dashed px-3 py-2 text-xs leading-relaxed">
+                {t("accessoriesDisabledForTripleMonitors")}
+              </p>
+            ) : null}
+            <CatalogProductList
+              products={deskAccessoryProducts}
+              isSelected={(product) => accessoryIds.includes(product.id)}
+              isDisabled={() => accessoriesDisabled}
+              disabledReason={() => t("accessoriesDisabledForTripleMonitors")}
+              onSelect={(product) => toggleAccessory(product.id)}
+            />
+          </TabsContent>
+          <TabsContent value="drawer" className="mt-0">
+            <CatalogProductList
+              products={drawerProducts}
+              isSelected={(product) => accessoryIds.includes(product.id)}
+              onSelect={(product) => toggleAccessory(product.id)}
+            />
+          </TabsContent>
+        </div>
       </Tabs>
     </section>
   );

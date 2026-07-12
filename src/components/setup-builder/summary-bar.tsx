@@ -9,42 +9,37 @@ import { useSetupBuilderHydrated } from "@/hooks/use-setup-builder-hydrated";
 import { Link } from "@/i18n/navigation";
 import { formatMoney, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
-import { useSetupBuilderStore } from "@/store/setup-builder-store";
+import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
-export function SummaryBar() {
+type Props = {
+  className?: string;
+};
+
+/** Compact totals row for under the 3D stage (scene column only). */
+export function SummaryBar({ className }: Props) {
   const t = useTranslations("SetupBuilder");
   const locale = useLocale();
   const hydrated = useSetupBuilderHydrated();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
+  const monitorCount = useSetupBuilderStore((state) => state.monitorCount);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
   const setRentalWeeks = useSetupBuilderStore((state) => state.setRentalWeeks);
-  const selectedIds = [deskId, chairId, ...accessoryIds];
+  const selectedIds = expandSetupLineIds({ deskId, chairId, accessoryIds, monitorCount });
   const weeklyTotal = getWeeklyTotal(selectedIds);
   const total = getRentalTotal(weeklyTotal, rentalWeeks);
   const itemCount = selectedIds.length;
 
-  const reviewLink = (
-    <Link
-      href="/checkout"
-      className={cn(buttonVariants(), "h-9 shrink-0 justify-center px-4 sm:h-8 lg:self-end")}
-      aria-disabled={!hydrated}
-      tabIndex={hydrated ? undefined : -1}
-      onClick={(event) => {
-        if (!hydrated) {
-          event.preventDefault();
-        }
-      }}
-    >
-      {t("reviewRental")}
-    </Link>
-  );
-
   return (
-    <div className="border-border bg-background/95 sticky bottom-0 z-30 border-t backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-2.5 sm:gap-3 sm:px-6 sm:py-3">
-        <div className="flex items-center justify-between gap-3">
+    <div
+      className={cn(
+        "border-border bg-background/90 shrink-0 rounded-2xl border px-3 py-3 backdrop-blur",
+        className,
+      )}
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+        <div className="min-w-0 flex-1">
           {hydrated ? (
             <SummaryBarTotals
               weeklyLine={t("summaryWeekly", {
@@ -59,11 +54,8 @@ export function SummaryBar() {
           ) : (
             <output className="text-muted-foreground text-sm">{t("loadingSummary")}</output>
           )}
-          <div className="hidden sm:block">{reviewLink}</div>
-        </div>
-        {hydrated ? (
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-            <div className="w-full sm:max-w-xs">
+          {hydrated ? (
+            <div className="mt-2 max-w-xs">
               <RentalDurationPicker
                 id="builder-rental-weeks"
                 compact
@@ -73,9 +65,24 @@ export function SummaryBar() {
                 onChange={setRentalWeeks}
               />
             </div>
-            <div className="sm:hidden">{reviewLink}</div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
+        <Link
+          href="/checkout"
+          className={cn(
+            buttonVariants(),
+            "h-9 w-full shrink-0 justify-center px-4 sm:h-9 sm:w-auto",
+          )}
+          aria-disabled={!hydrated}
+          tabIndex={hydrated ? undefined : -1}
+          onClick={(event) => {
+            if (!hydrated) {
+              event.preventDefault();
+            }
+          }}
+        >
+          {t("reviewRental")}
+        </Link>
       </div>
     </div>
   );
