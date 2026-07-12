@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +14,6 @@ type Props = {
   copyRequestIdLabel: string;
   copyRequestIdCopiedLabel: string;
   backHomeLabel: string;
-  editSetupLabel: string;
 };
 
 const COPY_RESET_MS = 2000;
@@ -27,7 +26,6 @@ export function RentalSuccess({
   copyRequestIdLabel,
   copyRequestIdCopiedLabel,
   backHomeLabel,
-  editSetupLabel,
 }: Props) {
   const [copied, setCopied] = useState(false);
 
@@ -40,27 +38,25 @@ export function RentalSuccess({
   }, [copied]);
 
   return (
-    <div className="flex flex-col gap-5 rounded-xl border bg-[linear-gradient(160deg,rgba(220,235,205,0.55),rgba(255,255,255,0.7))] px-5 py-7">
-      <div className="bg-primary/15 size-2.5 rounded-full" aria-hidden />
-      <div>
-        <p className="font-heading text-xl tracking-tight">{title}</p>
-        <p className="text-muted-foreground mt-2 text-sm leading-relaxed text-pretty">{body}</p>
-        {requestIdLabel ? (
-          <p className="text-muted-foreground mt-3 font-mono text-xs tracking-wide">
+    <output className="flex flex-col gap-8">
+      <div className="flex flex-col gap-3">
+        <p className="font-heading text-5xl tracking-tight text-[#1f3d2f] sm:text-6xl">monis</p>
+        <h1 className="font-heading text-3xl tracking-tight sm:text-4xl">{title}</h1>
+        <p className="text-muted-foreground text-base leading-relaxed text-pretty sm:text-lg">
+          {body}
+        </p>
+      </div>
+
+      {requestId && requestIdLabel ? (
+        <div className="flex flex-col gap-2">
+          <p className="text-muted-foreground font-mono text-sm tracking-wide break-all">
             {requestIdLabel}
           </p>
-        ) : null}
-      </div>
-      <div className="flex flex-wrap gap-3">
-        {requestId ? (
-          <Button
+          <button
             type="button"
-            variant="secondary"
-            size="sm"
+            className="text-foreground/80 hover:text-foreground self-start text-sm underline-offset-4 hover:underline"
             onClick={async () => {
-              const snippet = [title, body, requestIdLabel ?? `Request ID: ${requestId}`]
-                .filter(Boolean)
-                .join("\n\n");
+              const snippet = [title, body, requestIdLabel].filter(Boolean).join("\n\n");
               try {
                 await navigator.clipboard.writeText(snippet);
                 setCopied(true);
@@ -70,15 +66,21 @@ export function RentalSuccess({
             }}
           >
             {copied ? copyRequestIdCopiedLabel : copyRequestIdLabel}
-          </Button>
-        ) : null}
-        <Link href="/" className={cn(buttonVariants({ variant: "outline" }))}>
+          </button>
+        </div>
+      ) : null}
+
+      <div>
+        <Link
+          href="/"
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "h-11 w-full justify-center px-5 sm:w-auto",
+          )}
+        >
           {backHomeLabel}
         </Link>
-        <Link href="/setup-builder" className={cn(buttonVariants({ variant: "ghost" }))}>
-          {editSetupLabel}
-        </Link>
       </div>
-    </div>
+    </output>
   );
 }
