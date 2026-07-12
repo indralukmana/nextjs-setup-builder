@@ -36,6 +36,8 @@ export function SetupUrlSync() {
     }
     appliedUrlRef.current = true;
 
+    // Persist merge usually already applied the query; re-apply here so soft
+    // client navigations and non-persist first loads still win over defaults.
     const fromUrl = parseSetupSearchParams(searchParams);
     if (fromUrl) {
       useSetupBuilderStore.setState(sanitizeSetupFields(fromUrl));

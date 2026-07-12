@@ -72,9 +72,21 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
     "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=&monitors=1&weeks=4",
   );
   await expect(previewListitem(page, /mittzon/i)).toBeVisible({ timeout: 15_000 });
+  await waitForSetupUrl(page);
+  await expect(page).toHaveURL(/weeks=4/);
+  await expect(page.getByRole("button", { name: /^4 wk$/i })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
 
   await page.getByRole("button", { name: /^12 wk$/i }).click();
+  await expect(page.getByRole("button", { name: /^12 wk$/i })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+    { timeout: 10_000 },
+  );
   await expect(page).toHaveURL(/weeks=12/, { timeout: 10_000 });
+  await expect(page.locator("html")).toHaveAttribute("data-setup-url-synced", "true");
 
   await openCatalogIfNeeded(page);
   await page.getByRole("button", { name: /^reset$/i }).click();
@@ -158,15 +170,17 @@ test("saved setups can restore a desk after reset", async ({ page }) => {
   const savedDetails = page.locator("details").filter({ has: page.getByText(/^saved setups/i) });
   await savedDetails.locator("summary").click();
   await expect(savedDetails).toHaveAttribute("open", "");
-  await savedDetails.locator("#saved-setup-name").fill("My essentials");
-  await savedDetails.getByRole("button", { name: /save current/i }).click();
-  await expect(savedDetails.getByText("My essentials")).toBeVisible();
+  const nameInput = savedDetails.locator("#saved-setup-name");
+  await nameInput.fill("My essentials");
+  await nameInput.press("Enter");
+  await expect(savedDetails.getByText("My essentials")).toBeVisible({ timeout: 10_000 });
 
   // Switch away via URL hydration instead of a second Select interaction.
   await page.goto(
     "/en/setup-builder?desk=desk-mittzon&chair=chair-gronfjall&accessories=&monitors=1&weeks=4",
   );
   await expect(previewListitem(page, /mittzon/i)).toBeVisible({ timeout: 15_000 });
+  await waitForSetupUrl(page);
 
   await openCatalogIfNeeded(page);
   await savedDetails.locator("summary").click();
@@ -182,6 +196,7 @@ test("shareable URL hydrates setup and essentials preset applies", async ({ page
   );
 
   await expect(previewListitem(page, /mittzon/i)).toBeVisible({ timeout: 15_000 });
+  await waitForSetupUrl(page);
   await expect(previewListitem(page, /grönfjäll office chair/i)).toBeVisible();
   await expect(previewListitem(page, /gaming monitor/i)).toBeVisible();
   await expect(previewListitem(page, /svallet/i)).toBeVisible();

@@ -6,6 +6,7 @@ import { persist } from "zustand/middleware";
 import { MONITOR_PRODUCT_ID } from "@/data/catalog";
 import { getPresetById, type SetupPresetId } from "@/data/presets";
 import { getProductSync } from "@/lib/catalog-api";
+import { parseSetupSearchParams } from "@/lib/setup-url";
 
 export const MAX_MONITORS = 3;
 /** 0 = cleared setup; picker only offers 1–3. */
@@ -243,10 +244,21 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         rentalWeeks: state.rentalWeeks,
         selectedPresetId: state.selectedPresetId,
       }),
-      merge: (persistedState, currentState) => ({
-        ...currentState,
-        ...sanitizePersistedSetup(persistedState as PersistedSetup | undefined),
-      }),
+      merge: (persistedState, currentState) => {
+        const merged = {
+          ...currentState,
+          ...sanitizePersistedSetup(persistedState as PersistedSetup | undefined),
+        };
+        // Prefer shareable URL over localStorage so first paint matches the link
+        // (avoids a race where UI edits land before SetupUrlSync applies the query).
+        if (typeof window !== "undefined") {
+          const fromUrl = parseSetupSearchParams(new URLSearchParams(window.location.search));
+          if (fromUrl) {
+            return { ...merged, ...sanitizeSetupFields(fromUrl) };
+          }
+        }
+        return merged;
+      },
     },
   ),
 );
