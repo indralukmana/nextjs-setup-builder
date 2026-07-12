@@ -3,14 +3,9 @@ import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { CatalogJsonLd } from "@/components/seo/catalog-json-ld";
-import { CatalogPanel } from "@/components/setup-builder/catalog-panel";
+import { SetupBuilderWorkspace } from "@/components/setup-builder/setup-builder-workspace";
 import { SetupUrlSync } from "@/components/setup-builder/setup-url-sync";
-import { SummaryBar } from "@/components/setup-builder/summary-bar";
-import { SetupScenePreview } from "@/components/setup-scene/setup-scene-preview";
-import { buttonVariants } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -38,6 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/** Header is ~3.75rem (py-3 + nav row); shell fills the rest of the viewport. */
+const BUILDER_SHELL =
+  "flex h-[calc(100dvh-3.75rem)] min-h-0 w-full flex-1 flex-col overflow-hidden";
+
 export default async function SetupBuilderPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -49,24 +48,9 @@ export default async function SetupBuilderPage({ params }: Props) {
       <Suspense fallback={null}>
         <SetupUrlSync />
       </Suspense>
-      <div className="mx-auto grid w-full max-w-6xl flex-1 gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h1 className="font-heading text-2xl tracking-tight sm:text-3xl md:text-4xl">
-              {t("title")}
-            </h1>
-            <Link
-              href="/setup-scene"
-              className={cn(buttonVariants({ variant: "outline", size: "sm" }), "shrink-0")}
-            >
-              {t("setupSceneLink")}
-            </Link>
-          </div>
-          <SetupScenePreview />
-        </div>
-        <CatalogPanel />
+      <div className={BUILDER_SHELL}>
+        <SetupBuilderWorkspace title={t("title")} setupSceneLabel={t("setupSceneLink")} />
       </div>
-      <SummaryBar />
     </>
   );
 }
