@@ -66,6 +66,11 @@
       "hintLabel": "Tentang monitor"
     },
     "accessoriesDisabledForTripleMonitors": "Aksesori meja tidak tersedia dengan 3 monitor.",
+    "catalogBrowse": {
+      "label": "Jelajahi produk",
+      "hint": "Pilih kategori, lalu pilih meja, kursi, aksesori, atau laci untuk setup Anda.",
+      "hintLabel": "Tentang jelajahi produk"
+    },
     "summarySupport": "{weekly}/minggu · {count} item",
     "reviewRental": "Tinjau sewa",
     "copyLink": "Salin tautan setup",

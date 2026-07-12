@@ -66,6 +66,11 @@
       "hintLabel": "Über Monitore"
     },
     "accessoriesDisabledForTripleMonitors": "Schreibtisch-Zubehör ist bei 3 Monitoren nicht verfügbar.",
+    "catalogBrowse": {
+      "label": "Produkte durchsuchen",
+      "hint": "Wähle eine Kategorie und dann Schreibtisch, Stuhl, Zubehör oder Schubladen für dein Setup.",
+      "hintLabel": "Über Produkte durchsuchen"
+    },
     "summarySupport": "{weekly}/Woche · {count} Artikel",
     "reviewRental": "Miete prüfen",
     "copyLink": "Setup-Link kopieren",

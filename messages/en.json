@@ -66,6 +66,11 @@
       "hintLabel": "About monitors"
     },
     "accessoriesDisabledForTripleMonitors": "Desk accessories are unavailable with 3 monitors.",
+    "catalogBrowse": {
+      "label": "Browse products",
+      "hint": "Pick a category, then choose desk, chair, accessories, or drawers for your setup.",
+      "hintLabel": "About browsing products"
+    },
     "summarySupport": "{weekly}/week · {count} items",
     "reviewRental": "Review rental",
     "copyLink": "Copy setup link",
