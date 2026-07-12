@@ -61,7 +61,19 @@
     "monitorLimitShort": "Max {max} monitors",
     "summaryWeekly": "{weekly}/week · {weeks} weeks",
     "summaryTotal": "Total {total} · {count} items",
-    "reviewRental": "Review rental"
+    "reviewRental": "Review rental",
+    "presets": {
+      "label": "Quick presets",
+      "essentials": {
+        "name": "Essentials"
+      },
+      "focus": {
+        "name": "Focus"
+      },
+      "creator": {
+        "name": "Creator"
+      }
+    }
   },
   "Checkout": {
     "title": "Checkout",
@@ -162,6 +174,18 @@
       "kit-peripherals": {
         "name": "Keyboard & Mouse Kit",
         "description": "Wireless keyboard and mouse pair."
+      },
+      "webcam-hd": {
+        "name": "HD Webcam",
+        "description": "1080p webcam for crisp video calls."
+      },
+      "whiteboard-glass": {
+        "name": "Desktop Whiteboard",
+        "description": "Compact glass board for notes and sketches."
+      },
+      "power-strip": {
+        "name": "Surge Power Strip",
+        "description": "Protected outlets for monitors and chargers."
       }
     }
   }

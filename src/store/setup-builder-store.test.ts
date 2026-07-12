@@ -82,6 +82,19 @@ describe("setup-builder-store", () => {
     expect(useSetupBuilderStore.getState().accessoryIds).toEqual([]);
   });
 
+  it("applies a named preset", () => {
+    const store = useSetupBuilderStore.getState();
+    store.applyPreset("focus");
+
+    expect(useSetupBuilderStore.getState().deskId).toBe("desk-mechanical");
+    expect(useSetupBuilderStore.getState().chairId).toBe("chair-task");
+    expect(useSetupBuilderStore.getState().accessoryIds).toEqual([
+      "monitor-24",
+      "plant-desk",
+      "whiteboard-glass",
+    ]);
+  });
+
   it("sanitizes corrupt persisted setup", () => {
     const sanitized = sanitizePersistedSetup({
       deskId: "missing-desk",

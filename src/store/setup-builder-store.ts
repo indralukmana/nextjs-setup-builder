@@ -3,11 +3,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { getPresetById } from "@/data/presets";
 import { getProductSync } from "@/lib/catalog-api";
 
 export const MAX_MONITORS = 2;
 
-type PersistedSetup = {
+export type PersistedSetup = {
   deskId?: string;
   chairId?: string;
   accessoryIds?: string[];
@@ -23,6 +24,7 @@ type SetupBuilderState = {
   setChairId: (id: string) => void;
   toggleAccessory: (id: string) => void;
   setRentalWeeks: (weeks: number) => void;
+  applyPreset: (presetId: string) => void;
   reset: () => void;
 };
 
@@ -32,6 +34,8 @@ export const defaults = {
   accessoryIds: [] as string[],
   rentalWeeks: 4,
 };
+
+const exclusiveLayers = new Set(["lamp", "plant", "webcam", "whiteboard", "power"]);
 
 function isValidDeskId(id: string | undefined) {
   return getProductSync(id ?? "")?.category === "desk";
@@ -59,9 +63,7 @@ function sanitizeAccessoryIds(ids: string[] | undefined) {
     rest.push(id);
   }
 
-  // Keep at most one lamp / plant / laptop-stand style exclusive layer.
   const seenExclusive = new Set<string>();
-  const exclusiveLayers = new Set(["lamp", "plant"]);
   const filteredRest = rest.filter((id) => {
     const layer = getProductSync(id)?.layer;
     if (!layer || !exclusiveLayers.has(layer)) {
@@ -130,7 +132,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
           }
         }
 
-        if (product.layer === "lamp" || product.layer === "plant") {
+        if (exclusiveLayers.has(product.layer)) {
           const layer = product.layer;
           const hasSameLayer = current.some((item) => getProductSync(item)?.layer === layer);
           if (hasSameLayer) {
@@ -151,6 +153,20 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
           return;
         }
         set({ rentalWeeks: weeks });
+      },
+      applyPreset: (presetId) => {
+        const preset = getPresetById(presetId);
+        if (!preset) {
+          return;
+        }
+        set(
+          sanitizePersistedSetup({
+            deskId: preset.deskId,
+            chairId: preset.chairId,
+            accessoryIds: preset.accessoryIds,
+            rentalWeeks: preset.rentalWeeks,
+          }),
+        );
       },
       reset: () => set({ ...defaults }),
     }),

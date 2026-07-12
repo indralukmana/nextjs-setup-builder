@@ -89,6 +89,30 @@ export const catalog: CatalogProduct[] = [
     layer: "peripheral",
     description: "Wireless keyboard and mouse pair.",
   },
+  {
+    id: "webcam-hd",
+    name: "HD Webcam",
+    category: "accessory",
+    pricePerWeek: 3,
+    layer: "webcam",
+    description: "1080p webcam for crisp video calls.",
+  },
+  {
+    id: "whiteboard-glass",
+    name: "Desktop Whiteboard",
+    category: "accessory",
+    pricePerWeek: 4,
+    layer: "whiteboard",
+    description: "Compact glass board for notes and sketches.",
+  },
+  {
+    id: "power-strip",
+    name: "Surge Power Strip",
+    category: "accessory",
+    pricePerWeek: 1,
+    layer: "power",
+    description: "Protected outlets for monitors and chargers.",
+  },
 ];
 
 export function getProductById(id: string) {

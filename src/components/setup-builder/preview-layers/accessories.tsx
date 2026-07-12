@@ -52,3 +52,42 @@ export function PeripheralsKit({ className, style }: LayerProps) {
     </svg>
   );
 }
+
+export function WebcamHd({ className, style }: LayerProps) {
+  return (
+    <svg viewBox="0 0 80 60" className={className} style={style} aria-hidden fill="none">
+      <rect x="18" y="14" width="44" height="28" rx="8" fill="#1F2937" />
+      <circle cx="40" cy="28" r="10" fill="#0F172A" />
+      <circle cx="40" cy="28" r="5" fill="#38BDF8" />
+      <path d="M32 42h16l4 8H28l4-8Z" fill="#334155" />
+    </svg>
+  );
+}
+
+export function WhiteboardGlass({ className, style }: LayerProps) {
+  return (
+    <svg viewBox="0 0 120 100" className={className} style={style} aria-hidden fill="none">
+      <rect x="10" y="8" width="100" height="72" rx="4" fill="#F8FAFC" stroke="#94A3B8" />
+      <path
+        d="M24 28h52M24 42h40M24 56h46"
+        stroke="#64748B"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <rect x="48" y="84" width="24" height="8" rx="2" fill="#78716C" />
+    </svg>
+  );
+}
+
+export function PowerStrip({ className, style }: LayerProps) {
+  return (
+    <svg viewBox="0 0 140 40" className={className} style={style} aria-hidden fill="none">
+      <rect x="8" y="10" width="124" height="20" rx="6" fill="#334155" />
+      <rect x="20" y="15" width="14" height="10" rx="2" fill="#94A3B8" />
+      <rect x="42" y="15" width="14" height="10" rx="2" fill="#94A3B8" />
+      <rect x="64" y="15" width="14" height="10" rx="2" fill="#94A3B8" />
+      <rect x="86" y="15" width="14" height="10" rx="2" fill="#94A3B8" />
+      <circle cx="118" cy="20" r="4" fill="#22C55E" />
+    </svg>
+  );
+}

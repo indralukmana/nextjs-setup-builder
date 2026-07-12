@@ -5,6 +5,9 @@ import {
   LampLed,
   PeripheralsKit,
   PlantDesk,
+  PowerStrip,
+  WebcamHd,
+  WhiteboardGlass,
 } from "@/components/setup-builder/preview-layers/accessories";
 import { ChairErgonomic, ChairTask } from "@/components/setup-builder/preview-layers/chairs";
 import { DeskElectric, DeskMechanical } from "@/components/setup-builder/preview-layers/desks";
@@ -27,6 +30,9 @@ const layerComponents: Record<string, (props: LayerProps) => ReactNode> = {
   "plant-desk": PlantDesk,
   "stand-laptop": LaptopStand,
   "kit-peripherals": PeripheralsKit,
+  "webcam-hd": WebcamHd,
+  "whiteboard-glass": WhiteboardGlass,
+  "power-strip": PowerStrip,
 };
 
 export function ProductIllustration({

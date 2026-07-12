@@ -61,7 +61,19 @@
     "monitorLimitShort": "Maks {max} monitor",
     "summaryWeekly": "{weekly}/minggu · {weeks} minggu",
     "summaryTotal": "Total {total} · {count} item",
-    "reviewRental": "Tinjau sewa"
+    "reviewRental": "Tinjau sewa",
+    "presets": {
+      "label": "Preset cepat",
+      "essentials": {
+        "name": "Essentials"
+      },
+      "focus": {
+        "name": "Focus"
+      },
+      "creator": {
+        "name": "Creator"
+      }
+    }
   },
   "Checkout": {
     "title": "Checkout",
@@ -162,6 +174,18 @@
       "kit-peripherals": {
         "name": "Kit Keyboard & Mouse",
         "description": "Pasangan keyboard dan mouse nirkabel."
+      },
+      "webcam-hd": {
+        "name": "Webcam HD",
+        "description": "Webcam 1080p untuk panggilan video yang jernih."
+      },
+      "whiteboard-glass": {
+        "name": "Whiteboard Meja",
+        "description": "Papan kaca kompak untuk catatan dan sketsa."
+      },
+      "power-strip": {
+        "name": "Stop Kontak Surge",
+        "description": "Colokan terlindungi untuk monitor dan charger."
       }
     }
   }

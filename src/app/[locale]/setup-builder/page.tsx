@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { CatalogJsonLd } from "@/components/seo/catalog-json-ld";
 import { CatalogPanel } from "@/components/setup-builder/catalog-panel";
+import { SetupUrlSync } from "@/components/setup-builder/setup-url-sync";
 import { SummaryBar } from "@/components/setup-builder/summary-bar";
 import { WorkspacePreview } from "@/components/setup-builder/workspace-preview";
 import { routing } from "@/i18n/routing";
@@ -41,6 +43,9 @@ export default async function SetupBuilderPage({ params }: Props) {
   return (
     <>
       <CatalogJsonLd />
+      <Suspense fallback={null}>
+        <SetupUrlSync />
+      </Suspense>
       <div className="mx-auto grid w-full max-w-6xl flex-1 gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="flex flex-col gap-4">
           <h1 className="font-heading text-2xl tracking-tight sm:text-3xl md:text-4xl">

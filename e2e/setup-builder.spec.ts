@@ -42,10 +42,32 @@ test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
     /electrical adjustable desk|mechanical adjustable desk/i,
   );
+  await expect(page).toHaveURL(/desk=/);
 
   const review = page.getByRole("link", { name: /review rental/i });
   await review.focus();
   await expect(review).toBeFocused();
-  await page.keyboard.press("Enter");
+  await review.press("Enter");
   await expect(page).toHaveURL(/\/en\/checkout/);
+});
+
+test("shareable URL hydrates setup and essentials preset applies", async ({ page }) => {
+  await page.goto(
+    "/en/setup-builder?desk=desk-mechanical&chair=chair-task&accessories=monitor-24,lamp-led&weeks=12",
+  );
+
+  const preview = page.getByRole("region", { name: /workspace preview/i });
+  await expect(preview).toContainText(/mechanical adjustable desk/i);
+  await expect(preview).toContainText(/compact task chair/i);
+  await expect(preview).toContainText(/24" full hd monitor/i);
+  await expect(preview).toContainText(/smart led desk lamp/i);
+  await expect(page.getByText(/12 weeks/i)).toBeVisible();
+
+  await page.getByRole("button", { name: /^essentials$/i }).click();
+
+  await expect(preview).toContainText(/electrical adjustable desk/i);
+  await expect(preview).toContainText(/ergonomic office chair/i);
+  await expect(preview).toContainText(/keyboard & mouse kit/i);
+  await expect(page).toHaveURL(/desk=desk-electric/);
+  await expect(page).toHaveURL(/chair=chair-ergonomic/);
 });
