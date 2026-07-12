@@ -9,7 +9,7 @@ Per-SKU mapping lives in [`src/lib/scene-slots.ts`](../../src/lib/scene-slots.ts
 | Catalog id                 | File                                                   | Notes                            |
 | -------------------------- | ------------------------------------------------------ | -------------------------------- |
 | `desk-bollsidan`           | `bollsidan-desk-sitstand-electric-white.glb`           | Electric sit/stand desk          |
-| `desk-mittzon`             | `mittzon-desk-walnut-black.glb`                        | Walnut desk                      |
+| `desk-mittzon`             | `mittzon-desk-walnut-black.glb`                        | Premium sit/stand walnut desk    |
 | `desk-utespelare`          | `utespelare-gaming-desk-black.glb`                     | Gaming desk                      |
 | `chair-alefjall`           | `alefjall-office-chair-glose-black.glb`                | Leather office chair             |
 | `chair-gronfjall`          | `gronfjall-office-chair-armrests-gray-green-white.glb` | Office chair                     |
