@@ -61,6 +61,11 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
   await expect(page).toHaveURL(/weeks=12/);
 
   await page.getByRole("button", { name: /^reset$/i }).click();
+  await expect(page.getByRole("alertdialog")).toBeVisible();
+  await page
+    .getByRole("alertdialog")
+    .getByRole("button", { name: /^reset$/i })
+    .click();
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
     /bollsidan sit\/stand desk/i,
   );

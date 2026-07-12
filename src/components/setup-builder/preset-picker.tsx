@@ -2,6 +2,17 @@
 
 import { useTranslations } from "next-intl";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -41,6 +52,7 @@ export function PresetPicker({ variant = "default" }: Props) {
 
   if (isRail) {
     const items = presetItems.map((item) => ({ label: item.label, value: item.id }));
+    const presetName = t(`${selectedPresetId}.name`);
 
     return (
       <div className="flex flex-col gap-1.5">
@@ -48,15 +60,39 @@ export function PresetPicker({ variant = "default" }: Props) {
           <label htmlFor="setup-preset" className="text-sm font-medium">
             {t("label")}
           </label>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-foreground h-7 shrink-0 px-2"
-            onClick={() => reset()}
-          >
-            {tSetup("resetSetup")}
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger
+              render={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="text-muted-foreground hover:text-foreground h-7 shrink-0 px-2"
+                />
+              }
+            >
+              {tSetup("resetSetup")}
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{tSetup("resetSetupConfirmTitle")}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {tSetup("resetSetupConfirm", { preset: presetName })}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{tSetup("cancel")}</AlertDialogCancel>
+                <AlertDialogAction
+                  variant="destructive"
+                  onClick={() => {
+                    reset();
+                  }}
+                >
+                  {tSetup("resetSetup")}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
         <Select
           items={items}
