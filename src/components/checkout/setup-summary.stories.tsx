@@ -10,6 +10,9 @@ const meta = {
     editLabel: "Edit setup",
     weeklyLabel: "Weekly",
     emptyLabel: "No products in this setup yet.",
+    deliveryTitle: "Bali delivery",
+    deliveryBody:
+      "monis delivers, sets up, and picks up across Bali. After you request a rental we'll confirm timing for your workspace.",
   },
 } satisfies Meta<typeof SetupSummary>;
 

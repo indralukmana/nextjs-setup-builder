@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { DeliveryNote } from "@/components/checkout/delivery-note";
 import { SetupSummaryEmpty } from "@/components/checkout/setup-summary-empty";
 import { SetupSummaryHeader } from "@/components/checkout/setup-summary-header";
 import { SetupSummaryItem } from "@/components/checkout/setup-summary-item";
@@ -16,9 +17,18 @@ type Props = {
   editLabel: string;
   weeklyLabel: string;
   emptyLabel: string;
+  deliveryTitle: string;
+  deliveryBody: string;
 };
 
-export function SetupSummary({ heading, editLabel, weeklyLabel, emptyLabel }: Props) {
+export function SetupSummary({
+  heading,
+  editLabel,
+  weeklyLabel,
+  emptyLabel,
+  deliveryTitle,
+  deliveryBody,
+}: Props) {
   const t = useTranslations("Checkout");
 
   return (
@@ -28,12 +38,21 @@ export function SetupSummary({ heading, editLabel, weeklyLabel, emptyLabel }: Pr
         editLabel={editLabel}
         weeklyLabel={weeklyLabel}
         emptyLabel={emptyLabel}
+        deliveryTitle={deliveryTitle}
+        deliveryBody={deliveryBody}
       />
     </StoreReady>
   );
 }
 
-function SetupSummaryContent({ heading, editLabel, weeklyLabel, emptyLabel }: Props) {
+function SetupSummaryContent({
+  heading,
+  editLabel,
+  weeklyLabel,
+  emptyLabel,
+  deliveryTitle,
+  deliveryBody,
+}: Props) {
   const formatMoney = useFormatMoney();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
@@ -60,24 +79,28 @@ function SetupSummaryContent({ heading, editLabel, weeklyLabel, emptyLabel }: Pr
   }
 
   return (
-    <section aria-label="Setup summary" className="flex flex-col gap-5">
-      <SetupSummaryHeader
-        heading={heading}
-        editLabel={editLabel}
-        subtitle={
-          summaryRows.length > 0 ? `${weeklyLabel} ${formatMoney(weeklyTotal)}` : emptyLabel
-        }
-      />
+    <section
+      aria-label="Setup summary"
+      className="border-border/80 flex flex-col gap-4 rounded-xl border bg-background/50 p-4 sm:p-5"
+    >
+      <SetupSummaryHeader heading={heading} editLabel={editLabel} />
 
       {summaryRows.length === 0 ? (
         <SetupSummaryEmpty emptyLabel={emptyLabel} editLabel={editLabel} />
       ) : (
-        <ul className="divide-border/80 overflow-hidden rounded-xl border bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.35))]">
-          {summaryRows.map(({ product, quantity }) => (
-            <SetupSummaryItem key={product.id} product={product} quantity={quantity} />
-          ))}
-        </ul>
+        <>
+          <ul className="divide-border/70 overflow-hidden rounded-lg border bg-background/60">
+            {summaryRows.map(({ product, quantity }) => (
+              <SetupSummaryItem key={product.id} product={product} quantity={quantity} />
+            ))}
+          </ul>
+          <p className="text-muted-foreground px-0.5 text-sm tabular-nums">
+            {weeklyLabel} {formatMoney(weeklyTotal)}
+          </p>
+        </>
       )}
+
+      <DeliveryNote title={deliveryTitle} body={deliveryBody} />
     </section>
   );
 }

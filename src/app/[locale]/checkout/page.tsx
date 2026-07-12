@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { DeliveryNote } from "@/components/checkout/delivery-note";
 import { RentalForm } from "@/components/checkout/rental-form";
 import { SetupSummary } from "@/components/checkout/setup-summary";
 import { routing } from "@/i18n/routing";
@@ -36,22 +35,28 @@ export default async function CheckoutPage({ params }: Props) {
   const t = await getTranslations("Checkout");
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6 md:py-14">
-      <div className="max-w-xl">
+    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6 md:py-10">
+      <div className="max-w-2xl">
         <h1 className="font-heading text-3xl tracking-tight md:text-4xl">{t("title")}</h1>
         <p className="text-muted-foreground mt-2 text-sm text-pretty md:text-base">
           {t("subtitle")}
         </p>
       </div>
-      <DeliveryNote title={t("delivery.title")} body={t("delivery.body")} />
-      <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-        <SetupSummary
-          heading={t("summaryHeading")}
-          editLabel={t("editSetup")}
-          weeklyLabel={t("weeklyLabel")}
-          emptyLabel={t("emptySummary")}
-        />
-        <RentalForm />
+
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
+        <div className="order-2 lg:order-1">
+          <RentalForm />
+        </div>
+        <div className="order-1 lg:sticky lg:top-20 lg:order-2">
+          <SetupSummary
+            heading={t("summaryHeading")}
+            editLabel={t("editSetup")}
+            weeklyLabel={t("weeklyLabel")}
+            emptyLabel={t("emptySummary")}
+            deliveryTitle={t("delivery.title")}
+            deliveryBody={t("delivery.body")}
+          />
+        </div>
       </div>
     </div>
   );

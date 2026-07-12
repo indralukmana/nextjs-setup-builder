@@ -3,11 +3,12 @@ type Props = {
   body: string;
 };
 
+/** Quiet delivery footnote under the setup summary. */
 export function DeliveryNote({ title, body }: Props) {
   return (
-    <aside className="rounded-xl border border-dashed bg-[linear-gradient(160deg,rgba(220,235,205,0.4),rgba(255,255,255,0.55))] px-4 py-4 sm:px-5">
-      <p className="font-heading text-base tracking-tight">{title}</p>
-      <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed text-pretty">{body}</p>
+    <aside className="text-muted-foreground space-y-1 text-sm leading-relaxed">
+      <p className="text-foreground/80 font-medium">{title}</p>
+      <p className="text-pretty">{body}</p>
     </aside>
   );
 }
