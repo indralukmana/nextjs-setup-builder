@@ -6,7 +6,7 @@ import { CatalogProductList } from "@/components/setup-builder/catalog-product-l
 import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
 import { StoreReady } from "@/components/setup-builder/store-ready";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getProductsByCategory } from "@/data/catalog";
+import { listProductsByCategorySync } from "@/lib/catalog-api";
 import { countMonitors, MAX_MONITORS, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function CatalogPanel() {
@@ -45,14 +45,14 @@ function CatalogPanelContent() {
         </TabsList>
         <TabsContent value="desk" className="mt-4">
           <CatalogProductList
-            products={getProductsByCategory("desk")}
+            products={listProductsByCategorySync("desk")}
             isSelected={(product) => deskId === product.id}
             onSelect={(product) => setDeskId(product.id)}
           />
         </TabsContent>
         <TabsContent value="chair" className="mt-4">
           <CatalogProductList
-            products={getProductsByCategory("chair")}
+            products={listProductsByCategorySync("chair")}
             isSelected={(product) => chairId === product.id}
             onSelect={(product) => setChairId(product.id)}
           />
@@ -62,7 +62,7 @@ function CatalogPanelContent() {
             <MonitorLimitNotice message={t("monitorLimit", { max: MAX_MONITORS })} />
           ) : null}
           <CatalogProductList
-            products={getProductsByCategory("accessory")}
+            products={listProductsByCategorySync("accessory")}
             isSelected={(product) => accessoryIds.includes(product.id)}
             isDisabled={(product) =>
               product.layer === "monitor" && !accessoryIds.includes(product.id) && monitorsFull

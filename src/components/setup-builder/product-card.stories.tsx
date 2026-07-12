@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { catalog } from "@/data/catalog";
+import { listProductsSync } from "@/lib/catalog-api";
 
 import { ProductCard } from "./product-card";
 
+const catalog = listProductsSync();
 const product = catalog[0]!;
 
 const meta = {

@@ -6,7 +6,7 @@ import { SetupSummaryEmpty } from "@/components/checkout/setup-summary-empty";
 import { SetupSummaryHeader } from "@/components/checkout/setup-summary-header";
 import { SetupSummaryItem } from "@/components/checkout/setup-summary-item";
 import { StoreReady } from "@/components/setup-builder/store-ready";
-import { getProductById } from "@/data/catalog";
+import { getProductSync } from "@/lib/catalog-api";
 import { formatUsd, getWeeklyTotal } from "@/lib/pricing";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
@@ -37,7 +37,7 @@ function SetupSummaryContent({ heading, editLabel, weeklyLabel, emptyLabel }: Pr
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
   const selectedIds = [deskId, chairId, ...accessoryIds];
-  const products = selectedIds.map((id) => getProductById(id)).filter((product) => product != null);
+  const products = selectedIds.map((id) => getProductSync(id)).filter((product) => product != null);
   const weeklyTotal = getWeeklyTotal(selectedIds);
 
   return (

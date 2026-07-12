@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 
 import { ProductIllustration, buildStageSlots } from "@/components/setup-builder/preview-layers";
-import { getProductById } from "@/data/catalog";
+import { getProductSync } from "@/lib/catalog-api";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 const SHOWCASE_IDS = [
@@ -16,7 +16,7 @@ const SHOWCASE_IDS = [
 
 export function HeroStage() {
   const reduceMotion = usePrefersReducedMotion();
-  const products = SHOWCASE_IDS.map((id) => getProductById(id)).filter(
+  const products = SHOWCASE_IDS.map((id) => getProductSync(id)).filter(
     (product) => product != null,
   );
   const slots = buildStageSlots(products);

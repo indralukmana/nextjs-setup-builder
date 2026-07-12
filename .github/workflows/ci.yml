@@ -52,6 +52,11 @@ jobs:
           CI: true
           NEXT_PUBLIC_SITE_URL: http://localhost:3000
 
+      - name: Lighthouse CI
+        run: pnpm test:lighthouse
+        env:
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+
       - name: Build Storybook
         run: pnpm build-storybook
 
@@ -64,3 +69,12 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 7
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          retention-days: 7
+          if-no-files-found: ignore

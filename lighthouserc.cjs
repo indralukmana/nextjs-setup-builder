@@ -1,0 +1,25 @@
+/** @type {import('@lhci/cli').Config} */
+module.exports = {
+  ci: {
+    collect: {
+      url: ["http://127.0.0.1:3000/en", "http://127.0.0.1:3000/en/setup-builder"],
+      startServerCommand: "pnpm start",
+      startServerReadyPattern: "Ready",
+      numberOfRuns: 1,
+      settings: {
+        preset: "desktop",
+      },
+    },
+    assert: {
+      assertions: {
+        "categories:performance": ["warn", { minScore: 0.7 }],
+        "categories:accessibility": ["error", { minScore: 0.9 }],
+        "categories:best-practices": ["warn", { minScore: 0.85 }],
+        "categories:seo": ["warn", { minScore: 0.85 }],
+      },
+    },
+    upload: {
+      target: "temporary-public-storage",
+    },
+  },
+};

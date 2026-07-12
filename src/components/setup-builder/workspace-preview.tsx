@@ -7,7 +7,7 @@ import { StoreReady } from "@/components/setup-builder/store-ready";
 import { WorkspaceSelectedList } from "@/components/setup-builder/workspace-selected-list";
 import { WorkspaceStageBackdrop } from "@/components/setup-builder/workspace-stage-backdrop";
 import { WorkspaceStageLayers } from "@/components/setup-builder/workspace-stage-layers";
-import { getProductById } from "@/data/catalog";
+import { getProductSync } from "@/lib/catalog-api";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function WorkspacePreview() {
@@ -26,7 +26,7 @@ function WorkspacePreviewContent() {
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
   const selectedIds = [deskId, chairId, ...accessoryIds];
-  const products = selectedIds.map((id) => getProductById(id)).filter((product) => product != null);
+  const products = selectedIds.map((id) => getProductSync(id)).filter((product) => product != null);
   const slots = buildStageSlots(products);
 
   return (

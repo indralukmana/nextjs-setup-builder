@@ -21,10 +21,12 @@ Open [http://localhost:3000](http://localhost:3000) (redirects to `/en`).
 | ---------------------------------------- | ----------------------------------------- |
 | `pnpm dev`                               | Next.js development server                |
 | `pnpm build` / `pnpm start`              | Production build and server               |
+| `pnpm analyze`                           | Production build with bundle analyzer     |
 | `pnpm check`                             | Format check, lint, typecheck, unit tests |
 | `pnpm test:unit`                         | Vitest unit tests                         |
 | `pnpm test:storybook` / `pnpm test:a11y` | Storybook component + axe a11y tests      |
 | `pnpm test:e2e`                          | Playwright end-to-end smoke tests         |
+| `pnpm test:lighthouse`                   | Lighthouse CI against local production    |
 | `pnpm storybook`                         | Storybook UI on port 6006                 |
 | `pnpm build-storybook`                   | Static Storybook build                    |
 

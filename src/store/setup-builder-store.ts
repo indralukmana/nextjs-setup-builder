@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { getProductById } from "@/data/catalog";
+import { getProductSync } from "@/lib/catalog-api";
 
 export const MAX_MONITORS = 2;
 
@@ -34,23 +34,23 @@ export const defaults = {
 };
 
 function isValidDeskId(id: string | undefined) {
-  return getProductById(id ?? "")?.category === "desk";
+  return getProductSync(id ?? "")?.category === "desk";
 }
 
 function isValidChairId(id: string | undefined) {
-  return getProductById(id ?? "")?.category === "chair";
+  return getProductSync(id ?? "")?.category === "chair";
 }
 
 function sanitizeAccessoryIds(ids: string[] | undefined) {
   const unique = [...new Set(ids ?? [])].filter(
-    (id) => getProductById(id)?.category === "accessory",
+    (id) => getProductSync(id)?.category === "accessory",
   );
 
   const monitors: string[] = [];
   const rest: string[] = [];
 
   for (const id of unique) {
-    if (getProductById(id)?.layer === "monitor") {
+    if (getProductSync(id)?.layer === "monitor") {
       if (monitors.length < MAX_MONITORS) {
         monitors.push(id);
       }
@@ -63,7 +63,7 @@ function sanitizeAccessoryIds(ids: string[] | undefined) {
   const seenExclusive = new Set<string>();
   const exclusiveLayers = new Set(["lamp", "plant"]);
   const filteredRest = rest.filter((id) => {
-    const layer = getProductById(id)?.layer;
+    const layer = getProductSync(id)?.layer;
     if (!layer || !exclusiveLayers.has(layer)) {
       return true;
     }
@@ -110,7 +110,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         set({ chairId: id });
       },
       toggleAccessory: (id) => {
-        const product = getProductById(id);
+        const product = getProductSync(id);
         if (!product || product.category !== "accessory") {
           return;
         }
@@ -123,7 +123,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
 
         if (product.layer === "monitor") {
           const monitorCount = current.filter(
-            (item) => getProductById(item)?.layer === "monitor",
+            (item) => getProductSync(item)?.layer === "monitor",
           ).length;
           if (monitorCount >= MAX_MONITORS) {
             return;
@@ -132,11 +132,11 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
 
         if (product.layer === "lamp" || product.layer === "plant") {
           const layer = product.layer;
-          const hasSameLayer = current.some((item) => getProductById(item)?.layer === layer);
+          const hasSameLayer = current.some((item) => getProductSync(item)?.layer === layer);
           if (hasSameLayer) {
             set({
               accessoryIds: [
-                ...current.filter((item) => getProductById(item)?.layer !== layer),
+                ...current.filter((item) => getProductSync(item)?.layer !== layer),
                 id,
               ],
             });
@@ -175,5 +175,5 @@ export function selectSelectedIds(state: SetupBuilderState) {
 }
 
 export function countMonitors(accessoryIds: string[]) {
-  return accessoryIds.filter((id) => getProductById(id)?.layer === "monitor").length;
+  return accessoryIds.filter((id) => getProductSync(id)?.layer === "monitor").length;
 }

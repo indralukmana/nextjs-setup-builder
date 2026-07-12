@@ -1,8 +1,8 @@
-import { getProductById } from "@/data/catalog";
+import { getProductSync } from "@/lib/catalog-api";
 
 export function getWeeklyTotal(productIds: string[]) {
   return productIds.reduce((total, id) => {
-    const product = getProductById(id);
+    const product = getProductSync(id);
     return total + (product?.pricePerWeek ?? 0);
   }, 0);
 }

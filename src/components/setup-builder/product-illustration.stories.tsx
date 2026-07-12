@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { catalog } from "@/data/catalog";
+import { listProductsSync } from "@/lib/catalog-api";
 
 import { ProductIllustration } from "./preview-layers";
 
@@ -26,6 +26,6 @@ export const Chair: Story = {
 
 export const Monitor: Story = {
   args: {
-    productId: catalog.find((item) => item.id === "monitor-27-4k")!.id,
+    productId: listProductsSync().find((item) => item.id === "monitor-27-4k")!.id,
   },
 };

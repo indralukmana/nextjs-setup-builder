@@ -1,12 +1,13 @@
-import { catalog } from "@/data/catalog";
+import { listProductsSync } from "@/lib/catalog-api";
 import { siteConfig } from "@/lib/site";
 
 export function CatalogJsonLd() {
+  const products = listProductsSync();
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Monis workspace rental catalog",
-    itemListElement: catalog.map((product, index) => ({
+    itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
