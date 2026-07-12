@@ -3,12 +3,19 @@
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { setupPresets, type SetupPresetId } from "@/data/presets";
 import { formatMoney, getWeeklyTotal } from "@/lib/pricing";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 type Props = {
-  /** Compact native select for the catalog rail. */
+  /** Compact select for the catalog rail. */
   variant?: "default" | "rail";
 };
 
@@ -18,35 +25,46 @@ export function PresetPicker({ variant = "default" }: Props) {
   const applyPreset = useSetupBuilderStore((state) => state.applyPreset);
   const isRail = variant === "rail";
 
+  const presetItems = setupPresets.map((preset) => {
+    const weekly = getWeeklyTotal(expandSetupLineIds(preset));
+    return {
+      id: preset.id as SetupPresetId,
+      label: `${t(`${preset.id}.name`)} · ${formatMoney(weekly, locale)}/wk`,
+      name: t(`${preset.id}.name`),
+      weekly,
+    };
+  });
+
   if (isRail) {
+    const items = [
+      { label: t("placeholder"), value: null },
+      ...presetItems.map((item) => ({ label: item.label, value: item.id })),
+    ];
+
     return (
       <div className="flex flex-col gap-1.5">
         <label htmlFor="setup-preset" className="text-sm font-medium">
           {t("label")}
         </label>
-        <select
-          id="setup-preset"
-          className="border-input bg-background h-9 w-full rounded-lg border px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3"
-          defaultValue=""
-          onChange={(event) => {
-            const id = event.target.value;
-            if (!id) return;
-            applyPreset(id as SetupPresetId);
-            event.target.value = "";
+        <Select
+          items={items}
+          value={null}
+          onValueChange={(value) => {
+            if (!value) return;
+            applyPreset(value as SetupPresetId);
           }}
         >
-          <option value="" disabled>
-            {t("placeholder")}
-          </option>
-          {setupPresets.map((preset) => {
-            const weekly = getWeeklyTotal(expandSetupLineIds(preset));
-            return (
-              <option key={preset.id} value={preset.id}>
-                {t(`${preset.id}.name`)} · {formatMoney(weekly, locale)}/wk
-              </option>
-            );
-          })}
-        </select>
+          <SelectTrigger id="setup-preset" className="bg-background w-full">
+            <SelectValue placeholder={t("placeholder")} />
+          </SelectTrigger>
+          <SelectContent alignItemWithTrigger={false} align="start">
+            {presetItems.map((item) => (
+              <SelectItem key={item.id} value={item.id}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     );
   }
@@ -55,24 +73,16 @@ export function PresetPicker({ variant = "default" }: Props) {
     <fieldset className="flex flex-col gap-2">
       <legend className="text-sm font-medium">{t("label")}</legend>
       <div className="flex flex-wrap gap-3">
-        {setupPresets.map((preset) => {
-          const weekly = getWeeklyTotal(expandSetupLineIds(preset));
-          return (
-            <div key={preset.id} className="flex flex-col items-start gap-1">
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => applyPreset(preset.id as SetupPresetId)}
-              >
-                {t(`${preset.id}.name`)}
-              </Button>
-              <p className="text-muted-foreground px-0.5 text-xs tabular-nums">
-                {t("weekly", { amount: formatMoney(weekly, locale) })}
-              </p>
-            </div>
-          );
-        })}
+        {presetItems.map((item) => (
+          <div key={item.id} className="flex flex-col items-start gap-1">
+            <Button type="button" variant="outline" size="sm" onClick={() => applyPreset(item.id)}>
+              {item.name}
+            </Button>
+            <p className="text-muted-foreground px-0.5 text-xs tabular-nums">
+              {t("weekly", { amount: formatMoney(item.weekly, locale) })}
+            </p>
+          </div>
+        ))}
       </div>
     </fieldset>
   );
