@@ -33,7 +33,7 @@ Stack choices favor a fast, maintainable MVP: Next.js App Router + Tailwind, Zus
 
 ## Quick start
 
-Prerequisites: [mise](https://mise.jdx.dev/) (pins Node 22 + pnpm 10).
+Prerequisites: [mise](https://mise.jdx.dev/) (pins Node 24 + pnpm 10).
 
 ```bash
 mise install
