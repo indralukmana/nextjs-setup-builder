@@ -2,7 +2,11 @@
 module.exports = {
   ci: {
     collect: {
-      url: ["http://127.0.0.1:3000/en", "http://127.0.0.1:3000/en/setup-builder"],
+      url: [
+        "http://127.0.0.1:3000/en",
+        "http://127.0.0.1:3000/en/setup-builder",
+        "http://127.0.0.1:3000/en/checkout",
+      ],
       startServerCommand: "pnpm start",
       startServerReadyPattern: "Ready",
       numberOfRuns: 1,

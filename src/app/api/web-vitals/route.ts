@@ -1,9 +1,15 @@
 import { NextResponse } from "next/server";
 
 import { env } from "@/env";
+import { clientKeyFromRequest, webVitalsRateLimiter } from "@/lib/rate-limit";
 import { webVitalMetricSchema } from "@/lib/web-vitals";
 
 export async function POST(request: Request) {
+  const clientKey = clientKeyFromRequest(request);
+  if (!webVitalsRateLimiter.allow(clientKey)) {
+    return new NextResponse(null, { status: 429 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();
