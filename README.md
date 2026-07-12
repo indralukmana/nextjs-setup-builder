@@ -163,7 +163,7 @@ Illustrative meshes only — see [`public/models/ATTRIBUTION.md`](public/models/
 | `pnpm test:storybook` / `pnpm test:a11y` | Storybook component + axe a11y tests                                                      |
 | `pnpm test:e2e`                          | Playwright (chromium + mobile Chrome); needs `pnpm build` first when `CI=true`            |
 | `pnpm test:e2e:ui`                       | Playwright UI mode                                                                        |
-| `pnpm test:lighthouse`                   | Lighthouse CI against local production                                                    |
+| `pnpm test:lighthouse`                   | Lighthouse CI on `/en` + `/en/checkout` (skips WebGL setup-builder)                       |
 | `pnpm storybook`                         | Storybook on [http://localhost:6006](http://localhost:6006)                               |
 | `pnpm build-storybook`                   | Static Storybook build                                                                    |
 
@@ -198,7 +198,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 - **Unit:** pricing, store, setup URL, rental/web-vitals schemas, saved setups — `pnpm test:unit`
 - **E2E:** home (en/de/id), setup-builder (URL, presets, share, saved setups), checkout (validation, submit, clear empty) — `pnpm test:e2e`
-- **A11y:** Storybook stories fail on axe `error` severity — `pnpm test:a11y`
+- **A11y:** Storybook stories fail on axe `error` severity — `pnpm test:a11y` (covers builder UI; Lighthouse gates home/checkout)
 - **CI:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — parallel jobs:
   - **Quality** — format, lint, typecheck, unit
   - **Storybook** — component/a11y tests + static build artifact
