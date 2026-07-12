@@ -6,7 +6,7 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 
 ## Submission
 
-- **Live:** TBD (Vercel production URL)
+- **Live:** [https://nextjs-setup-builder.vercel.app](https://nextjs-setup-builder.vercel.app)
 - **GitHub:** [indralukmana/nextjs-setup-builder](https://github.com/indralukmana/nextjs-setup-builder)
 
 ## Approach
