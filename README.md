@@ -218,6 +218,12 @@ See [`AGENTS.md`](AGENTS.md) for naming, i18n (`@/i18n/navigation`), env access 
 
 ## With more time
 
-- Real payments (Stripe) or live email / WhatsApp delivery of rental requests
-- Lifestyle accessories from the challenge sketch (plants, coffee station, and similar desk-side extras)
-- Drag-to-place positioning on the desk instead of fixed accessory slots
+- Real payments (Stripe) or live email / WhatsApp delivery of rental requests.
+- Lifestyle accessories from the challenge sketch (plants, coffee station, and similar desk-side extras).
+- Save the configurations on server side, add user auth, and personal profile save.
+- A more configurable 3D previewer placement. Currently only a static placement.
+- A 3D previewer scene room or workspace. Currently only showing furnitures and selection in blank 3D space.
+- Research on E2E test on the 3D preview, not sure if possible, never done this. Currently tests are on the React/UI that HTML derivable.
+- Improve test coverage and E2E cases.
+- Add analytics and monitoring, Sentry, PostHog, etc
+- Think about lighthouse artifacts setup currently just basic export and artifact on ci
