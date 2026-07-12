@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import { MONITOR_PRODUCT_ID } from "@/data/catalog";
-import { getPresetById } from "@/data/presets";
+import { getPresetById, type SetupPresetId } from "@/data/presets";
 import { getProductSync } from "@/lib/catalog-api";
 
 export const MAX_MONITORS = 3;
@@ -23,6 +23,7 @@ export type PersistedSetup = {
   accessoryIds?: string[];
   monitorCount?: number;
   rentalWeeks?: number;
+  selectedPresetId?: string;
 };
 
 type SetupBuilderState = {
@@ -31,6 +32,7 @@ type SetupBuilderState = {
   accessoryIds: string[];
   monitorCount: MonitorCount;
   rentalWeeks: number;
+  selectedPresetId: SetupPresetId;
   setDeskId: (id: string) => void;
   setChairId: (id: string) => void;
   toggleAccessory: (id: string) => void;
@@ -42,12 +44,16 @@ type SetupBuilderState = {
   clearSetup: () => void;
 };
 
+const defaultPreset = getPresetById("essentials")!;
+
+/** Session defaults match the Essentials preset. */
 export const defaults = {
-  deskId: "desk-bollsidan",
-  chairId: "chair-alefjall",
-  accessoryIds: [] as string[],
-  monitorCount: 1 as MonitorCount,
-  rentalWeeks: 4,
+  deskId: defaultPreset.deskId,
+  chairId: defaultPreset.chairId,
+  accessoryIds: [...defaultPreset.accessoryIds],
+  monitorCount: defaultPreset.monitorCount as MonitorCount,
+  rentalWeeks: defaultPreset.rentalWeeks,
+  selectedPresetId: defaultPreset.id as SetupPresetId,
 };
 
 const exclusiveLayers = new Set(["lamp"]);
@@ -96,13 +102,25 @@ function sanitizeRentalWeeks(weeks: number | undefined) {
   return defaults.rentalWeeks;
 }
 
-export function sanitizePersistedSetup(persisted: PersistedSetup | undefined) {
+export function sanitizeSelectedPresetId(id: string | undefined): SetupPresetId {
+  return getPresetById(id ?? "")?.id ?? defaults.selectedPresetId;
+}
+
+/** Product fields only — does not touch sticky `selectedPresetId`. */
+export function sanitizeSetupFields(persisted: PersistedSetup | undefined) {
   return {
     deskId: isValidDeskId(persisted?.deskId) ? persisted!.deskId! : defaults.deskId,
     chairId: isValidChairId(persisted?.chairId) ? persisted!.chairId! : defaults.chairId,
     accessoryIds: sanitizeAccessoryIds(persisted?.accessoryIds),
     monitorCount: sanitizeMonitorCount(persisted?.monitorCount),
     rentalWeeks: sanitizeRentalWeeks(persisted?.rentalWeeks),
+  };
+}
+
+export function sanitizePersistedSetup(persisted: PersistedSetup | undefined) {
+  return {
+    ...sanitizeSetupFields(persisted),
+    selectedPresetId: sanitizeSelectedPresetId(persisted?.selectedPresetId),
   };
 }
 
@@ -175,20 +193,23 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         if (!preset) {
           return;
         }
-        set(
-          sanitizePersistedSetup({
+        set({
+          ...sanitizeSetupFields({
             deskId: preset.deskId,
             chairId: preset.chairId,
             accessoryIds: preset.accessoryIds,
             monitorCount: preset.monitorCount,
             rentalWeeks: preset.rentalWeeks,
           }),
-        );
+          selectedPresetId: preset.id,
+        });
       },
       loadSetup: (setup) => {
-        set(sanitizePersistedSetup(setup));
+        set(sanitizeSetupFields(setup));
       },
-      reset: () => set({ ...defaults }),
+      reset: () => {
+        get().applyPreset(sanitizeSelectedPresetId(get().selectedPresetId));
+      },
       clearSetup: () =>
         set({
           deskId: "",
@@ -205,6 +226,7 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
         accessoryIds: state.accessoryIds,
         monitorCount: state.monitorCount,
         rentalWeeks: state.rentalWeeks,
+        selectedPresetId: state.selectedPresetId,
       }),
       merge: (persistedState, currentState) => ({
         ...currentState,

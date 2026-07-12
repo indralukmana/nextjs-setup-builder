@@ -22,8 +22,11 @@ type Props = {
 
 export function PresetPicker({ variant = "default" }: Props) {
   const t = useTranslations("SetupBuilder.presets");
+  const tSetup = useTranslations("SetupBuilder");
   const formatMoney = useFormatMoney();
   const applyPreset = useSetupBuilderStore((state) => state.applyPreset);
+  const reset = useSetupBuilderStore((state) => state.reset);
+  const selectedPresetId = useSetupBuilderStore((state) => state.selectedPresetId);
   const isRail = variant === "rail";
 
   const presetItems = setupPresets.map((preset) => {
@@ -37,26 +40,34 @@ export function PresetPicker({ variant = "default" }: Props) {
   });
 
   if (isRail) {
-    const items = [
-      { label: t("placeholder"), value: null },
-      ...presetItems.map((item) => ({ label: item.label, value: item.id })),
-    ];
+    const items = presetItems.map((item) => ({ label: item.label, value: item.id }));
 
     return (
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="setup-preset" className="text-sm font-medium">
-          {t("label")}
-        </label>
+        <div className="flex items-center justify-between gap-2">
+          <label htmlFor="setup-preset" className="text-sm font-medium">
+            {t("label")}
+          </label>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground hover:text-foreground h-7 shrink-0 px-2"
+            onClick={() => reset()}
+          >
+            {tSetup("resetSetup")}
+          </Button>
+        </div>
         <Select
           items={items}
-          value={null}
+          value={selectedPresetId}
           onValueChange={(value) => {
             if (!value) return;
             applyPreset(value as SetupPresetId);
           }}
         >
           <SelectTrigger id="setup-preset" className="bg-background w-full">
-            <SelectValue placeholder={t("placeholder")} />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent alignItemWithTrigger={false} align="start">
             {presetItems.map((item) => (

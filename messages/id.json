@@ -55,26 +55,23 @@
     "tabs": {
       "desk": "Meja",
       "chair": "Kursi",
-      "monitor": "Monitor",
       "accessory": "Aksesori",
       "drawer": "Laci"
     },
     "monitorCount": {
       "label": "Monitor",
       "none": "Tidak ada",
-      "option": "{count}",
-      "hint": "Model monitor gaming yang sama — pilih tidak ada, atau 1, 2, atau 3."
+      "option": "{count}"
     },
     "accessoriesDisabledForTripleMonitors": "Aksesori meja tidak tersedia dengan 3 monitor.",
-    "summaryWeekly": "{weekly}/minggu · {weeks} minggu",
-    "summaryTotal": "Total {total} · {count} item",
+    "summarySupport": "{weekly}/minggu · {count} item",
     "reviewRental": "Tinjau sewa",
     "copyLink": "Salin tautan setup",
     "copyLinkCopied": "Disalin",
     "shareLink": "Bagikan setup",
     "shareLinkShared": "Dibagikan",
     "shareTitle": "Setup monis saya",
-    "resetSetup": "Kembalikan default",
+    "resetSetup": "Reset",
     "clearSetup": "Hapus semua",
     "clearSetupConfirm": "Hapus meja, kursi, dan aksesori dari setup ini?",
     "durationLabel": "Durasi sewa",
@@ -93,7 +90,6 @@
         "name": "Creator"
       }
     },
-    "actionsMenu": "Lainnya",
     "selectionChips": {
       "ariaLabel": "Pilihan setup saat ini",
       "desk": "Meja",
@@ -184,6 +180,7 @@
   },
   "SetupScene": {
     "loading": "Memuat adegan 3D",
+    "loadingAssets": "Memuat model… {progress}%",
     "emptyHint": "Belum ada item dipilih — buka builder untuk menyusun workspace."
   },
   "Catalog": {

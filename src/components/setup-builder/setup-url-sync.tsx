@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useSetupBuilderHydrated } from "@/hooks/use-setup-builder-hydrated";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { parseSetupSearchParams, serializeSetupSearchParams } from "@/lib/setup-url";
-import { sanitizePersistedSetup, useSetupBuilderStore } from "@/store/setup-builder-store";
+import { sanitizeSetupFields, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 const WRITE_DEBOUNCE_MS = 250;
 
@@ -30,7 +30,7 @@ export function SetupUrlSync() {
 
     const fromUrl = parseSetupSearchParams(searchParams);
     if (fromUrl) {
-      useSetupBuilderStore.setState(sanitizePersistedSetup(fromUrl));
+      useSetupBuilderStore.setState(sanitizeSetupFields(fromUrl));
     }
   }, [hydrated, searchParams]);
 

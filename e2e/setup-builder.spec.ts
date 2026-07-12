@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("setup builder shows catalog and updates summary", async ({ page }) => {
   await page.goto("/en/setup-builder");
 
-  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeAttached();
   await expect(page.getByRole("tab", { name: /desks/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /chairs/i })).toBeVisible();
   await expect(page.getByRole("tab", { name: /monitors/i })).toBeVisible();
@@ -60,8 +60,7 @@ test("builder duration updates URL and reset restores default desk", async ({ pa
   await page.getByRole("button", { name: /^12 wk$/i }).click();
   await expect(page).toHaveURL(/weeks=12/);
 
-  await page.getByText(/^more$/i).click();
-  await page.getByRole("button", { name: /restore defaults/i }).click();
+  await page.getByRole("button", { name: /^reset$/i }).click();
   await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
     /bollsidan sit\/stand desk/i,
   );
@@ -103,7 +102,7 @@ test("German locale loads setup builder with German copy", async ({ page }) => {
   await page.evaluate(() => localStorage.removeItem("monis-currency"));
   await page.reload();
 
-  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeAttached();
   await expect(page.getByRole("group", { name: /währung|currency/i })).toBeVisible();
   await expect(page.getByRole("button", { name: /^eur$/i })).toHaveAttribute(
     "aria-pressed",

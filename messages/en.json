@@ -55,26 +55,23 @@
     "tabs": {
       "desk": "Desks",
       "chair": "Chairs",
-      "monitor": "Monitors",
       "accessory": "Accessories",
       "drawer": "Drawers"
     },
     "monitorCount": {
       "label": "Monitors",
       "none": "None",
-      "option": "{count}",
-      "hint": "Same gaming monitor model — choose none, or 1, 2, or 3."
+      "option": "{count}"
     },
     "accessoriesDisabledForTripleMonitors": "Desk accessories are unavailable with 3 monitors.",
-    "summaryWeekly": "{weekly}/week · {weeks} weeks",
-    "summaryTotal": "Total {total} · {count} items",
+    "summarySupport": "{weekly}/week · {count} items",
     "reviewRental": "Review rental",
     "copyLink": "Copy setup link",
     "copyLinkCopied": "Copied",
     "shareLink": "Share setup",
     "shareLinkShared": "Shared",
     "shareTitle": "My monis setup",
-    "resetSetup": "Restore defaults",
+    "resetSetup": "Reset",
     "clearSetup": "Clear all",
     "clearSetupConfirm": "Clear desk, chair, and accessories from this setup?",
     "durationLabel": "Rental duration",
@@ -93,7 +90,6 @@
         "name": "Creator"
       }
     },
-    "actionsMenu": "More",
     "selectionChips": {
       "ariaLabel": "Current setup selection",
       "desk": "Desk",
@@ -184,6 +180,7 @@
   },
   "SetupScene": {
     "loading": "Loading 3D scene",
+    "loadingAssets": "Loading models… {progress}%",
     "emptyHint": "No items selected yet — open the builder to compose a workspace."
   },
   "Catalog": {

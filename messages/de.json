@@ -55,26 +55,23 @@
     "tabs": {
       "desk": "Schreibtische",
       "chair": "Stühle",
-      "monitor": "Monitore",
       "accessory": "Zubehör",
       "drawer": "Schubladen"
     },
     "monitorCount": {
       "label": "Monitore",
       "none": "Keine",
-      "option": "{count}",
-      "hint": "Gleiches Gaming-Monitor-Modell — wähle keine, oder 1, 2 bzw. 3."
+      "option": "{count}"
     },
     "accessoriesDisabledForTripleMonitors": "Schreibtisch-Zubehör ist bei 3 Monitoren nicht verfügbar.",
-    "summaryWeekly": "{weekly}/Woche · {weeks} Wochen",
-    "summaryTotal": "Gesamt {total} · {count} Artikel",
+    "summarySupport": "{weekly}/Woche · {count} Artikel",
     "reviewRental": "Miete prüfen",
     "copyLink": "Setup-Link kopieren",
     "copyLinkCopied": "Kopiert",
     "shareLink": "Setup teilen",
     "shareLinkShared": "Geteilt",
     "shareTitle": "Mein monis-Setup",
-    "resetSetup": "Standard wiederherstellen",
+    "resetSetup": "Zurücksetzen",
     "clearSetup": "Alles löschen",
     "clearSetupConfirm": "Schreibtisch, Stuhl und Zubehör aus diesem Setup entfernen?",
     "durationLabel": "Mietdauer",
@@ -93,7 +90,6 @@
         "name": "Creator"
       }
     },
-    "actionsMenu": "Mehr",
     "selectionChips": {
       "ariaLabel": "Aktuelle Setup-Auswahl",
       "desk": "Schreibtisch",
@@ -184,6 +180,7 @@
   },
   "SetupScene": {
     "loading": "3D-Szene wird geladen",
+    "loadingAssets": "Modelle werden geladen… {progress}%",
     "emptyHint": "Noch keine Artikel ausgewählt — öffne den Builder, um einen Arbeitsplatz zu gestalten."
   },
   "Catalog": {

@@ -36,7 +36,6 @@ export function MonitorCountPicker() {
           );
         })}
       </div>
-      <p className="text-muted-foreground text-xs">{t("monitorCount.hint")}</p>
     </fieldset>
   );
 }

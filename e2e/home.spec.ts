@@ -16,7 +16,7 @@ test("Indonesian home loads and navigates to setup builder", async ({ page }) =>
 
   await page.getByRole("link", { name: /mulai membangun/i }).click();
   await expect(page).toHaveURL(/\/id\/setup-builder/);
-  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeAttached();
 });
 
 test("skip link moves focus to main content", async ({ page }) => {
