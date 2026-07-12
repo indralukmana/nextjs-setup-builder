@@ -163,13 +163,9 @@ function CountrySelectOption({
 function FlagComponent({ country, countryName }: RPNInput.FlagProps) {
   const Flag = country ? flags[country] : undefined;
 
-  if (!Flag) {
-    return null;
-  }
-
   return (
-    <span className="relative block h-4 w-6 shrink-0 overflow-hidden rounded-sm">
-      <Flag title={countryName} className="size-full" />
+    <span className="bg-foreground/10 relative block h-4 w-6 shrink-0 overflow-hidden rounded-sm [&_svg]:size-full">
+      {Flag ? <Flag title={countryName} /> : null}
     </span>
   );
 }
