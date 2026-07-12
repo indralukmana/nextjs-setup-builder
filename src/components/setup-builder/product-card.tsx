@@ -1,8 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { ProductIllustration } from "@/components/setup-builder/preview-layers";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useProductCopy } from "@/hooks/use-product-copy";
 import { formatUsd } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import type { CatalogProduct } from "@/types/catalog";
@@ -22,6 +25,9 @@ export function ProductCard({
   disabled = false,
   disabledReason,
 }: Props) {
+  const t = useTranslations("Catalog");
+  const { name, description } = useProductCopy(product.id);
+
   return (
     <button
       type="button"
@@ -34,8 +40,8 @@ export function ProductCard({
     >
       <span className="sr-only">
         {disabled
-          ? `${product.name}. ${disabledReason ?? "Unavailable"}`
-          : `${selected ? "Selected" : "Select"} ${product.name}`}
+          ? `${name}. ${disabledReason ?? t("unavailable")}`
+          : `${selected ? t("selected") : t("select")} ${name}`}
       </span>
       <Card
         className={cn(
@@ -51,13 +57,13 @@ export function ProductCard({
           </div>
           <CardHeader className="min-w-0 gap-2 p-0">
             <div className="flex items-start justify-between gap-3">
-              <CardTitle className="text-sm leading-snug sm:text-base">{product.name}</CardTitle>
+              <CardTitle className="text-sm leading-snug sm:text-base">{name}</CardTitle>
               <Badge variant="secondary" className="shrink-0">
                 {formatUsd(product.pricePerWeek)}/wk
               </Badge>
             </div>
             <CardDescription className="line-clamp-2 sm:line-clamp-none">
-              {product.description}
+              {description}
             </CardDescription>
           </CardHeader>
         </div>

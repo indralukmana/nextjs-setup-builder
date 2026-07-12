@@ -99,5 +99,56 @@
     "checkout": "Checkout",
     "checkoutShort": "Rent",
     "skipToContent": "Skip to content"
+  },
+  "Catalog": {
+    "select": "Select",
+    "selected": "Selected",
+    "unavailable": "Unavailable",
+    "products": {
+      "desk-electric": {
+        "name": "Electrical Adjustable Desk",
+        "description": "Electric sit-stand desk with quiet motor."
+      },
+      "desk-mechanical": {
+        "name": "Mechanical Adjustable Desk",
+        "description": "Manual height-adjustable desk, no power needed."
+      },
+      "chair-ergonomic": {
+        "name": "Ergonomic Office Chair",
+        "description": "Breathable mesh with 4D armrests and lumbar support."
+      },
+      "chair-task": {
+        "name": "Compact Task Chair",
+        "description": "Lightweight task chair for smaller workspaces."
+      },
+      "monitor-24": {
+        "name": "24\" Full HD Monitor",
+        "description": "Fast IPS office monitor for everyday work."
+      },
+      "monitor-27-4k": {
+        "name": "27\" 4K Monitor",
+        "description": "USB-C 4K display with sharp color."
+      },
+      "monitor-34": {
+        "name": "34\" Ultrawide Monitor",
+        "description": "Curved ultrawide for immersive multitasking."
+      },
+      "lamp-led": {
+        "name": "Smart LED Desk Lamp",
+        "description": "Adjustable color temperature desk lamp."
+      },
+      "plant-desk": {
+        "name": "Desk Plant",
+        "description": "Low-maintenance greenery for your setup."
+      },
+      "stand-laptop": {
+        "name": "Ergonomic Laptop Stand",
+        "description": "Raises laptops for a healthier posture."
+      },
+      "kit-peripherals": {
+        "name": "Keyboard & Mouse Kit",
+        "description": "Wireless keyboard and mouse pair."
+      }
+    }
   }
 }

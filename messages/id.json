@@ -99,5 +99,56 @@
     "checkout": "Checkout",
     "checkoutShort": "Sewa",
     "skipToContent": "Loncat ke konten"
+  },
+  "Catalog": {
+    "select": "Select",
+    "selected": "Selected",
+    "unavailable": "Unavailable",
+    "products": {
+      "desk-electric": {
+        "name": "Meja Adjustable Elektrik",
+        "description": "Standing desk elektrik dengan motor yang tenang."
+      },
+      "desk-mechanical": {
+        "name": "Meja Adjustable Mekanis",
+        "description": "Meja tinggi yang disesuaikan manual, tanpa listrik."
+      },
+      "chair-ergonomic": {
+        "name": "Kursi Kantor Ergonomis",
+        "description": "Sandaran mesh dengan armrest 4D dan dukungan lumbar."
+      },
+      "chair-task": {
+        "name": "Kursi Task Kompak",
+        "description": "Kursi ringan untuk workspace yang lebih kecil."
+      },
+      "monitor-24": {
+        "name": "Monitor Full HD 24\"",
+        "description": "Monitor IPS cepat untuk kerja sehari-hari."
+      },
+      "monitor-27-4k": {
+        "name": "Monitor 4K 27\"",
+        "description": "Layar 4K USB-C dengan warna tajam."
+      },
+      "monitor-34": {
+        "name": "Monitor Ultrawide 34\"",
+        "description": "Ultrawide lengkung untuk multitasking imersif."
+      },
+      "lamp-led": {
+        "name": "Lampu Meja LED Pintar",
+        "description": "Lampu meja dengan suhu warna yang dapat disesuaikan."
+      },
+      "plant-desk": {
+        "name": "Tanaman Meja",
+        "description": "Tanaman hijau perawatan rendah untuk setup Anda."
+      },
+      "stand-laptop": {
+        "name": "Stand Laptop Ergonomis",
+        "description": "Meninggikan laptop untuk postur yang lebih sehat."
+      },
+      "kit-peripherals": {
+        "name": "Kit Keyboard & Mouse",
+        "description": "Pasangan keyboard dan mouse nirkabel."
+      }
+    }
   }
 }
