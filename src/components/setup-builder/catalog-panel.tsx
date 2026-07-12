@@ -6,6 +6,7 @@ import { CatalogProductList } from "@/components/setup-builder/catalog-product-l
 import { CopySetupLink } from "@/components/setup-builder/copy-setup-link";
 import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
 import { PresetPicker } from "@/components/setup-builder/preset-picker";
+import { ResetSetupButton } from "@/components/setup-builder/reset-setup-button";
 import { StoreReady } from "@/components/setup-builder/store-ready";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { listProductsByCategorySync } from "@/lib/catalog-api";
@@ -35,7 +36,10 @@ function CatalogPanelContent() {
     <section aria-label="Product catalog" className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <PresetPicker />
-        <CopySetupLink />
+        <div className="flex flex-wrap gap-2">
+          <ResetSetupButton />
+          <CopySetupLink />
+        </div>
       </div>
       <Tabs defaultValue="desk">
         <TabsList className="h-auto w-full max-w-full flex-wrap sm:w-fit">

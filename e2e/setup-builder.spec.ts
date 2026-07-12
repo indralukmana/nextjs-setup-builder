@@ -51,6 +51,23 @@ test("keyboard can select a desk and reach checkout CTA", async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/checkout/);
 });
 
+test("builder duration updates URL and reset restores default desk", async ({ page }) => {
+  await page.goto("/en/setup-builder?desk=desk-mechanical&chair=chair-task&accessories=&weeks=4");
+
+  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
+    /mechanical adjustable desk/i,
+  );
+
+  await page.getByRole("button", { name: /^12 wk$/i }).click();
+  await expect(page).toHaveURL(/weeks=12/);
+
+  await page.getByRole("button", { name: /reset setup/i }).click();
+  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
+    /electrical adjustable desk/i,
+  );
+  await expect(page).toHaveURL(/desk=desk-electric/);
+});
+
 test("Indonesian locale shows IDR prices and copy link feedback", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/id/setup-builder");

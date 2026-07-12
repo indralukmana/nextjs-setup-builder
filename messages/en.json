@@ -64,6 +64,9 @@
     "reviewRental": "Review rental",
     "copyLink": "Copy setup link",
     "copyLinkCopied": "Copied",
+    "resetSetup": "Reset setup",
+    "durationLabel": "Rental duration",
+    "weeksOption": "{count} wk",
     "presets": {
       "label": "Quick presets",
       "essentials": {
@@ -95,6 +98,10 @@
     "backHome": "Back home",
     "loadingSummary": "Loading setup summary",
     "loadingForm": "Loading rental form",
+    "delivery": {
+      "title": "Bali delivery",
+      "body": "monis delivers, sets up, and picks up across Bali. After you request a rental we'll confirm timing for your workspace."
+    },
     "fields": {
       "name": "Full name",
       "email": "Email",

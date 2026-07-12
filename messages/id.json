@@ -64,6 +64,9 @@
     "reviewRental": "Tinjau sewa",
     "copyLink": "Salin tautan setup",
     "copyLinkCopied": "Disalin",
+    "resetSetup": "Reset setup",
+    "durationLabel": "Durasi sewa",
+    "weeksOption": "{count} mg",
     "presets": {
       "label": "Preset cepat",
       "essentials": {
@@ -95,6 +98,10 @@
     "backHome": "Kembali ke beranda",
     "loadingSummary": "Memuat ringkasan setup",
     "loadingForm": "Memuat formulir sewa",
+    "delivery": {
+      "title": "Pengiriman Bali",
+      "body": "monis mengirim, memasang, dan mengambil di seluruh Bali. Setelah Anda mengajukan sewa, kami akan konfirmasi jadwal untuk workspace Anda."
+    },
     "fields": {
       "name": "Nama lengkap",
       "email": "Email",

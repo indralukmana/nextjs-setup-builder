@@ -9,16 +9,23 @@ type Props = {
   value: number;
   formatOption: (weeks: number) => string;
   onChange: (weeks: number) => void;
+  id?: string;
 };
 
-export function RentalDurationPicker({ label, value, formatOption, onChange }: Props) {
+export function RentalDurationPicker({
+  label,
+  value,
+  formatOption,
+  onChange,
+  id = "rental-weeks",
+}: Props) {
   return (
     <div className="flex flex-col gap-3">
-      <label className="text-sm font-medium" htmlFor="rental-weeks">
+      <label className="text-sm font-medium" htmlFor={id}>
         {label}
       </label>
       <ToggleGroup
-        id="rental-weeks"
+        id={id}
         value={[String(value)]}
         onValueChange={(values) => {
           const next = values[0];

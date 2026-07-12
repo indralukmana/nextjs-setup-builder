@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { DeliveryNote } from "@/components/checkout/delivery-note";
 import { RentalForm } from "@/components/checkout/rental-form";
 import { SetupSummary } from "@/components/checkout/setup-summary";
 import { routing } from "@/i18n/routing";
@@ -42,6 +43,7 @@ export default async function CheckoutPage({ params }: Props) {
           {t("subtitle")}
         </p>
       </div>
+      <DeliveryNote title={t("delivery.title")} body={t("delivery.body")} />
       <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
         <SetupSummary
           heading={t("summaryHeading")}
