@@ -4,7 +4,7 @@ import { usePathname } from "@/i18n/navigation";
 
 export function SiteFooter() {
   const pathname = usePathname();
-  if (pathname === "/setup-builder") {
+  if (pathname === "/setup-builder" || pathname === "/checkout") {
     return null;
   }
 
