@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -14,12 +15,18 @@ type Props = {
 };
 
 export function HeroCopy({ brand, title, subtitle, cta }: Props) {
+  const reduceMotion = usePrefersReducedMotion();
+
   return (
     <motion.div
       className="flex max-w-xl flex-col gap-5"
-      initial={{ y: 16 }}
+      initial={reduceMotion ? false : { y: 16 }}
       animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 220, damping: 28, delay: 0.05 }}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 220, damping: 28, delay: 0.05 }
+      }
     >
       <p className="font-heading text-5xl leading-none tracking-tight text-[#1f3d2f] sm:text-6xl md:text-7xl">
         {brand}
