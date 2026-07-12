@@ -58,8 +58,11 @@ export function RentalSuccess({
             variant="secondary"
             size="sm"
             onClick={async () => {
+              const snippet = [title, body, requestIdLabel ?? `Request ID: ${requestId}`]
+                .filter(Boolean)
+                .join("\n\n");
               try {
-                await navigator.clipboard.writeText(requestId);
+                await navigator.clipboard.writeText(snippet);
                 setCopied(true);
               } catch {
                 setCopied(false);

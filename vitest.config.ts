@@ -20,6 +20,7 @@ export default defineConfig({
       "@base-ui/react/toggle-group",
       "@base-ui/react/tabs",
       "@base-ui/react/button",
+      "zod",
     ],
   },
   test: {
