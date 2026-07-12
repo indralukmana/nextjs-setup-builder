@@ -39,8 +39,8 @@ export function SummaryBar({ className }: Props) {
         className,
       )}
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <div className="relative min-w-0 flex-1">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+        <div className="relative min-w-0 flex-1 basis-[12rem]">
           <div
             className={cn(
               "transition-opacity duration-300 ease-out",

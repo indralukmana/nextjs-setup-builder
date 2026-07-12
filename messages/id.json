@@ -85,7 +85,7 @@
     "clearSetup": "Hapus semua",
     "clearSetupConfirm": "Hapus meja, kursi, dan aksesori dari setup ini?",
     "durationLabel": "Durasi sewa",
-    "weeksOption": "{count} mg",
+    "weeksOption": "{count} minggu",
     "presets": {
       "label": "Preset cepat",
       "hint": "Terapkan setup meja, kursi, dan aksesori yang sudah dikurasi dalam satu langkah. Reset mengembalikan preset yang sedang dipilih.",
@@ -136,7 +136,7 @@
     "emptyForm": "Tambahkan meja dan kursi di setup builder sebelum mengajukan sewa.",
     "editSetup": "Edit setup",
     "durationLabel": "Durasi sewa",
-    "weeksOption": "{count} mg",
+    "weeksOption": "{count} minggu",
     "weekly": "Mingguan {amount}",
     "total": "Total {amount}",
     "submit": "Ajukan sewa",

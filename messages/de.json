@@ -85,7 +85,7 @@
     "clearSetup": "Alles löschen",
     "clearSetupConfirm": "Schreibtisch, Stuhl und Zubehör aus diesem Setup entfernen?",
     "durationLabel": "Mietdauer",
-    "weeksOption": "{count} Wo.",
+    "weeksOption": "{count} Wochen",
     "presets": {
       "label": "Schnellvorlagen",
       "hint": "Übernimm ein kuratiertes Setup aus Schreibtisch, Stuhl und Zubehör in einem Schritt. Zurücksetzen stellt die aktuell gewählte Vorlage wieder her.",
@@ -136,7 +136,7 @@
     "emptyForm": "Füge im Setup Builder einen Schreibtisch und Stuhl hinzu, bevor du eine Miete anforderst.",
     "editSetup": "Setup bearbeiten",
     "durationLabel": "Mietdauer",
-    "weeksOption": "{count} Wo.",
+    "weeksOption": "{count} Wochen",
     "weekly": "Wöchentlich {amount}",
     "total": "{amount} gesamt",
     "submit": "Miete anfordern",

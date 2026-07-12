@@ -85,7 +85,7 @@
     "clearSetup": "Clear all",
     "clearSetupConfirm": "Clear desk, chair, and accessories from this setup?",
     "durationLabel": "Rental duration",
-    "weeksOption": "{count} wk",
+    "weeksOption": "{count} weeks",
     "presets": {
       "label": "Quick presets",
       "hint": "Apply a curated desk, chair, and accessories setup in one step. Reset restores the currently selected preset.",
@@ -136,7 +136,7 @@
     "emptyForm": "Add a desk and chair in the setup builder before requesting a rental.",
     "editSetup": "Edit setup",
     "durationLabel": "Rental duration",
-    "weeksOption": "{count} wk",
+    "weeksOption": "{count} weeks",
     "weekly": "Weekly {amount}",
     "total": "{amount} total",
     "submit": "Request rental",

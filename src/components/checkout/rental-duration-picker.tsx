@@ -56,14 +56,14 @@ export function RentalDurationPicker({
         variant="outline"
         className={cn(
           "!grid grid-cols-3 gap-1.5",
-          inline ? "w-[10.5rem] shrink-0" : "w-full gap-2",
+          inline ? "w-fit max-w-full shrink-0" : "w-full gap-2",
         )}
       >
         {WEEK_OPTIONS.map((weeks) => (
           <ToggleGroupItem
             key={weeks}
             value={weeks}
-            className={cn(compact || inline ? "h-8 px-2 text-xs" : "h-11")}
+            className={cn(compact || inline ? "h-8 px-2.5 text-xs whitespace-nowrap" : "h-11")}
           >
             {formatOption(Number(weeks))}
           </ToggleGroupItem>
