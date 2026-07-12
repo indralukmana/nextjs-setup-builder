@@ -1,10 +1,10 @@
 "use client";
 
+import { CheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { ProductCategoryIcon } from "@/components/setup-builder/product-category-icon";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { useFormatMoney } from "@/hooks/use-format-money";
 import { useProductCopy } from "@/hooks/use-product-copy";
 import { cn } from "@/lib/utils";
@@ -46,30 +46,31 @@ export function ProductCard({
       </span>
       <Card
         className={cn(
-          "overflow-hidden ring-0 transition-colors",
+          "gap-0 py-0 ring-0 transition-colors",
           selected ? "bg-secondary" : "bg-card",
           disabled && "opacity-50",
         )}
         aria-hidden
       >
-        <div className="flex items-stretch gap-3 p-3">
-          <div className="bg-muted/70 flex size-16 shrink-0 items-center justify-center rounded-lg border sm:size-20">
-            <ProductCategoryIcon product={product} className="size-7 sm:size-8" />
+        <div className="flex items-start gap-3 p-3">
+          <div className="bg-muted/70 flex size-11 shrink-0 items-center justify-center rounded-lg border">
+            <ProductCategoryIcon product={product} className="size-5" />
           </div>
-          <CardHeader className="min-w-0 gap-2 p-0">
-            <div className="flex items-start justify-between gap-3">
-              <CardTitle className="text-sm leading-snug sm:text-base">{name}</CardTitle>
-              <Badge variant="secondary" className="shrink-0">
-                {formatMoney(product.pricePerWeek)}/wk
-              </Badge>
-            </div>
-            <CardDescription className="line-clamp-2 sm:line-clamp-none">
-              {description}
-            </CardDescription>
-            <p className={cn("text-xs font-medium", selected ? "text-foreground" : "invisible")}>
-              {t("selected")}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-medium leading-snug">{name}</p>
+            <p className="text-muted-foreground mt-0.5 text-xs tabular-nums">
+              {formatMoney(product.pricePerWeek)}/wk
             </p>
-          </CardHeader>
+            <p className="text-muted-foreground mt-1 line-clamp-2 text-xs leading-relaxed">
+              {description}
+            </p>
+          </div>
+          <CheckIcon
+            className={cn(
+              "mt-0.5 size-4 shrink-0 transition-opacity",
+              selected ? "text-foreground opacity-100" : "opacity-0",
+            )}
+          />
         </div>
       </Card>
     </button>

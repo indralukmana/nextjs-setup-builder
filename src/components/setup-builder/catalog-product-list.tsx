@@ -18,7 +18,7 @@ export function CatalogProductList({
   onSelect,
 }: Props) {
   return (
-    <div className="grid gap-3">
+    <div className="grid gap-2">
       {products.map((product) => {
         const disabled = isDisabled?.(product) ?? false;
         return (
