@@ -59,7 +59,7 @@ export function ProductCard({
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium leading-snug">{name}</p>
             <p className="text-muted-foreground mt-0.5 text-xs tabular-nums">
-              {formatMoney(product.pricePerWeek)}/wk
+              {t("pricePerWeek", { amount: formatMoney(product.pricePerWeek) })}
             </p>
             <p className="text-muted-foreground mt-1 line-clamp-2 text-xs leading-relaxed">
               {description}

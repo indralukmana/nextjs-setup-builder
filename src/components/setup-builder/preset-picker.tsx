@@ -45,7 +45,7 @@ export function PresetPicker({ variant = "default" }: Props) {
     const weekly = getWeeklyTotal(expandSetupLineIds(preset));
     return {
       id: preset.id as SetupPresetId,
-      label: `${t(`${preset.id}.name`)} · ${formatMoney(weekly)}/wk`,
+      label: `${t(`${preset.id}.name`)} · ${t("weekly", { amount: formatMoney(weekly) })}`,
       name: t(`${preset.id}.name`),
       weekly,
     };

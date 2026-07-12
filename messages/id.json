@@ -166,7 +166,8 @@
       "emailInvalid": "Masukkan alamat email yang valid.",
       "phoneInvalid": "Masukkan nomor telepon atau WhatsApp yang valid.",
       "submitFailed": "Tidak dapat mengirim permintaan. Coba lagi."
-    }
+    },
+    "pricePerWeek": "{amount}/minggu"
   },
   "NotFound": {
     "title": "Halaman tidak ditemukan",
@@ -244,6 +245,7 @@
         "name": "Unit laci ALEX",
         "description": "Unit laci cokelat-hitam yang bisa disampingkan di meja."
       }
-    }
+    },
+    "pricePerWeek": "{amount}/minggu"
   }
 }

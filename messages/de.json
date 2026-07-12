@@ -166,7 +166,8 @@
       "emailInvalid": "Gib eine gültige E-Mail-Adresse ein.",
       "phoneInvalid": "Gib eine gültige Telefon- oder WhatsApp-Nummer ein.",
       "submitFailed": "Anfrage konnte nicht gesendet werden. Bitte versuche es erneut."
-    }
+    },
+    "pricePerWeek": "{amount}/Woche"
   },
   "NotFound": {
     "title": "Seite nicht gefunden",
@@ -244,6 +245,7 @@
         "name": "ALEX Schubladenelement",
         "description": "Schwarzbraunes Schubladenelement zum Stellen neben dem Schreibtisch."
       }
-    }
+    },
+    "pricePerWeek": "{amount}/Woche"
   }
 }
