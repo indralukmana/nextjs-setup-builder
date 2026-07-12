@@ -83,6 +83,16 @@
       "creator": {
         "name": "Creator"
       }
+    },
+    "saved": {
+      "label": "Setup tersimpan",
+      "save": "Simpan saat ini",
+      "load": "Muat",
+      "delete": "Hapus",
+      "empty": "Belum ada setup tersimpan (maks 3).",
+      "prompt": "Nama setup ini",
+      "full": "Anda sudah punya {max} setup tersimpan. Hapus satu dulu.",
+      "emptyName": "Masukkan nama untuk menyimpan."
     }
   },
   "Checkout": {

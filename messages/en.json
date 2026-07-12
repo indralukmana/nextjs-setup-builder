@@ -83,6 +83,16 @@
       "creator": {
         "name": "Creator"
       }
+    },
+    "saved": {
+      "label": "Saved setups",
+      "save": "Save current",
+      "load": "Load",
+      "delete": "Delete",
+      "empty": "No saved setups yet (max 3).",
+      "prompt": "Name this setup",
+      "full": "You already have {max} saved setups. Delete one first.",
+      "emptyName": "Enter a name to save."
     }
   },
   "Checkout": {

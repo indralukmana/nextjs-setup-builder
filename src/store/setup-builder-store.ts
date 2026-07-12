@@ -25,6 +25,7 @@ type SetupBuilderState = {
   toggleAccessory: (id: string) => void;
   setRentalWeeks: (weeks: number) => void;
   applyPreset: (presetId: string) => void;
+  loadSetup: (setup: PersistedSetup) => void;
   reset: () => void;
   clearSetup: () => void;
 };
@@ -168,6 +169,9 @@ export const useSetupBuilderStore = create<SetupBuilderState>()(
             rentalWeeks: preset.rentalWeeks,
           }),
         );
+      },
+      loadSetup: (setup) => {
+        set(sanitizePersistedSetup(setup));
       },
       reset: () => set({ ...defaults }),
       clearSetup: () =>

@@ -8,6 +8,7 @@ import { CopySetupLink } from "@/components/setup-builder/copy-setup-link";
 import { MonitorLimitNotice } from "@/components/setup-builder/monitor-limit-notice";
 import { PresetPicker } from "@/components/setup-builder/preset-picker";
 import { ResetSetupButton } from "@/components/setup-builder/reset-setup-button";
+import { SavedSetups } from "@/components/setup-builder/saved-setups";
 import { StoreReady } from "@/components/setup-builder/store-ready";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { listProductsByCategorySync } from "@/lib/catalog-api";
@@ -43,6 +44,7 @@ function CatalogPanelContent() {
           <CopySetupLink />
         </div>
       </div>
+      <SavedSetups />
       <Tabs defaultValue="desk">
         <TabsList className="h-auto w-full max-w-full flex-wrap sm:w-fit">
           <TabsTrigger value="desk" className="px-2.5 sm:px-3">

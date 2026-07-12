@@ -92,6 +92,28 @@ test("Indonesian locale shows IDR prices and copy link feedback", async ({ page,
   await expect(page.getByRole("button", { name: /^(disalin|dibagikan)$/i })).toBeVisible();
 });
 
+test("saved setups can restore a desk after reset", async ({ page }) => {
+  await page.goto("/en/setup-builder");
+  await page.getByRole("button", { name: /^essentials$/i }).click();
+  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
+    /electrical adjustable desk/i,
+  );
+
+  page.once("dialog", (dialog) => dialog.accept("My essentials"));
+  await page.getByRole("button", { name: /save current/i }).click();
+  await expect(page.getByText("My essentials")).toBeVisible();
+
+  await page.getByRole("button", { name: /^focus$/i }).click();
+  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
+    /mechanical adjustable desk/i,
+  );
+
+  await page.getByRole("button", { name: /^load$/i }).click();
+  await expect(page.getByRole("region", { name: /workspace preview/i })).toContainText(
+    /electrical adjustable desk/i,
+  );
+});
+
 test("shareable URL hydrates setup and essentials preset applies", async ({ page }) => {
   await page.goto(
     "/en/setup-builder?desk=desk-mechanical&chair=chair-task&accessories=monitor-24,lamp-led&weeks=12",
