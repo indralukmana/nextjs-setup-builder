@@ -71,7 +71,7 @@ export function SetupBuilderWorkspace({ title }: Props) {
             aria-label={t("close")}
             onClick={() => setCatalogOpen(false)}
           />
-          <div className="border-border bg-background absolute inset-x-0 bottom-0 flex h-[min(78dvh,36rem)] flex-col overflow-hidden rounded-t-xl border-t shadow-lg">
+          <div className="border-border bg-background absolute inset-0 flex h-full flex-col overflow-hidden shadow-lg">
             <div className="flex shrink-0 items-center justify-between gap-3 border-b px-3 py-2.5">
               <p className="text-sm font-medium">{t("open")}</p>
               <button
