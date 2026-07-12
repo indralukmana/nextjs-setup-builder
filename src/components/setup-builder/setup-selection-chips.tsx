@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 
 import { useProductCopy } from "@/hooks/use-product-copy";
+import { useSetupBuilderHydrated } from "@/hooks/use-setup-builder-hydrated";
 import { cn } from "@/lib/utils";
 import { useSetupBuilderStore } from "@/store/setup-builder-store";
 
@@ -26,6 +27,7 @@ type Props = {
 
 export function SetupSelectionChips({ className }: Props) {
   const t = useTranslations("SetupBuilder.selectionChips");
+  const hydrated = useSetupBuilderHydrated();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const monitorCount = useSetupBuilderStore((state) => state.monitorCount);
@@ -35,8 +37,13 @@ export function SetupSelectionChips({ className }: Props) {
 
   return (
     <div
-      className={cn("flex flex-wrap items-center gap-1.5", className)}
+      className={cn(
+        "flex flex-wrap items-center gap-1.5 transition-opacity duration-300 ease-out",
+        hydrated ? "opacity-100" : "opacity-0",
+        className,
+      )}
       aria-label={t("ariaLabel")}
+      aria-hidden={!hydrated}
     >
       {deskId ? (
         <ProductChip label={t("desk")} productId={deskId} />

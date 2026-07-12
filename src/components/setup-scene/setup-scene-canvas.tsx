@@ -7,8 +7,10 @@ import { PCFShadowMap, Vector3 } from "three";
 
 import { GltfSlot } from "@/components/setup-scene/gltf-slot";
 import { ProceduralAccessory } from "@/components/setup-scene/procedural-props";
+import { SceneAssetLoadingOverlay } from "@/components/setup-scene/scene-loading-overlay";
 import { getProductSync } from "@/lib/catalog-api";
 import { SCENE_PRELOAD_MODELS, type SceneSlot } from "@/lib/scene-slots";
+import { cn } from "@/lib/utils";
 
 for (const src of SCENE_PRELOAD_MODELS) {
   useGLTF.preload(src);
@@ -90,7 +92,11 @@ function SceneOrbitControls() {
 
 export function SetupSceneCanvas({ slots, className }: SetupSceneCanvasProps) {
   return (
-    <div className={className} aria-label="Interactive 3D scene of your monis setup">
+    <div
+      className={cn("relative", className)}
+      aria-label="Interactive 3D scene of your monis setup"
+    >
+      <SceneAssetLoadingOverlay />
       <Canvas
         // three r183+: PCFShadowMap is soft; PCFSoftShadowMap is deprecated
         shadows={{ type: PCFShadowMap, enabled: true }}
