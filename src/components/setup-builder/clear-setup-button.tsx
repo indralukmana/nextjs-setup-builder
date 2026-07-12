@@ -10,7 +10,16 @@ export function ClearSetupButton() {
   const clearSetup = useSetupBuilderStore((state) => state.clearSetup);
 
   return (
-    <Button type="button" variant="ghost" size="sm" onClick={() => clearSetup()}>
+    <Button
+      type="button"
+      variant="ghost"
+      size="sm"
+      onClick={() => {
+        if (window.confirm(t("clearSetupConfirm"))) {
+          clearSetup();
+        }
+      }}
+    >
       {t("clearSetup")}
     </Button>
   );

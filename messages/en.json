@@ -67,8 +67,9 @@
     "shareLink": "Share setup",
     "shareLinkShared": "Shared",
     "shareTitle": "My monis setup",
-    "resetSetup": "Reset setup",
-    "clearSetup": "Clear setup",
+    "resetSetup": "Restore defaults",
+    "clearSetup": "Clear all",
+    "clearSetupConfirm": "Clear desk, chair, and accessories from this setup?",
     "durationLabel": "Rental duration",
     "weeksOption": "{count} wk",
     "presets": {

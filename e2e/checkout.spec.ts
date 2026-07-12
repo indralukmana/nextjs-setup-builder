@@ -45,7 +45,8 @@ test("checkout submits rental request with contact details", async ({ page }) =>
 test("clear setup shows empty checkout form", async ({ page }) => {
   await page.goto("/en/setup-builder");
   await expect(page).toHaveURL(/desk=/);
-  await page.getByRole("button", { name: /clear setup/i }).click();
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.getByRole("button", { name: /clear all/i }).click();
   await page.getByRole("link", { name: /review rental/i }).click();
   await expect(page).toHaveURL(/\/en\/checkout/);
   await expect(

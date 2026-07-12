@@ -67,8 +67,9 @@
     "shareLink": "Bagikan setup",
     "shareLinkShared": "Dibagikan",
     "shareTitle": "Setup monis saya",
-    "resetSetup": "Reset setup",
-    "clearSetup": "Hapus setup",
+    "resetSetup": "Kembalikan default",
+    "clearSetup": "Hapus semua",
+    "clearSetupConfirm": "Hapus meja, kursi, dan aksesori dari setup ini?",
     "durationLabel": "Durasi sewa",
     "weeksOption": "{count} mg",
     "presets": {
