@@ -200,6 +200,7 @@
   "SetupScene": {
     "loading": "Loading 3D scene",
     "loadingAssets": "Loading models… {progress}%",
+    "e2eStub": "3D preview skipped in tests",
     "emptyHint": "No items selected yet — open the builder to compose a workspace."
   },
   "Catalog": {

@@ -31,9 +31,8 @@ export async function closeCatalogIfNeeded(page: Page) {
   if (!(await dialog.isVisible())) {
     return;
   }
-  await clickInPage(
-    dialog.locator("div.border-b").getByRole("button", { name: /^(close|tutup|schließen)$/i }),
-  );
+  // Escape avoids flaky hits on the full-bleed dismiss backdrop / Close control.
+  await page.keyboard.press("Escape");
   await expect(dialog).toHaveCount(0);
 }
 

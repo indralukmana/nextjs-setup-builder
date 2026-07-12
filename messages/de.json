@@ -200,6 +200,7 @@
   "SetupScene": {
     "loading": "3D-Szene wird geladen",
     "loadingAssets": "Modelle werden geladen… {progress}%",
+    "e2eStub": "3D-Vorschau in Tests deaktiviert",
     "emptyHint": "Noch keine Artikel ausgewählt — öffne den Builder, um einen Arbeitsplatz zu gestalten."
   },
   "Catalog": {

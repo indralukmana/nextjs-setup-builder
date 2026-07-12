@@ -1,9 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const isCi = !!process.env.CI;
-/** Mobile sheet flows are flaky on GH CI; keep them on main pushes (and local). */
-const runMobileChrome =
-  !isCi || process.env.GITHUB_REF === "refs/heads/main" || process.env.E2E_MOBILE === "1";
 
 export default defineConfig({
   testDir: "./e2e",
@@ -28,14 +25,10 @@ export default defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
-    ...(runMobileChrome
-      ? [
-          {
-            name: "mobile-chrome",
-            use: { ...devices["Pixel 7"] },
-          },
-        ]
-      : []),
+    {
+      name: "mobile-chrome",
+      use: { ...devices["Pixel 7"] },
+    },
   ],
   webServer: {
     // CI jobs build once and reuse the `.next` artifact; local uses the dev server.

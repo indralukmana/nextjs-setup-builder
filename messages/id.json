@@ -200,6 +200,7 @@
   "SetupScene": {
     "loading": "Memuat adegan 3D",
     "loadingAssets": "Memuat model… {progress}%",
+    "e2eStub": "Pratinjau 3D dilewati di pengujian",
     "emptyHint": "Belum ada item dipilih — buka builder untuk menyusun workspace."
   },
   "Catalog": {

@@ -184,7 +184,8 @@ html[data-e2e="true"] .animate-pulse {
   animation: none !important;
 }
 
-/* Keep WebGL from stealing hits / soaking the main thread during pointer checks. */
+/* Keep WebGL from stealing hits / soaking the main thread during pointer checks.
+ * Prefer the e2e scene stub (data-e2e-scene-stub); this is defense in depth if canvas mounts. */
 html[data-e2e="true"] [aria-label="Interactive 3D scene of your monis setup"],
 html[data-e2e="true"] [aria-label="Interactive 3D scene of your monis setup"] canvas {
   pointer-events: none !important;

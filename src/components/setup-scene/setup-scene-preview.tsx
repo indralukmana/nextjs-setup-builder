@@ -1,23 +1,62 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
+import { useEffect, useState, type ComponentType } from "react";
 
 import { StoreReady } from "@/components/setup-builder/store-ready";
 import { WorkspaceSelectedList } from "@/components/setup-builder/workspace-selected-list";
-import { SceneCanvasChunkFallback } from "@/components/setup-scene/scene-loading-overlay";
+import { SceneCanvasChunkFallback } from "@/components/setup-scene/scene-canvas-fallback";
+import { useIsE2e } from "@/hooks/use-is-e2e";
 import { getProductSync } from "@/lib/catalog-api";
-import { buildSceneSlots } from "@/lib/scene-slots";
+import { buildSceneSlots, type SceneSlot } from "@/lib/scene-slots";
 import { cn } from "@/lib/utils";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
-const SetupSceneCanvas = dynamic(
-  () => import("@/components/setup-scene/setup-scene-canvas").then((mod) => mod.SetupSceneCanvas),
-  {
-    ssr: false,
-    loading: () => <SceneCanvasChunkFallback />,
-  },
-);
+type SceneCanvasProps = {
+  slots: SceneSlot[];
+  className?: string;
+};
+
+/**
+ * Loads the R3F canvas only after mount when not in e2e.
+ * Avoids next/dynamic prefetch pulling Three/WebGL into Playwright runs.
+ */
+function LiveSetupSceneCanvas({ slots, className }: SceneCanvasProps) {
+  const [Canvas, setCanvas] = useState<ComponentType<SceneCanvasProps> | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void import("@/components/setup-scene/setup-scene-canvas").then((mod) => {
+      if (!cancelled) {
+        setCanvas(() => mod.SetupSceneCanvas);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!Canvas) {
+    return <SceneCanvasChunkFallback className="absolute inset-0 size-full" />;
+  }
+
+  return <Canvas slots={slots} className={className} />;
+}
+
+/** Static stand-in so Playwright never loads WebGL/GLTF (SwiftShader stalls clicks on CI). */
+function SetupSceneE2eStub() {
+  const t = useTranslations("SetupScene");
+
+  return (
+    <div
+      className="bg-muted/40 absolute inset-0 flex size-full items-center justify-center rounded-[inherit]"
+      aria-label="Interactive 3D scene of your monis setup"
+      data-e2e-scene-stub=""
+    >
+      <p className="text-muted-foreground text-sm">{t("e2eStub")}</p>
+    </div>
+  );
+}
 
 type SetupScenePreviewProps = {
   className?: string;
@@ -48,6 +87,7 @@ function SetupScenePreviewContent({
   showEmptyHint: boolean;
 }) {
   const t = useTranslations("SetupScene");
+  const isE2e = useIsE2e();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
@@ -95,7 +135,13 @@ function SetupScenePreviewContent({
           canvasClassName ?? "h-[min(55vh,28rem)] min-h-[20rem] sm:min-h-[24rem] md:min-h-[28rem]",
         )}
       >
-        <SetupSceneCanvas slots={slots} className="absolute inset-0 size-full" />
+        {isE2e === null ? (
+          <SceneCanvasChunkFallback className="absolute inset-0 size-full" />
+        ) : isE2e ? (
+          <SetupSceneE2eStub />
+        ) : (
+          <LiveSetupSceneCanvas slots={slots} className="absolute inset-0 size-full" />
+        )}
       </div>
       <WorkspaceSelectedList products={products} />
     </section>
