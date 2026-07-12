@@ -40,7 +40,7 @@ export function RentalSuccess({
   }, [copied]);
 
   return (
-    <div className="flex flex-col gap-5 rounded-2xl border bg-[linear-gradient(160deg,rgba(220,235,205,0.55),rgba(255,255,255,0.7))] px-5 py-7">
+    <div className="flex flex-col gap-5 rounded-xl border bg-[linear-gradient(160deg,rgba(220,235,205,0.55),rgba(255,255,255,0.7))] px-5 py-7">
       <div className="bg-primary/15 size-2.5 rounded-full" aria-hidden />
       <div>
         <p className="font-heading text-xl tracking-tight">{title}</p>

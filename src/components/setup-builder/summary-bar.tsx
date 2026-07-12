@@ -34,7 +34,7 @@ export function SummaryBar({ className }: Props) {
   return (
     <div
       className={cn(
-        "border-border bg-background/90 shrink-0 rounded-2xl border px-3 py-3 backdrop-blur",
+        "border-border bg-background/90 shrink-0 rounded-xl border px-3 py-3 backdrop-blur",
         className,
       )}
     >

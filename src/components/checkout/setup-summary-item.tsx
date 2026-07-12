@@ -19,7 +19,7 @@ export function SetupSummaryItem({ product, quantity = 1 }: Props) {
 
   return (
     <li className="flex items-center gap-3 border-b px-3 py-3 text-sm last:border-b-0">
-      <div className="bg-muted/80 flex size-12 shrink-0 items-center justify-center rounded-xl border sm:size-14">
+      <div className="bg-muted/80 flex size-12 shrink-0 items-center justify-center rounded-lg border sm:size-14">
         <ProductCategoryIcon product={product} className="size-6 sm:size-7" />
       </div>
       <div className="min-w-0 flex-1">

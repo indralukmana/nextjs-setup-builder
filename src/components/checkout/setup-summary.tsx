@@ -71,7 +71,7 @@ function SetupSummaryContent({ heading, editLabel, weeklyLabel, emptyLabel }: Pr
       {summaryRows.length === 0 ? (
         <SetupSummaryEmpty emptyLabel={emptyLabel} editLabel={editLabel} />
       ) : (
-        <ul className="divide-border/80 overflow-hidden rounded-2xl border bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.35))]">
+        <ul className="divide-border/80 overflow-hidden rounded-xl border bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.35))]">
           {summaryRows.map(({ product, quantity }) => (
             <SetupSummaryItem key={product.id} product={product} quantity={quantity} />
           ))}

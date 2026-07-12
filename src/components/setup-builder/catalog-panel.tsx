@@ -91,7 +91,7 @@ function CatalogPanelContent() {
           </TabsContent>
           <TabsContent value="accessory" className="mt-0 grid gap-3">
             {accessoriesDisabled ? (
-              <p className="text-muted-foreground rounded-xl border border-dashed px-3 py-2 text-xs leading-relaxed">
+              <p className="text-muted-foreground rounded-lg border border-dashed px-3 py-2 text-xs leading-relaxed">
                 {t("accessoriesDisabledForTripleMonitors")}
               </p>
             ) : null}

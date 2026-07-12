@@ -76,7 +76,7 @@ export function SetupSceneCanvas({ slots, className }: SetupSceneCanvasProps) {
       <Canvas
         shadows
         camera={{ position: [2.4, 1.8, 2.8], fov: 42, near: 0.1, far: 40 }}
-        className="h-full w-full touch-none rounded-2xl"
+        className="h-full w-full touch-none rounded-xl"
       >
         <Suspense fallback={null}>
           <SceneContent slots={slots} />

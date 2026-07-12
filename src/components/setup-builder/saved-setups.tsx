@@ -30,7 +30,7 @@ export function SavedSetups() {
   }, []);
 
   return (
-    <details className="rounded-xl border border-dashed px-3 py-2">
+    <details className="rounded-lg border border-dashed px-3 py-2">
       <summary className="cursor-pointer text-sm font-medium select-none">
         {t("label")}
         {entries.length > 0 ? (

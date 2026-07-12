@@ -18,7 +18,7 @@ export function StoreReady({ children, className, label = "Loading saved setup" 
   if (!hydrated) {
     return (
       <div
-        className={cn("border-border/70 bg-muted/40 animate-pulse rounded-2xl border", className)}
+        className={cn("border-border/70 bg-muted/40 animate-pulse rounded-xl border", className)}
       >
         <output className="sr-only">{label}</output>
       </div>

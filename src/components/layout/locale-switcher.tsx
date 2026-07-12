@@ -18,7 +18,7 @@ export function LocaleSwitcher() {
           href={pathname}
           locale={item}
           className={cn(
-            "rounded px-1.5 py-0.5 uppercase",
+            "rounded-sm px-1.5 py-0.5 uppercase",
             item === locale ? "bg-foreground text-background" : "text-muted-foreground",
           )}
         >

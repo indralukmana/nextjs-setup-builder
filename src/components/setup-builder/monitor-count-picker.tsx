@@ -25,7 +25,7 @@ export function MonitorCountPicker() {
               aria-pressed={isActive}
               onClick={() => setMonitorCount(count)}
               className={cn(
-                "min-w-14 rounded-xl border px-3 py-2 text-sm tabular-nums transition-colors",
+                "min-w-14 rounded-lg border px-3 py-2 text-sm tabular-nums transition-colors",
                 isActive
                   ? "border-foreground bg-foreground text-background"
                   : "border-border bg-background hover:bg-muted/60",

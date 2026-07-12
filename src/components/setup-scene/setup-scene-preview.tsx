@@ -16,7 +16,7 @@ const SetupSceneCanvas = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="bg-muted/40 flex min-h-[20rem] items-center justify-center rounded-2xl border sm:min-h-[24rem]"
+        className="bg-muted/40 flex min-h-[20rem] items-center justify-center rounded-xl border sm:min-h-[24rem]"
         aria-busy="true"
       >
         <span className="text-muted-foreground text-sm">…</span>
@@ -93,14 +93,14 @@ function SetupScenePreviewContent({
   return (
     <section className={cn("flex flex-col gap-3", className)} aria-label="Workspace preview">
       {showEmptyHint && isEmpty ? (
-        <p className="text-muted-foreground shrink-0 rounded-xl border border-dashed px-4 py-3 text-sm">
+        <p className="text-muted-foreground shrink-0 rounded-lg border border-dashed px-4 py-3 text-sm">
           {t("emptyHint")}
         </p>
       ) : null}
       <SetupSceneCanvas
         slots={slots}
         className={cn(
-          "bg-muted/20 h-[min(55vh,28rem)] min-h-[20rem] overflow-hidden rounded-2xl border sm:min-h-[24rem] md:min-h-[28rem]",
+          "bg-muted/20 h-[min(55vh,28rem)] min-h-[20rem] overflow-hidden rounded-xl border sm:min-h-[24rem] md:min-h-[28rem]",
           canvasClassName,
         )}
       />

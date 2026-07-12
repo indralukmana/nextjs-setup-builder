@@ -59,7 +59,7 @@ export function RentalRequestPanel() {
 
   return (
     <form
-      className="flex flex-col gap-6 rounded-2xl border bg-white/50 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
+      className="flex flex-col gap-6 rounded-xl border bg-white/50 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
       noValidate
       onSubmit={(event) => {
         event.preventDefault();

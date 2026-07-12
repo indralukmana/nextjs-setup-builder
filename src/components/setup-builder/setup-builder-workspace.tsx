@@ -36,7 +36,7 @@ export function SetupBuilderWorkspace({ title, setupSceneLabel }: Props) {
           <SetupScenePreview
             showEmptyHint={false}
             className="absolute inset-0 flex min-h-0 flex-col"
-            canvasClassName="h-full min-h-0 flex-1 rounded-2xl border"
+            canvasClassName="h-full min-h-0 flex-1 rounded-xl border"
           />
           <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-3 p-3">
             <h1 className="font-heading bg-background/80 pointer-events-auto max-w-[min(100%,18rem)] truncate rounded-lg px-2.5 py-1.5 text-lg tracking-tight shadow-sm backdrop-blur sm:text-xl">
@@ -65,7 +65,7 @@ export function SetupBuilderWorkspace({ title, setupSceneLabel }: Props) {
       </section>
 
       {/* Desktop rail */}
-      <aside className="border-border hidden min-h-0 flex-col overflow-hidden rounded-2xl border bg-background/60 p-3 lg:flex">
+      <aside className="border-border hidden min-h-0 flex-col overflow-hidden rounded-xl border bg-background/60 p-3 lg:flex">
         <CatalogPanel />
       </aside>
 
@@ -86,7 +86,7 @@ export function SetupBuilderWorkspace({ title, setupSceneLabel }: Props) {
             aria-label={t("close")}
             onClick={() => setCatalogOpen(false)}
           />
-          <div className="border-border bg-background absolute inset-x-0 bottom-0 flex h-[min(78dvh,36rem)] flex-col overflow-hidden rounded-t-2xl border-t shadow-lg">
+          <div className="border-border bg-background absolute inset-x-0 bottom-0 flex h-[min(78dvh,36rem)] flex-col overflow-hidden rounded-t-xl border-t shadow-lg">
             <div className="flex shrink-0 items-center justify-between gap-3 border-b px-3 py-2.5">
               <p className="text-sm font-medium">{t("open")}</p>
               <button

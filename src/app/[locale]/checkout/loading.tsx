@@ -10,8 +10,8 @@ export default function CheckoutLoading() {
         <div className="bg-muted h-4 w-full max-w-md animate-pulse rounded" />
       </div>
       <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="bg-muted min-h-64 animate-pulse rounded-2xl" />
-        <div className="bg-muted min-h-56 animate-pulse rounded-2xl" />
+        <div className="bg-muted min-h-64 animate-pulse rounded-xl" />
+        <div className="bg-muted min-h-56 animate-pulse rounded-xl" />
       </div>
     </div>
   );
