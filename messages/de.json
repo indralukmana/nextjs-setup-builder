@@ -1,0 +1,248 @@
+{
+  "Metadata": {
+    "title": "Monis Setup Builder",
+    "description": "Gestalte deinen Bali-Arbeitsplatz und miete Schreibtische, Stühle und Zubehör bei monis.rent.",
+    "homeTitle": "Baue deinen Bali-Arbeitsplatz",
+    "homeDescription": "Stelle Schreibtisch, Stuhl und Ausrüstung visuell zusammen — und miete sie mit Lieferung auf Bali.",
+    "setupBuilderTitle": "Setup Builder",
+    "setupBuilderDescription": "Wähle Schreibtische, Stühle und Zubehör mit Live-3D-Vorschau deines Bali-Mietsetups.",
+    "checkoutTitle": "Checkout",
+    "checkoutDescription": "Prüfe dein monis-Arbeitsplatz-Setup, wähle die Mietdauer und fordere die Lieferung an.",
+    "setupSceneTitle": "3D-Setup-Szene",
+    "setupSceneDescription": "Orbitiere eine zusammengestellte 3D-Szene aus Schreibtisch, Stuhl und Zubehör aus dem Setup Builder."
+  },
+  "Home": {
+    "brand": "monis",
+    "title": "Baue deinen Bali-Arbeitsplatz",
+    "subtitle": "Stelle Schreibtisch, Stuhl und Ausrüstung visuell zusammen — und miete sie mit Lieferung auf Bali.",
+    "cta": "Jetzt starten",
+    "howHeading": "So funktioniert’s",
+    "howSteps": {
+      "desk": {
+        "title": "Schreibtisch wählen",
+        "description": "Wähle einen elektrischen oder mechanischen Stehschreibtisch."
+      },
+      "gear": {
+        "title": "Stuhl und Ausrüstung",
+        "description": "Ergänze Monitore, Lampen, Pflanzen und Peripherie."
+      },
+      "rent": {
+        "title": "Mieten, wenn bereit",
+        "description": "Prüfe den Wochenpreis und fordere die Lieferung an."
+      }
+    },
+    "featuresHeading": "Warum visuell planen",
+    "features": {
+      "preview": {
+        "title": "Live-Vorschau",
+        "description": "Sieh, wie dein Setup mit jeder Auswahl aktualisiert wird."
+      },
+      "weekly": {
+        "title": "Flexible Wochenmiete",
+        "description": "Bleib eine Woche oder eine Saison — ohne Möbel zu kaufen."
+      },
+      "delivery": {
+        "title": "Lieferung auf Bali",
+        "description": "monis übernimmt Lieferung, Aufbau und Abholung."
+      }
+    }
+  },
+  "SetupBuilder": {
+    "title": "Setup Builder",
+    "liveSetup": "Live-Setup",
+    "emptyPreview": "Wähle einen Schreibtisch und Stuhl, um deinen Arbeitsplatz zu gestalten.",
+    "loadingPreview": "Arbeitsplatz-Vorschau wird geladen",
+    "loadingCatalog": "Produktkatalog wird geladen",
+    "loadingSummary": "Mietübersicht wird geladen",
+    "tabs": {
+      "desk": "Schreibtische",
+      "chair": "Stühle",
+      "monitor": "Monitore",
+      "accessory": "Zubehör",
+      "drawer": "Schubladen"
+    },
+    "monitorCount": {
+      "label": "Monitore",
+      "none": "Keine",
+      "option": "{count}",
+      "hint": "Gleiches Gaming-Monitor-Modell — wähle keine, oder 1, 2 bzw. 3."
+    },
+    "accessoriesDisabledForTripleMonitors": "Schreibtisch-Zubehör ist bei 3 Monitoren nicht verfügbar.",
+    "summaryWeekly": "{weekly}/Woche · {weeks} Wochen",
+    "summaryTotal": "Gesamt {total} · {count} Artikel",
+    "reviewRental": "Miete prüfen",
+    "copyLink": "Setup-Link kopieren",
+    "copyLinkCopied": "Kopiert",
+    "shareLink": "Setup teilen",
+    "shareLinkShared": "Geteilt",
+    "shareTitle": "Mein monis-Setup",
+    "resetSetup": "Standard wiederherstellen",
+    "clearSetup": "Alles löschen",
+    "clearSetupConfirm": "Schreibtisch, Stuhl und Zubehör aus diesem Setup entfernen?",
+    "durationLabel": "Mietdauer",
+    "weeksOption": "{count} Wo.",
+    "presets": {
+      "label": "Schnellvorlagen",
+      "placeholder": "Vorlage anwenden…",
+      "weekly": "{amount}/Woche",
+      "essentials": {
+        "name": "Essentials"
+      },
+      "focus": {
+        "name": "Focus"
+      },
+      "creator": {
+        "name": "Creator"
+      }
+    },
+    "actionsMenu": "Mehr",
+    "selectionChips": {
+      "ariaLabel": "Aktuelle Setup-Auswahl",
+      "desk": "Schreibtisch",
+      "chair": "Stuhl",
+      "monitors": "Monitore",
+      "monitorsNone": "Keine",
+      "monitorsCount": "{count}",
+      "empty": "—"
+    },
+    "catalogSheet": {
+      "open": "Katalog",
+      "close": "Schließen"
+    },
+    "saved": {
+      "label": "Gespeicherte Setups",
+      "save": "Aktuelles speichern",
+      "load": "Laden",
+      "delete": "Löschen",
+      "empty": "Noch keine gespeicherten Setups (max. 3).",
+      "nameLabel": "Setup-Name",
+      "namePlaceholder": "Setup benennen",
+      "full": "Du hast bereits {max} gespeicherte Setups. Lösche zuerst eines.",
+      "emptyName": "Gib einen Namen zum Speichern ein."
+    },
+    "setupSceneLink": "Volle Szene öffnen"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "subtitle": "Bestätige dein Setup, wähle die Mietdauer und fordere die Lieferung an.",
+    "summaryHeading": "Dein Setup",
+    "weeklyLabel": "Wöchentlich",
+    "emptySummary": "Noch keine Produkte in diesem Setup.",
+    "emptyForm": "Füge im Setup Builder einen Schreibtisch und Stuhl hinzu, bevor du eine Miete anforderst.",
+    "editSetup": "Setup bearbeiten",
+    "durationLabel": "Mietdauer",
+    "weeksOption": "{count} Wo.",
+    "weekly": "Wöchentlich {amount}",
+    "total": "{amount} gesamt",
+    "submit": "Miete anfordern",
+    "submitting": "Wird gesendet…",
+    "successTitle": "Mietanfrage gesendet",
+    "successBody": "Danke {name} — wir bestätigen die Lieferung für dein {weeks}-Wochen-Setup ({total}).",
+    "requestId": "Anfrage-ID: {id}",
+    "copyRequestId": "Bestätigung kopieren",
+    "copyRequestIdCopied": "Kopiert",
+    "backHome": "Zur Startseite",
+    "loadingSummary": "Setup-Übersicht wird geladen",
+    "loadingForm": "Mietformular wird geladen",
+    "delivery": {
+      "title": "Lieferung auf Bali",
+      "body": "monis liefert, baut auf und holt auf ganz Bali ab. Nach deiner Mietanfrage bestätigen wir den Termin für deinen Arbeitsplatz."
+    },
+    "fields": {
+      "name": "Vollständiger Name",
+      "email": "E-Mail",
+      "phone": "WhatsApp / Telefon",
+      "namePlaceholder": "Dein Name",
+      "emailPlaceholder": "du@beispiel.com",
+      "phonePlaceholder": "+62 812 0000 0000"
+    },
+    "errors": {
+      "nameRequired": "Gib deinen vollständigen Namen ein (mindestens 2 Zeichen).",
+      "emailInvalid": "Gib eine gültige E-Mail-Adresse ein.",
+      "phoneInvalid": "Gib eine gültige Telefon- oder WhatsApp-Nummer ein.",
+      "submitFailed": "Anfrage konnte nicht gesendet werden. Bitte versuche es erneut."
+    }
+  },
+  "NotFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Diese Seite existiert nicht.",
+    "cta": "Zur Startseite"
+  },
+  "Error": {
+    "title": "Etwas ist schiefgelaufen",
+    "description": "Ein unerwarteter Fehler ist aufgetreten.",
+    "cta": "Erneut versuchen"
+  },
+  "Nav": {
+    "home": "Startseite",
+    "homeShort": "Home",
+    "setupBuilder": "Setup Builder",
+    "setupBuilderShort": "Builder",
+    "setupScene": "3D-Szene",
+    "setupSceneShort": "3D",
+    "checkout": "Checkout",
+    "checkoutShort": "Mieten",
+    "skipToContent": "Zum Inhalt springen"
+  },
+  "SetupScene": {
+    "title": "3D-Setup-Szene",
+    "subtitle": "Dein gewählter Schreibtisch, Stuhl und Ausrüstung in einer orbitierbaren Szene.",
+    "loading": "3D-Szene wird geladen",
+    "editSetup": "Setup bearbeiten",
+    "continueCheckout": "Weiter zum Checkout",
+    "emptyHint": "Noch keine Artikel ausgewählt — öffne den Builder, um einen Arbeitsplatz zu gestalten.",
+    "disclaimer": "Demo-Szene nutzt IKEA-ähnliche Produkt-GLBs und ein Gaming-Monitor-Mesh — nur zur Veranschaulichung, keine offiziellen Monis-Produkt-Scans.",
+    "controlsHint": "Ziehen zum Orbitieren, scrollen zum Zoomen. Ändere Schreibtisch/Stuhl/Zubehör im Builder, um andere Kombinationen zu sehen."
+  },
+  "Catalog": {
+    "select": "Auswählen",
+    "selected": "Ausgewählt",
+    "unavailable": "Nicht verfügbar",
+    "products": {
+      "desk-bollsidan": {
+        "name": "BOLLSIDAN Sitz-/Stehschreibtisch",
+        "description": "Elektrischer weißer Sitz-Steh-Schreibtisch für flexible Arbeitshöhe."
+      },
+      "desk-mittzon": {
+        "name": "MITTZON Schreibtisch",
+        "description": "Schreibtisch mit Walnussfurnier und schwarzem Untergestell."
+      },
+      "desk-utespelare": {
+        "name": "UTESPELARE Gaming-Schreibtisch",
+        "description": "Schwarzer Gaming-Schreibtisch für Monitore und Peripherie."
+      },
+      "chair-alefjall": {
+        "name": "ALEFJÄLL Bürostuhl",
+        "description": "Schwarzer Glose-Leder-Bürostuhl mit voller Verstellbarkeit."
+      },
+      "chair-gronfjall": {
+        "name": "GRÖNFJÄLL Bürostuhl",
+        "description": "Graugrüner Bürostuhl mit Armlehnen."
+      },
+      "chair-gronfjall-headrest": {
+        "name": "GRÖNFJÄLL Bürostuhl mit Kopfstütze",
+        "description": "Grau/schwarzer Bürostuhl mit Armlehnen und Kopfstütze."
+      },
+      "monitor-gaming": {
+        "name": "Gaming-Monitor",
+        "description": "Gaming-Display mit hoher Bildwiederholrate für konzentriertes Arbeiten oder Spielen."
+      },
+      "lamp-nymane": {
+        "name": "NYMÅNE Arbeitslampe",
+        "description": "Weiße Arbeitslampe mit kabelloser Ladestation."
+      },
+      "lamp-svallet": {
+        "name": "SVALLET Arbeitslampe",
+        "description": "Kompakte dunkelgrau/weiße Schreibtischlampe."
+      },
+      "stand-lanespelare": {
+        "name": "LÅNESPELARE Zubehörständer",
+        "description": "Gaming-Zubehörständer für Headset, Becher und kleines Equipment."
+      },
+      "drawer-alex": {
+        "name": "ALEX Schubladenelement",
+        "description": "Schwarzbraunes Schubladenelement zum Stellen neben dem Schreibtisch."
+      }
+    }
+  }
+}

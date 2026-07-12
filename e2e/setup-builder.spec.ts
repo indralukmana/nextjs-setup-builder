@@ -92,6 +92,16 @@ test("Indonesian locale shows IDR prices and copy link feedback", async ({ page,
   await expect(page.getByRole("button", { name: /^(disalin|dibagikan)$/i })).toBeVisible();
 });
 
+test("German locale loads setup builder with German copy", async ({ page }) => {
+  await page.goto("/de/setup-builder");
+
+  await expect(page.getByRole("heading", { name: /setup builder/i })).toBeVisible();
+  await expect(page.getByText(/\$/).first()).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /setup-link kopieren|setup teilen/i }),
+  ).toBeVisible();
+});
+
 test("saved setups can restore a desk after reset", async ({ page }) => {
   await page.goto("/en/setup-builder");
   await page.getByLabel(/quick presets/i).selectOption("essentials");

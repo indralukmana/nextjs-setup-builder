@@ -26,7 +26,7 @@ Prefer App Router, Server Components by default, and the project conventions bel
 
 - App routes live under `src/app/[locale]/`.
 - Use `@/i18n/navigation` (`Link`, `useRouter`, `redirect`) — not raw `next/link` for app navigation.
-- Messages: `messages/en.json`, `messages/id.json`.
+- Messages: `messages/en.json`, `messages/de.json`, `messages/id.json`.
 - Locale middleware: `src/proxy.ts` (Next.js 16 proxy convention).
 
 ## Env

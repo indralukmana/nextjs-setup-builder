@@ -16,8 +16,8 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 - **Duration on the builder** — 1 / 4 / 12 weeks on the sticky summary (synced to the URL)
 - **Persisted builder state** — Zustand + `localStorage` (`monis-setup-builder`)
 - **Checkout contact capture** — name, email, WhatsApp-friendly phone with zod validation; `POST /api/rental-requests` returns a request id (structured log, rate-limited)
-- **Locale money** — `en` shows USD; `id` shows IDR via fixed display rate (`USD_TO_IDR = 16000` in [`src/lib/pricing.ts`](src/lib/pricing.ts)); catalog prices stay USD-week units
-- **Bilingual UI** — English and Indonesian (`en`, `id`) via next-intl
+- **Locale money** — `en` and `de` show USD; `id` shows IDR via fixed display rate (`USD_TO_IDR = 16000` in [`src/lib/pricing.ts`](src/lib/pricing.ts)); catalog prices stay USD-week units
+- **Trilingual UI** — English, German, and Indonesian (`en`, `de`, `id`) via next-intl
 - **Web vitals sink** — browser metrics → `POST /api/web-vitals` (validated, structured logs, rate-limited, optional webhook)
 
 ## Quick start
@@ -41,13 +41,13 @@ pnpm exec playwright install
 
 ## Explore the app
 
-| Route               | What to try                                                           |
-| ------------------- | --------------------------------------------------------------------- |
-| `/en` or `/id`      | Marketing home — hero, how it works, jump into the builder            |
-| `/en/setup-builder` | Presets, save/load setups, share link, duration, 3D preview + summary |
-| `/en/setup-scene`   | Full-page composed multi-item 3D scene from the current setup         |
-| `/en/checkout`      | Contact form, Bali delivery note, mock rental request + request id    |
-| Storybook `:6006`   | Component gallery + axe a11y (`pnpm storybook`)                       |
+| Route                  | What to try                                                           |
+| ---------------------- | --------------------------------------------------------------------- |
+| `/en`, `/de`, or `/id` | Marketing home — hero, how it works, jump into the builder            |
+| `/en/setup-builder`    | Presets, save/load setups, share link, duration, 3D preview + summary |
+| `/en/setup-scene`      | Full-page composed multi-item 3D scene from the current setup         |
+| `/en/checkout`         | Contact form, Bali delivery note, mock rental request + request id    |
+| Storybook `:6006`      | Component gallery + axe a11y (`pnpm storybook`)                       |
 
 ### Shareable setup example
 
@@ -67,7 +67,7 @@ Invalid ids are sanitized to safe defaults. Changing selection rewrites the quer
 
 ### Product catalog (ids)
 
-Defined in [`src/data/catalog.ts`](src/data/catalog.ts); display copy lives in [`messages/en.json`](messages/en.json) / [`messages/id.json`](messages/id.json) under `Catalog.products`.
+Defined in [`src/data/catalog.ts`](src/data/catalog.ts); display copy lives in [`messages/en.json`](messages/en.json) / [`messages/de.json`](messages/de.json) / [`messages/id.json`](messages/id.json) under `Catalog.products`.
 
 | Category  | Ids                                                             |
 | --------- | --------------------------------------------------------------- |
@@ -108,7 +108,7 @@ src/
   lib/                     # Pricing, catalog-api, setup-url, scene-slots, …
   i18n/
   hooks/
-messages/                  # en.json, id.json
+messages/                  # en.json, de.json, id.json
 public/models/ikea/        # Demo GLBs for the 3D scene
 e2e/
 .storybook/
@@ -159,7 +159,7 @@ Illustrative meshes only — see [`public/models/ATTRIBUTION.md`](public/models/
 
 - **Next.js 16** (App Router) + **React 19** + React Compiler
 - **Tailwind CSS 4** + **shadcn/ui** (Base UI)
-- **next-intl** — locales `en`, `id`
+- **next-intl** — locales `en`, `de`, `id`
 - **Zustand** — persisted setup selection
 - **zod** — env, rental contact, web-vitals payloads
 - **Motion** — intentional UI motion (respects reduced motion)
@@ -185,7 +185,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ## Testing notes
 
 - **Unit:** pricing, store, setup URL, rental/web-vitals schemas, saved setups, form reducer — `pnpm test:unit`
-- **E2E:** home (en/id), setup-builder (URL, presets, share, saved setups), checkout (validation, submit, clear empty) — `pnpm test:e2e`
+- **E2E:** home (en/de/id), setup-builder (URL, presets, share, saved setups), checkout (validation, submit, clear empty) — `pnpm test:e2e`
 - **A11y:** Storybook stories fail on axe `error` severity — `pnpm test:a11y`
 - **CI:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — parallel jobs:
   - **Quality** — format, lint, typecheck, unit
