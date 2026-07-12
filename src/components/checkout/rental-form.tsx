@@ -41,10 +41,12 @@ function RentalFormContent() {
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
   const rentalWeeks = useSetupBuilderStore((state) => state.rentalWeeks);
   const setRentalWeeks = useSetupBuilderStore((state) => state.setRentalWeeks);
-  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState<{ name: string; requestId: string } | null>(null);
   const [contact, setContact] = useState<RentalContact>(emptyContact);
   const [errors, setErrors] = useState<RentalContactErrors>({});
   const [attempted, setAttempted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const selectedIds = [deskId, chairId, ...accessoryIds];
 
   const weeklyTotal = getWeeklyTotal(selectedIds);
@@ -60,22 +62,24 @@ function RentalFormContent() {
     return <SetupSummaryEmpty emptyLabel={t("emptyForm")} editLabel={t("editSetup")} />;
   }
 
-  if (submittedName) {
+  if (submitted) {
     return (
       <RentalSuccess
         title={t("successTitle")}
         body={t("successBody", {
-          name: submittedName,
+          name: submitted.name,
           weeks: rentalWeeks,
           total: formatMoney(total, locale),
         })}
+        requestIdLabel={t("requestId", { id: submitted.requestId })}
         backHomeLabel={t("backHome")}
         editSetupLabel={t("editSetup")}
       />
     );
   }
 
-  const canSubmit = !attempted || parseRentalContact(contact, validationMessages).data !== null;
+  const canSubmit =
+    !submitting && (!attempted || parseRentalContact(contact, validationMessages).data !== null);
 
   return (
     <form
@@ -84,13 +88,44 @@ function RentalFormContent() {
       onSubmit={(event) => {
         event.preventDefault();
         setAttempted(true);
+        setSubmitError(null);
         const parsed = parseRentalContact(contact, validationMessages);
         if (!parsed.data) {
           setErrors(parsed.errors ?? {});
           return;
         }
         setErrors({});
-        setSubmittedName(parsed.data.name);
+        setSubmitting(true);
+
+        void (async () => {
+          try {
+            const response = await fetch("/api/rental-requests", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                ...parsed.data,
+                deskId,
+                chairId,
+                accessoryIds,
+                rentalWeeks,
+              }),
+            });
+            if (!response.ok) {
+              setSubmitError(t("errors.submitFailed"));
+              return;
+            }
+            const payload = (await response.json()) as { requestId?: string };
+            if (!payload.requestId) {
+              setSubmitError(t("errors.submitFailed"));
+              return;
+            }
+            setSubmitted({ name: parsed.data.name, requestId: payload.requestId });
+          } catch {
+            setSubmitError(t("errors.submitFailed"));
+          } finally {
+            setSubmitting(false);
+          }
+        })();
       }}
     >
       <RentalContactFields
@@ -108,8 +143,8 @@ function RentalFormContent() {
           const next = { ...contact, [field]: value };
           setContact(next);
           if (attempted) {
-            const parsed = parseRentalContact(next, validationMessages);
-            setErrors(parsed.errors ?? {});
+            const nextParsed = parseRentalContact(next, validationMessages);
+            setErrors(nextParsed.errors ?? {});
           }
         }}
       />
@@ -119,10 +154,11 @@ function RentalFormContent() {
         formatOption={(weeks) => t("weeksOption", { count: weeks })}
         onChange={setRentalWeeks}
       />
+      {submitError ? <p className="text-destructive text-sm">{submitError}</p> : null}
       <RentalTotals
         weeklyLabel={t("weekly", { amount: formatMoney(weeklyTotal, locale) })}
         totalLabel={t("total", { amount: formatMoney(total, locale) })}
-        submitLabel={t("submit")}
+        submitLabel={submitting ? t("submitting") : t("submit")}
         canSubmit={canSubmit}
       />
     </form>

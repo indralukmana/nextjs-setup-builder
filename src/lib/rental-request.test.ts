@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { parseRentalContact, rentalContactSchema } from "@/lib/rental-request";
+import {
+  isValidRentalSetup,
+  parseRentalContact,
+  rentalContactSchema,
+  rentalRequestSchema,
+} from "@/lib/rental-request";
 
 const messages = {
   nameRequired: "Enter your name",
@@ -26,5 +31,29 @@ describe("rental-request", () => {
     expect(result.errors?.name).toBe(messages.nameRequired);
     expect(result.errors?.email).toBe(messages.emailInvalid);
     expect(result.errors?.phone).toBe(messages.phoneInvalid);
+  });
+
+  it("accepts a full rental request payload with a valid setup", () => {
+    const parsed = rentalRequestSchema.parse({
+      name: "Indra",
+      email: "indra@example.com",
+      phone: "+62 812 3456 7890",
+      deskId: "desk-electric",
+      chairId: "chair-ergonomic",
+      accessoryIds: ["lamp-led"],
+      rentalWeeks: 4,
+    });
+
+    expect(isValidRentalSetup(parsed)).toBe(true);
+  });
+
+  it("rejects invalid setup product ids", () => {
+    expect(
+      isValidRentalSetup({
+        deskId: "not-a-desk",
+        chairId: "chair-ergonomic",
+        accessoryIds: [],
+      }),
+    ).toBe(false);
   });
 });

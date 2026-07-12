@@ -93,8 +93,10 @@
     "weekly": "Weekly {amount}",
     "total": "{amount} total",
     "submit": "Request rental",
+    "submitting": "Sending…",
     "successTitle": "Rental request sent",
     "successBody": "Thanks {name} — we'll confirm delivery for your {weeks}-week setup ({total}).",
+    "requestId": "Request ID: {id}",
     "backHome": "Back home",
     "loadingSummary": "Loading setup summary",
     "loadingForm": "Loading rental form",
@@ -113,7 +115,8 @@
     "errors": {
       "nameRequired": "Enter your full name (at least 2 characters).",
       "emailInvalid": "Enter a valid email address.",
-      "phoneInvalid": "Enter a valid phone or WhatsApp number."
+      "phoneInvalid": "Enter a valid phone or WhatsApp number.",
+      "submitFailed": "Could not send your request. Please try again."
     }
   },
   "NotFound": {

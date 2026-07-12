@@ -93,8 +93,10 @@
     "weekly": "Mingguan {amount}",
     "total": "Total {amount}",
     "submit": "Ajukan sewa",
+    "submitting": "Mengirim…",
     "successTitle": "Permintaan sewa terkirim",
     "successBody": "Terima kasih {name} — kami akan konfirmasi pengiriman untuk setup {weeks} minggu Anda ({total}).",
+    "requestId": "ID permintaan: {id}",
     "backHome": "Kembali ke beranda",
     "loadingSummary": "Memuat ringkasan setup",
     "loadingForm": "Memuat formulir sewa",
@@ -113,7 +115,8 @@
     "errors": {
       "nameRequired": "Masukkan nama lengkap (minimal 2 karakter).",
       "emailInvalid": "Masukkan alamat email yang valid.",
-      "phoneInvalid": "Masukkan nomor telepon atau WhatsApp yang valid."
+      "phoneInvalid": "Masukkan nomor telepon atau WhatsApp yang valid.",
+      "submitFailed": "Tidak dapat mengirim permintaan. Coba lagi."
     }
   },
   "NotFound": {

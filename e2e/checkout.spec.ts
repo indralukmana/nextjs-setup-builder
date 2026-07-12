@@ -37,5 +37,6 @@ test("checkout submits rental request with contact details", async ({ page }) =>
 
   await expect(page.getByText(/rental request sent/i)).toBeVisible();
   await expect(page.getByText(/thanks indra/i)).toBeVisible();
+  await expect(page.getByText(/request id:/i)).toBeVisible();
   await expect(page.getByRole("link", { name: /back home/i })).toBeVisible();
 });
