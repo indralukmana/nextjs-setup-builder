@@ -3,8 +3,14 @@
 import { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CURRENCY_CODES } from "@/lib/currency";
-import { cn } from "@/lib/utils";
 import { useCurrencyStore } from "@/store/currency-store";
 
 export function CurrencySwitcher() {
@@ -18,23 +24,27 @@ export function CurrencySwitcher() {
     ensureDefaultForLocale(locale);
   }, [locale, ensureDefaultForLocale]);
 
+  const items = CURRENCY_CODES.map((code) => ({ label: code, value: code }));
+
   return (
-    <fieldset className="flex items-center gap-1 rounded-md border px-1 py-0.5 text-xs">
-      <legend className="sr-only">{t("label")}</legend>
-      {CURRENCY_CODES.map((code) => (
-        <button
-          key={code}
-          type="button"
-          onClick={() => setCurrency(code)}
-          aria-pressed={code === currency}
-          className={cn(
-            "rounded-sm px-1.5 py-0.5 uppercase",
-            code === currency ? "bg-foreground text-background" : "text-muted-foreground",
-          )}
-        >
-          {code}
-        </button>
-      ))}
-    </fieldset>
+    <Select
+      items={items}
+      value={currency}
+      onValueChange={(value) => {
+        if (!value) return;
+        setCurrency(value as (typeof CURRENCY_CODES)[number]);
+      }}
+    >
+      <SelectTrigger size="sm" aria-label={t("label")} className="min-w-20 uppercase">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent alignItemWithTrigger={false} align="end">
+        {CURRENCY_CODES.map((code) => (
+          <SelectItem key={code} value={code} className="uppercase">
+            {code}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

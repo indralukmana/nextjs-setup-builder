@@ -138,6 +138,7 @@
     "durationLabel": "Durasi sewa",
     "weeksOption": "{count} minggu",
     "weekly": "Mingguan {amount}",
+    "pricePerWeek": "{amount}/minggu",
     "total": "Total {amount}",
     "submit": "Ajukan sewa",
     "submitting": "Mengirim…",
@@ -166,8 +167,7 @@
       "emailInvalid": "Masukkan alamat email yang valid.",
       "phoneInvalid": "Masukkan nomor telepon atau WhatsApp yang valid.",
       "submitFailed": "Tidak dapat mengirim permintaan. Coba lagi."
-    },
-    "pricePerWeek": "{amount}/minggu"
+    }
   },
   "NotFound": {
     "title": "Halaman tidak ditemukan",
@@ -180,12 +180,11 @@
     "cta": "Coba lagi"
   },
   "Nav": {
-    "home": "Beranda",
-    "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
     "checkout": "Checkout",
     "checkoutShort": "Sewa",
+    "localeLabel": "Bahasa",
     "skipToContent": "Loncat ke konten"
   },
   "Currency": {
@@ -200,6 +199,7 @@
     "select": "Select",
     "selected": "Selected",
     "unavailable": "Unavailable",
+    "pricePerWeek": "{amount}/minggu",
     "products": {
       "desk-bollsidan": {
         "name": "Meja sit/stand BOLLSIDAN",
@@ -245,7 +245,6 @@
         "name": "Unit laci ALEX",
         "description": "Unit laci cokelat-hitam yang bisa disampingkan di meja."
       }
-    },
-    "pricePerWeek": "{amount}/minggu"
+    }
   }
 }

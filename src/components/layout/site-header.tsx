@@ -12,7 +12,6 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: t("home"), short: t("homeShort") },
     { href: "/setup-builder", label: t("setupBuilder"), short: t("setupBuilderShort") },
     { href: "/checkout", label: t("checkout"), short: t("checkoutShort") },
   ] as const;
@@ -21,15 +20,19 @@ export function SiteHeader() {
     <header className="border-border/50 bg-background/75 sticky top-0 z-40 border-b backdrop-blur-md">
       <a
         href="#main-content"
-        className="bg-primary text-primary-foreground focus:ring-ring absolute top-2 left-2 z-50 rounded-md px-3 py-2 text-sm font-medium opacity-0 focus:opacity-100 focus:ring-2 focus:outline-none"
+        className="bg-primary text-primary-foreground focus:ring-ring absolute top-2 left-2 z-50 rounded-md px-3 py-2 text-sm font-medium opacity-0 pointer-events-none focus:pointer-events-auto focus:opacity-100 focus:ring-2 focus:outline-none"
       >
         {t("skipToContent")}
       </a>
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6">
+      <div className="flex w-full items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6">
         <Link href="/" className="font-heading shrink-0 text-lg font-medium tracking-tight">
           monis
         </Link>
-        <nav className="flex min-w-0 items-center gap-2 text-sm sm:gap-4" aria-label="Primary">
+
+        <nav
+          className="flex min-w-0 flex-1 items-center gap-1 text-sm sm:gap-2"
+          aria-label="Primary"
+        >
           {links.map((link) => {
             const isActive = pathname === link.href;
 
@@ -49,9 +52,12 @@ export function SiteHeader() {
               </Link>
             );
           })}
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-2">
           <CurrencySwitcher />
           <LocaleSwitcher />
-        </nav>
+        </div>
       </div>
     </header>
   );

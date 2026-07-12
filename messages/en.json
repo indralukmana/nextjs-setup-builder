@@ -138,6 +138,7 @@
     "durationLabel": "Rental duration",
     "weeksOption": "{count} weeks",
     "weekly": "Weekly {amount}",
+    "pricePerWeek": "{amount}/week",
     "total": "{amount} total",
     "submit": "Request rental",
     "submitting": "Sending…",
@@ -166,8 +167,7 @@
       "emailInvalid": "Enter a valid email address.",
       "phoneInvalid": "Enter a valid phone or WhatsApp number.",
       "submitFailed": "Could not send your request. Please try again."
-    },
-    "pricePerWeek": "{amount}/week"
+    }
   },
   "NotFound": {
     "title": "Page not found",
@@ -180,12 +180,11 @@
     "cta": "Try again"
   },
   "Nav": {
-    "home": "Home",
-    "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
     "checkout": "Checkout",
     "checkoutShort": "Rent",
+    "localeLabel": "Language",
     "skipToContent": "Skip to content"
   },
   "Currency": {
@@ -200,6 +199,7 @@
     "select": "Select",
     "selected": "Selected",
     "unavailable": "Unavailable",
+    "pricePerWeek": "{amount}/week",
     "products": {
       "desk-bollsidan": {
         "name": "BOLLSIDAN sit/stand desk",
@@ -245,7 +245,6 @@
         "name": "ALEX drawer unit",
         "description": "Black-brown drawer unit that tucks beside the desk."
       }
-    },
-    "pricePerWeek": "{amount}/week"
+    }
   }
 }

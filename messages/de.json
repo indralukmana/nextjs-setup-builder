@@ -138,6 +138,7 @@
     "durationLabel": "Mietdauer",
     "weeksOption": "{count} Wochen",
     "weekly": "Wöchentlich {amount}",
+    "pricePerWeek": "{amount}/Woche",
     "total": "{amount} gesamt",
     "submit": "Miete anfordern",
     "submitting": "Wird gesendet…",
@@ -166,8 +167,7 @@
       "emailInvalid": "Gib eine gültige E-Mail-Adresse ein.",
       "phoneInvalid": "Gib eine gültige Telefon- oder WhatsApp-Nummer ein.",
       "submitFailed": "Anfrage konnte nicht gesendet werden. Bitte versuche es erneut."
-    },
-    "pricePerWeek": "{amount}/Woche"
+    }
   },
   "NotFound": {
     "title": "Seite nicht gefunden",
@@ -180,12 +180,11 @@
     "cta": "Erneut versuchen"
   },
   "Nav": {
-    "home": "Startseite",
-    "homeShort": "Home",
     "setupBuilder": "Setup Builder",
     "setupBuilderShort": "Builder",
     "checkout": "Checkout",
     "checkoutShort": "Mieten",
+    "localeLabel": "Sprache",
     "skipToContent": "Zum Inhalt springen"
   },
   "Currency": {
@@ -200,6 +199,7 @@
     "select": "Auswählen",
     "selected": "Ausgewählt",
     "unavailable": "Nicht verfügbar",
+    "pricePerWeek": "{amount}/Woche",
     "products": {
       "desk-bollsidan": {
         "name": "BOLLSIDAN Sitz-/Stehschreibtisch",
@@ -245,7 +245,6 @@
         "name": "ALEX Schubladenelement",
         "description": "Schwarzbraunes Schubladenelement zum Stellen neben dem Schreibtisch."
       }
-    },
-    "pricePerWeek": "{amount}/Woche"
+    }
   }
 }
