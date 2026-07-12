@@ -235,7 +235,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Playwright E2E
-        run: pnpm test:e2e -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        run: pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report
         if: ${{ !cancelled() }}
