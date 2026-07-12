@@ -179,6 +179,9 @@
     "checkoutShort": "Rent",
     "skipToContent": "Skip to content"
   },
+  "Currency": {
+    "label": "Currency"
+  },
   "SetupScene": {
     "loading": "Loading 3D scene",
     "emptyHint": "No items selected yet — open the builder to compose a workspace."

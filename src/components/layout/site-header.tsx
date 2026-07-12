@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { CurrencySwitcher } from "@/components/layout/currency-switcher";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -48,6 +49,7 @@ export function SiteHeader() {
               </Link>
             );
           })}
+          <CurrencySwitcher />
           <LocaleSwitcher />
         </nav>
       </div>

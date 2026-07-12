@@ -1,10 +1,8 @@
 "use client";
 
-import { useLocale } from "next-intl";
-
 import { ProductCategoryIcon } from "@/components/setup-builder/product-category-icon";
+import { useFormatMoney } from "@/hooks/use-format-money";
 import { useProductCopy } from "@/hooks/use-product-copy";
-import { formatMoney } from "@/lib/pricing";
 import type { CatalogProduct } from "@/types/catalog";
 
 type Props = {
@@ -13,7 +11,7 @@ type Props = {
 };
 
 export function SetupSummaryItem({ product, quantity = 1 }: Props) {
-  const locale = useLocale();
+  const formatMoney = useFormatMoney();
   const { name } = useProductCopy(product.id);
   const linePrice = product.pricePerWeek * quantity;
 
@@ -29,7 +27,7 @@ export function SetupSummaryItem({ product, quantity = 1 }: Props) {
         </p>
         <p className="text-muted-foreground text-xs capitalize">{product.category}</p>
       </div>
-      <span className="shrink-0 tabular-nums">{formatMoney(linePrice, locale)}/wk</span>
+      <span className="shrink-0 tabular-nums">{formatMoney(linePrice)}/wk</span>
     </li>
   );
 }

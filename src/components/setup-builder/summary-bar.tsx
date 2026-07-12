@@ -1,13 +1,14 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { RentalDurationPicker } from "@/components/checkout/rental-duration-picker";
 import { SummaryBarTotals } from "@/components/setup-builder/summary-bar-totals";
 import { buttonVariants } from "@/components/ui/button";
+import { useFormatMoney } from "@/hooks/use-format-money";
 import { useSetupBuilderHydrated } from "@/hooks/use-setup-builder-hydrated";
 import { Link } from "@/i18n/navigation";
-import { formatMoney, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
+import { getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
@@ -18,7 +19,7 @@ type Props = {
 /** Compact totals row for under the 3D stage (scene column only). */
 export function SummaryBar({ className }: Props) {
   const t = useTranslations("SetupBuilder");
-  const locale = useLocale();
+  const formatMoney = useFormatMoney();
   const hydrated = useSetupBuilderHydrated();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
@@ -43,11 +44,11 @@ export function SummaryBar({ className }: Props) {
           {hydrated ? (
             <SummaryBarTotals
               weeklyLine={t("summaryWeekly", {
-                weekly: formatMoney(weeklyTotal, locale),
+                weekly: formatMoney(weeklyTotal),
                 weeks: rentalWeeks,
               })}
               totalLine={t("summaryTotal", {
-                total: formatMoney(total, locale),
+                total: formatMoney(total),
                 count: itemCount,
               })}
             />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { setupPresets, type SetupPresetId } from "@/data/presets";
-import { formatMoney, getWeeklyTotal } from "@/lib/pricing";
+import { useFormatMoney } from "@/hooks/use-format-money";
+import { getWeeklyTotal } from "@/lib/pricing";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 type Props = {
@@ -21,7 +22,7 @@ type Props = {
 
 export function PresetPicker({ variant = "default" }: Props) {
   const t = useTranslations("SetupBuilder.presets");
-  const locale = useLocale();
+  const formatMoney = useFormatMoney();
   const applyPreset = useSetupBuilderStore((state) => state.applyPreset);
   const isRail = variant === "rail";
 
@@ -29,7 +30,7 @@ export function PresetPicker({ variant = "default" }: Props) {
     const weekly = getWeeklyTotal(expandSetupLineIds(preset));
     return {
       id: preset.id as SetupPresetId,
-      label: `${t(`${preset.id}.name`)} · ${formatMoney(weekly, locale)}/wk`,
+      label: `${t(`${preset.id}.name`)} · ${formatMoney(weekly)}/wk`,
       name: t(`${preset.id}.name`),
       weekly,
     };
@@ -79,7 +80,7 @@ export function PresetPicker({ variant = "default" }: Props) {
               {item.name}
             </Button>
             <p className="text-muted-foreground px-0.5 text-xs tabular-nums">
-              {t("weekly", { amount: formatMoney(item.weekly, locale) })}
+              {t("weekly", { amount: formatMoney(item.weekly) })}
             </p>
           </div>
         ))}

@@ -15,7 +15,7 @@ Built for the Desent Solutions challenge: a polished Next.js product surface wit
 - **Duration on the builder** — 1 / 4 / 12 weeks on the sticky summary (synced to the URL)
 - **Persisted builder state** — Zustand + `localStorage` (`monis-setup-builder`)
 - **Checkout contact capture** — name, email, WhatsApp-friendly phone with zod validation; `POST /api/rental-requests` returns a request id (structured log, rate-limited)
-- **Locale money** — `en` and `de` show USD; `id` shows IDR via fixed display rate (`USD_TO_IDR = 16000` in [`src/lib/pricing.ts`](src/lib/pricing.ts)); catalog prices stay USD-week units
+- **Locale money** — display currency is selectable (USD / EUR / IDR) via the header switcher; live rates from Frankfurter via `/api/exchange-rates` (React Query, 1h stale). Defaults: `en`→USD, `de`→EUR, `id`→IDR. Catalog prices stay USD-week units.
 - **Trilingual UI** — English, German, and Indonesian (`en`, `de`, `id`) via next-intl
 - **Web vitals sink** — browser metrics → `POST /api/web-vitals` (validated, structured logs, rate-limited, optional webhook)
 

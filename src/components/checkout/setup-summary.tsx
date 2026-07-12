@@ -1,13 +1,14 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { SetupSummaryEmpty } from "@/components/checkout/setup-summary-empty";
 import { SetupSummaryHeader } from "@/components/checkout/setup-summary-header";
 import { SetupSummaryItem } from "@/components/checkout/setup-summary-item";
 import { StoreReady } from "@/components/setup-builder/store-ready";
+import { useFormatMoney } from "@/hooks/use-format-money";
 import { getProductSync } from "@/lib/catalog-api";
-import { formatMoney, getWeeklyTotal } from "@/lib/pricing";
+import { getWeeklyTotal } from "@/lib/pricing";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 type Props = {
@@ -33,7 +34,7 @@ export function SetupSummary({ heading, editLabel, weeklyLabel, emptyLabel }: Pr
 }
 
 function SetupSummaryContent({ heading, editLabel, weeklyLabel, emptyLabel }: Props) {
-  const locale = useLocale();
+  const formatMoney = useFormatMoney();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
@@ -64,7 +65,7 @@ function SetupSummaryContent({ heading, editLabel, weeklyLabel, emptyLabel }: Pr
         heading={heading}
         editLabel={editLabel}
         subtitle={
-          summaryRows.length > 0 ? `${weeklyLabel} ${formatMoney(weeklyTotal, locale)}` : emptyLabel
+          summaryRows.length > 0 ? `${weeklyLabel} ${formatMoney(weeklyTotal)}` : emptyLabel
         }
       />
 

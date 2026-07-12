@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { WebVitals } from "@/components/analytics/web-vitals";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site";
 
@@ -90,16 +91,18 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className="bg-background text-foreground flex min-h-full flex-col font-sans">
         <NextIntlClientProvider>
-          <WebVitals />
-          <SiteHeader />
-          <main
-            id="main-content"
-            tabIndex={-1}
-            className="flex min-h-0 flex-1 flex-col outline-none"
-          >
-            {children}
-          </main>
-          <SiteFooter />
+          <QueryProvider>
+            <WebVitals />
+            <SiteHeader />
+            <main
+              id="main-content"
+              tabIndex={-1}
+              className="flex min-h-0 flex-1 flex-col outline-none"
+            >
+              {children}
+            </main>
+            <SiteFooter />
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

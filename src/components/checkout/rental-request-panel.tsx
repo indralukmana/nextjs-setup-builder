@@ -1,7 +1,7 @@
 "use client";
 
 import { useReducer } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { RentalContactFields } from "@/components/checkout/rental-contact-fields";
 import { RentalDurationPicker } from "@/components/checkout/rental-duration-picker";
@@ -12,13 +12,14 @@ import {
 } from "@/components/checkout/rental-form-reducer";
 import { RentalSuccess } from "@/components/checkout/rental-success";
 import { RentalTotals } from "@/components/checkout/rental-totals";
+import { useFormatMoney } from "@/hooks/use-format-money";
 import { parseRentalContact } from "@/lib/rental-request";
-import { formatMoney, getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
+import { getRentalTotal, getWeeklyTotal } from "@/lib/pricing";
 import { expandSetupLineIds, useSetupBuilderStore } from "@/store/setup-builder-store";
 
 export function RentalRequestPanel() {
   const t = useTranslations("Checkout");
-  const locale = useLocale();
+  const formatMoney = useFormatMoney();
   const deskId = useSetupBuilderStore((state) => state.deskId);
   const chairId = useSetupBuilderStore((state) => state.chairId);
   const accessoryIds = useSetupBuilderStore((state) => state.accessoryIds);
@@ -43,7 +44,7 @@ export function RentalRequestPanel() {
         body={t("successBody", {
           name: state.result.name,
           weeks: rentalWeeks,
-          total: formatMoney(total, locale),
+          total: formatMoney(total),
         })}
         requestId={state.result.requestId}
         requestIdLabel={t("requestId", { id: state.result.requestId })}
@@ -128,8 +129,8 @@ export function RentalRequestPanel() {
       />
       {state.submitError ? <p className="text-destructive text-sm">{state.submitError}</p> : null}
       <RentalTotals
-        weeklyLabel={t("weekly", { amount: formatMoney(weeklyTotal, locale) })}
-        totalLabel={t("total", { amount: formatMoney(total, locale) })}
+        weeklyLabel={t("weekly", { amount: formatMoney(weeklyTotal) })}
+        totalLabel={t("total", { amount: formatMoney(total) })}
         submitLabel={state.status === "submitting" ? t("submitting") : t("submit")}
         canSubmit={canSubmit}
       />

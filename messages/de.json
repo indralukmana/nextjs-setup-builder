@@ -179,6 +179,9 @@
     "checkoutShort": "Mieten",
     "skipToContent": "Zum Inhalt springen"
   },
+  "Currency": {
+    "label": "Währung"
+  },
   "SetupScene": {
     "loading": "3D-Szene wird geladen",
     "emptyHint": "Noch keine Artikel ausgewählt — öffne den Builder, um einen Arbeitsplatz zu gestalten."

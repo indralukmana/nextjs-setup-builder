@@ -179,6 +179,9 @@
     "checkoutShort": "Sewa",
     "skipToContent": "Loncat ke konten"
   },
+  "Currency": {
+    "label": "Mata uang"
+  },
   "SetupScene": {
     "loading": "Memuat adegan 3D",
     "emptyHint": "Belum ada item dipilih — buka builder untuk menyusun workspace."

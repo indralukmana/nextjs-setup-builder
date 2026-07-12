@@ -83,7 +83,13 @@ test("presets show weekly totals and copy link still works", async ({ page, cont
 test("Indonesian locale shows IDR prices and copy link feedback", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/id/setup-builder");
+  await page.evaluate(() => localStorage.removeItem("monis-currency"));
+  await page.reload();
 
+  await expect(page.getByRole("button", { name: /^idr$/i })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   await expect(page.getByText(/Rp/).first()).toBeVisible();
 
   const copy = page.getByRole("button", { name: /salin tautan setup|bagikan setup/i });
@@ -94,12 +100,30 @@ test("Indonesian locale shows IDR prices and copy link feedback", async ({ page,
 
 test("German locale loads setup builder with German copy", async ({ page }) => {
   await page.goto("/de/setup-builder");
+  await page.evaluate(() => localStorage.removeItem("monis-currency"));
+  await page.reload();
 
   await expect(page.getByRole("heading", { name: /setup builder/i })).toBeVisible();
-  await expect(page.getByText(/\$/).first()).toBeVisible();
+  await expect(page.getByRole("group", { name: /währung|currency/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^eur$/i })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   await expect(
     page.getByRole("button", { name: /setup-link kopieren|setup teilen/i }),
   ).toBeVisible();
+});
+
+test("currency switcher updates displayed prices", async ({ page }) => {
+  await page.goto("/en/setup-builder");
+  await page.evaluate(() => localStorage.removeItem("monis-currency"));
+  await page.reload();
+
+  await page.getByRole("button", { name: /^usd$/i }).click();
+  await expect(page.getByText(/\$/).first()).toBeVisible();
+
+  await page.getByRole("button", { name: /^idr$/i }).click();
+  await expect(page.getByText(/Rp/).first()).toBeVisible();
 });
 
 test("saved setups can restore a desk after reset", async ({ page }) => {

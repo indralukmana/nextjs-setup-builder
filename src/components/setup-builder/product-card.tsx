@@ -1,12 +1,12 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { ProductCategoryIcon } from "@/components/setup-builder/product-category-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useFormatMoney } from "@/hooks/use-format-money";
 import { useProductCopy } from "@/hooks/use-product-copy";
-import { formatMoney } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import type { CatalogProduct } from "@/types/catalog";
 
@@ -26,7 +26,7 @@ export function ProductCard({
   disabledReason,
 }: Props) {
   const t = useTranslations("Catalog");
-  const locale = useLocale();
+  const formatMoney = useFormatMoney();
   const { name, description } = useProductCopy(product.id);
 
   return (
@@ -60,7 +60,7 @@ export function ProductCard({
             <div className="flex items-start justify-between gap-3">
               <CardTitle className="text-sm leading-snug sm:text-base">{name}</CardTitle>
               <Badge variant="secondary" className="shrink-0">
-                {formatMoney(product.pricePerWeek, locale)}/wk
+                {formatMoney(product.pricePerWeek)}/wk
               </Badge>
             </div>
             <CardDescription className="line-clamp-2 sm:line-clamp-none">

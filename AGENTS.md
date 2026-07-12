@@ -44,6 +44,7 @@ Prefer App Router, Server Components by default, and the project conventions bel
 ## State
 
 - Setup selection lives in `src/store/setup-builder-store.ts` with persist (`monis-setup-builder`).
+- Display currency lives in `src/store/currency-store.ts` with persist (`monis-currency`); rates via React Query + `/api/exchange-rates`.
 - Do not duplicate selection state in checkout.
 - Avoid returning new arrays/objects from Zustand selectors (causes infinite loops).
 

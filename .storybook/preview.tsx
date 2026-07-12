@@ -1,8 +1,18 @@
 import type { Preview } from "@storybook/nextjs-vite";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
 
 import messages from "../messages/en.json";
 import "../src/app/globals.css";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      staleTime: Infinity,
+    },
+  },
+});
 
 const preview: Preview = {
   parameters: {
@@ -27,11 +37,13 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <div className="bg-background text-foreground min-h-40 p-4">
-          <Story />
-        </div>
-      </NextIntlClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <div className="bg-background text-foreground min-h-40 p-4">
+            <Story />
+          </div>
+        </NextIntlClientProvider>
+      </QueryClientProvider>
     ),
   ],
 };
