@@ -46,8 +46,8 @@ export function ProductCard({
       </span>
       <Card
         className={cn(
-          "overflow-hidden transition-colors",
-          selected && "border-foreground ring-foreground/20 ring-2",
+          "overflow-hidden ring-0 transition-colors",
+          selected ? "bg-secondary" : "bg-card",
           disabled && "opacity-50",
         )}
         aria-hidden
@@ -66,6 +66,9 @@ export function ProductCard({
             <CardDescription className="line-clamp-2 sm:line-clamp-none">
               {description}
             </CardDescription>
+            <p className={cn("text-xs font-medium", selected ? "text-foreground" : "invisible")}>
+              {t("selected")}
+            </p>
           </CardHeader>
         </div>
       </Card>

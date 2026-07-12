@@ -30,19 +30,25 @@ export function SiteHeader() {
           monis
         </Link>
         <nav className="flex min-w-0 items-center gap-2 text-sm sm:gap-4" aria-label="Primary">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "text-muted-foreground hover:text-foreground truncate transition-colors",
-                pathname === link.href && "text-foreground font-medium",
-              )}
-            >
-              <span className="sm:hidden">{link.short}</span>
-              <span className="hidden sm:inline">{link.label}</span>
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "truncate rounded-md px-2 py-1 transition-colors",
+                  "text-muted-foreground hover:text-foreground",
+                  isActive && "bg-secondary text-foreground",
+                )}
+              >
+                <span className="sm:hidden">{link.short}</span>
+                <span className="hidden sm:inline">{link.label}</span>
+              </Link>
+            );
+          })}
           <LocaleSwitcher />
         </nav>
       </div>
